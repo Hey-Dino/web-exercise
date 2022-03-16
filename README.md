@@ -9,7 +9,7 @@ HTML、CSS、JavaScript练习
 
 #### 安装教程
 
-1.  xxxx
+1.  打开gitee.com
 2.  xxxx
 3.  xxxx
 
