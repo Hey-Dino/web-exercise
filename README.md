@@ -10,7 +10,7 @@ HTML、CSS、JavaScript练习
 #### 安装教程
 
 1.  打开gitee.com
-2.  xxxx
+2.  登录gitee.com
 3.  xxxx
 
 #### 使用说明
