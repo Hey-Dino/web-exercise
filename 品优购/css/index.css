@@ -1,0 +1,181 @@
+.main {
+    float: right;
+    width: 980px;
+    height: 455px;
+    margin: 10px 0;
+    /* background-color: pink; */
+}
+
+.focus {
+    float: left;
+    width: 720px;
+    height: 100%;
+    /* background-color: skyblue; */
+}
+
+.newsflash {
+    float: right;
+    width: 250px;
+    height: 100%;
+}
+
+.newsflash .news {
+    width: 250px;
+    height: 165px;
+    border: 1px solid #e4e4e4;
+    /* background-color: skyblue; */
+}
+
+.news .news-hd {
+    width: 100%;
+    height: 33px;
+    line-height: 33px;
+    padding: 0 15px;
+    border-bottom: 1px dotted #e4e4e4;
+}
+
+.news .news-bd {
+    width: 100%;
+    height: 130px;
+    padding: 0 15px;
+}
+
+.news-hd h5 {
+    float: left;
+    font-size: 14px;
+    font-weight: normal;
+    color: #333;
+}
+
+.news-hd .more {
+    float: right;
+    font-size: 12px;
+    color: #333;
+}
+
+.news-hd .more::after {
+    margin-left: 5px;
+    content: '';
+    font-family: 'icomoon';
+}
+
+.news-bd ul li a {
+    display: block;
+    height: 26px;
+    line-height: 26px;
+}
+
+.news-bd strong {
+    margin-right: 5px;
+}
+
+.newsflash .lifeservice {
+    width: 100%;
+    height: 210px;
+    /* background-color: pink; */
+    border-left: 1px solid #e4e4e4;
+}
+
+.lifeservice ul li a {
+    float: left;
+    width: 25%;
+    height: 70px;
+    border-bottom: 1px solid #e4e4e4;
+    border-right: 1px solid #e4e4e4;
+
+    text-align: center;
+}
+
+.lifeservice ul li i {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    margin-top: 13px;
+    background-color: pink;
+    /* background: url(../images/icons.png) -16px -16px; */
+}
+
+.lifeservice ul li:nth-child(2) a {
+    position: relative;
+}
+
+.lifeservice ul li:nth-child(1) i {
+    background: url(../images/icons.png) -16px -16px;
+}
+
+.lifeservice ul li:nth-child(2) i {
+    background: url(../images/icons.png) -78px -16px;
+}
+
+.lifeservice ul li:nth-child(3) i {
+    background: url(../images/icons.png) -141px -16px;
+}
+
+.lifeservice ul li:nth-child(4) i {
+    background: url(../images/icons.png) -205px -16px;
+}
+
+.lifeservice ul li:nth-child(5) i {
+    background: url(../images/icons.png) -16px -87px;
+}
+
+.lifeservice ul li:nth-child(6) i {
+    background: url(../images/icons.png) -79px -87px;
+}
+
+.lifeservice ul li:nth-child(7) i {
+    background: url(../images/icons.png) -141px -87px;
+}
+
+.lifeservice ul li:nth-child(8) i {
+    background: url(../images/icons.png) -205px -87px;
+}
+
+.lifeservice ul li:nth-child(9) i {
+    background: url(../images/icons.png) -16px -159px;
+}
+
+.lifeservice ul li:nth-child(10) i {
+    background: url(../images/icons.png) -78px -159px;
+}
+
+.lifeservice ul li:nth-child(11) i {
+    background: url(../images/icons.png) -141px -159px;
+}
+
+.lifeservice ul li:nth-child(12) i {
+    background: url(../images/icons.png) -205px -159px;
+}
+
+.lifeservice ul li .tip {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.lifeservice ul li .tip p{
+    /* display: block; */
+    line-height: 14px;
+    color: #fff;
+    background-color: #569D5B;
+}
+
+.lifeservice ul li .tip i {
+    display: block;
+    width: 0;
+    height: 0;
+    margin-top: 0;
+    border-width: 0 6px 3px 6px;
+    border-style: solid;
+    border-color: transparent #569D5B transparent #569D5B;
+}
+
+
+
+.newsflash .bargain {
+    width: 100%;
+    height: 75px;
+    margin-top: 5px;
+    /* background-color: skyblue; */
+}
+
