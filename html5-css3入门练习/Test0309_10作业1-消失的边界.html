@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>消失的边界</title>
+
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .clearfix::before,
+        .clearfix::after {
+            content: '';
+            display: table;
+        }
+
+        .clearfix::after {
+            clear: both;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        ul {
+            width: 300px;
+            padding: 5px 0;
+            margin: 20px auto;
+            background-color: #eee;
+        }
+
+        ul li a {
+            float: left;
+            width: 100px;
+            margin: 5px 0;
+            border-right: 1px solid #000;
+            line-height: 30px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 18px;
+            color: #525252;
+        }
+
+        ul li:nth-of-type(3n) a{
+            border-right: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="clearfix">
+        <li><a href="#">测试</a></li>
+        <li><a href="#">消失</a></li>
+        <li><a href="#">边界线</a></li>
+        <li><a href="#">右侧</a></li>
+        <li><a href="#">边界线</a></li>
+        <li><a href="#">消失</a></li>
+        <li><a href="#">测试</a></li>
+    </ul>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>伪元素选择器使用场景</title>
+
+    <style>
+        @font-face {
+            font-family: 'icomoon';
+            src: url('fonts/icomoon.eot?2smopd');
+            src: url('fonts/icomoon.eot?2smopd#iefix') format('embedded-opentype'),
+                url('fonts/icomoon.ttf?2smopd') format('truetype'),
+                url('fonts/icomoon.woff?2smopd') format('woff'),
+                url('fonts/icomoon.svg?2smopd#icomoon') format('svg');
+            font-weight: normal;
+            font-style: normal;
+            font-display: block;
+        }
+
+        div {
+            position: relative;
+            width: 200px;
+            height: 35px;
+            border: 1px solid red;
+        }
+
+        div::after {
+            position: absolute;
+            right: 5px;
+            line-height: 35px;
+            font-family: 'icomoon';
+            font-size: 18px;
+            /* content: ''; */
+            content: '\e901';
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+
+    </div>
+</body>
+
+</html>

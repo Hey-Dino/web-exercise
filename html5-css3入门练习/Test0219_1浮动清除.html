@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>浮动清除</title>
+
+    <style>
+        .box {
+            /* 浮动未清除的基本时的情况 */
+            width: 600px;
+            border: 1px solid skyblue;
+
+            /* overflow方法 */
+            /* overflow: hidden; */
+        }
+
+        /* after伪元素方法 */
+        /* .clearfix::after {
+            content: '';
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+        } */
+
+        /* 双伪元素方法 */
+        .clearfix::before, .clearfix::after{
+            content: '';
+            display: table;
+        }
+
+        .clearfix::after{
+            clear: both;
+        }
+
+        /* 无论after伪元素方法、双伪元素方法，都要用到该段代码 */
+        .clearfix {
+            /* IE6、7专用 */
+            *zoom: 1;
+        }
+
+        .one {
+            width: 200px;
+            height: 200px;
+            background-color: gray;
+
+            float: left;
+        }
+
+        .two {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+
+            float: left;
+        }
+
+        /* 额外标签法 */
+        /* .clear {
+            clear: both;
+        } */
+    </style>
+</head>
+
+<body>
+    <div class="box clearfix">
+        <div class="one">大毛</div>
+        <div class="two">二毛</div>
+        <!-- 额外标签法：该标签必须是块级元素 -->
+        <!-- <div class="clear"></div> -->
+    </div>
+</body>
+
+</html>
+
+<!-- 共三种方法：
+1.额外标签法：在子元素最后添加一个块级标签，且给该标签添加CSS样式：clear: both;
+2.overflow：给父元素添加CSS样式：overflow: hidden;
+3.after伪元素方法
+4.双伪元素方法
+-->

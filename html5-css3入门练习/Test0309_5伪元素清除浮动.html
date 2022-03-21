@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>伪元素清除浮动</title>
+
+    <style>
+        div,
+        section {
+            width: 720px;
+            margin: 0 auto;
+        }
+
+        /* 浮动清除-1 */
+        div.clearfix::after {
+            /* 伪元素必须的属性 */
+            content: '';
+            /* 伪元素默认为行内元素，插入的元素必须是块级 */
+            display: block;
+            /* 不要看见此元素 */
+            height: 0;
+            /* 核心代码：清除浮动 */
+            clear: both;
+            /* 不要看见此元素 */
+            visibility: hidden;
+        }
+
+        /* 浮动清除-2 */
+        section.clearfix::before,section.clearfix::after{
+            content: '';
+            display: table;
+        }
+
+        section.clearfix::after{
+            clear: both;
+        }
+
+        a {
+            float: left;
+            width: 200px;
+            height: 200px;
+            margin: 20px;
+        }
+
+        div a {
+            background-color: skyblue;
+        }
+
+        section a {
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="clearfix">
+        <a href="#"></a>
+        <a href="#"></a>
+        <a href="#"></a>
+    </div>
+
+    <section class="clearfix">
+        <a href="#"></a>
+        <a href="#"></a>
+        <a href="#"></a>
+    </section>
+</body>
+
+</html>

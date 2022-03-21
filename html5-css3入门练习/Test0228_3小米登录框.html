@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>仿小米登录框</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .login {
+            width: 335px;
+            margin: 0 auto;
+        }
+
+        .login .logo {
+            width: 49px;
+            height: 49px;
+            margin: 28px auto;
+            background-color: #ff5b00;
+            background-image: url(img/mi-logo.png);
+            border-radius: 4px;
+        }
+
+        p {
+            margin-bottom: 45px;
+
+            font-size: 25px;
+            text-align: center;
+            color: #474747;
+        }
+
+        .login .id,
+        .login .pwd {
+            width: 305px;
+            height: 43px;
+            padding: 0 14px;
+            margin-bottom: 13px;
+            border: 1px solid #e4e4e4;
+            border-radius: 4px;
+        }
+
+        .login .id:focus,
+        .login .pwd:focus {
+            outline: none;
+            border: 1px solid #ff5b00;
+        }
+
+        .login .sub {
+            width: 335px;
+            height: 45px;
+            margin-top: 9px;
+            border: none;
+            border-radius: 4px;
+
+            background-color: #ff5b00;
+            color: #fefefe;
+
+            transition: .2s;
+        }
+
+        .login .sub:hover {
+            background-color: rgba(255, 91, 0, .8);
+            box-shadow: 2px 3px 5px rgba(0, 0, 0, .3);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login">
+        <div class="logo"></div>
+        <p>小米账号登录</p>
+        <input class="id" type="text" placeholder="邮箱/手机号码/小米ID">
+        <input class="pwd" type="password" placeholder="密码">
+        <input class="sub" type="submit" value="登录">
+    </div>
+</body>
+
+</html>

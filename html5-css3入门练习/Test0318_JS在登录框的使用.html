@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS在登录框的使用</title>
+
+    <script language="javascript">
+        function check(){
+            var name = forml.user.value;
+            var pwd = forml.pwd.value;
+
+            if((name=="") || (name==null)) {
+                alert("请输入用户名！");
+                forml.user.focus();
+                return;
+            }else if((pwd=="") || (pwd==null)) {
+                alert("请输入密码！");
+                forml.pwd.focus();
+                return;
+            }
+            else {
+                forml.submit();
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <form name="forml" action="" method="post">
+        <table>
+            <tr>
+                <td colspan="2">用户登录</td>
+            </tr>
+            <tr>
+                <td>用户名：</td>
+                <td><input type="text" name="user" id="user"></td>
+            </tr>
+            <tr>
+                <td>密&nbsp;&nbsp;码：</td>
+                <td><input type="password" name="pwd" id="pwd"></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="登录" onclick="check()">
+                    <input type="reset" value="重置">
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+
+</html>

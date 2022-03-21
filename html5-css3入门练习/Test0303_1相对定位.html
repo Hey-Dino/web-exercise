@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>相对定位</title>
+
+    <style>
+        .box-1 {
+            position: relative;
+            top: 100px;
+            left: 100px;
+            width: 200px;
+            height: 200px;
+            background-color: skyblue;
+        }
+
+        .box-2 {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+        }
+
+        .dad {
+            width: 200px;
+            height: 200px;
+            background-color: orange;
+        }
+
+        .son {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100px;
+            height: 100px;
+            background-color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 相对定位
+    相对自身原来位置进行移动
+    保留对原位置的占用，即不脱标 -->
+    <div class="box-1">box-1 relative</div>
+    <div class="box-2">box-2 无定位</div>
+
+    <!-- 绝对定位
+    不保留原先的位置，即脱标 -->
+    <div class="dad">
+        Dad 无定位
+        <div class="son">Son absolute</div>
+    </div>
+</body>
+
+</html>

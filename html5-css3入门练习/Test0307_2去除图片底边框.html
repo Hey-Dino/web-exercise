@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>去除图片底边宽度</title>
+
+    <style>
+        div {
+            border: 1px solid red;
+            margin: 10px 0;
+        }
+
+        img {
+            width: 200px;
+            background-color: orange;
+        }
+
+        .box-2 img {
+            vertical-align: bottom;
+        }
+
+        .box-3 img {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- img为行内块元素，其vertical-align为默认值：baseline -->
+    <div class="box-1">
+        <img src="img/mi-logo.png" alt=""> pink
+    </div>
+
+    <div class="box-2">
+        <img src="img/mi-logo.png" alt=""> pink
+    </div>
+
+    <div class="box-3">
+        <img src="img/mi-logo.png" alt="">
+    </div>
+</body>
+
+</html>

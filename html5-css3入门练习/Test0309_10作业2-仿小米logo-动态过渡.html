@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>仿小米logo-动态过渡</title>
+
+    <style>
+        .header {
+            position: relative;
+            margin-left: 100px;
+        }
+
+        .logo {
+            display: block;
+            width: 55px;
+            height: 55px;
+            background-color: #ff6700;
+        }
+
+        .logo::before {
+            position: absolute;
+            content: '';
+            width: 55px;
+            height: 55px;
+            margin-left: -55px;
+            transition: all .3s;
+            background: url(img/mi-home.png) no-repeat center;
+            opacity: 0;
+        }
+
+        .logo::after {
+            position: absolute;
+            content: '';
+            width: 55px;
+            height: 55px;
+            transition: all .3s;
+            background: url(img/mi-logo.png) no-repeat center;
+        }
+
+        .logo:hover::before {
+            margin-left: 0;
+            opacity: 1;
+        }
+
+        .logo:hover::after {
+            margin-left: 55px;
+            opacity: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <a class="logo" href="#"></a>
+    </div>
+</body>
+
+</html>

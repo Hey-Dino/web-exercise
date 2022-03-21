@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三角强化运用</title>
+
+    <style>
+        .box {
+            width: 400px;
+            height: 100px;
+            background-color: skyblue;
+        }
+
+        .box .tri {
+            border-color: transparent #fff transparent transparent;
+            border-style: solid;
+            border-width: 100px 40px 0 0;
+        }
+
+        .price {
+            width: 230px;
+            height: 40px;
+            border: 1px solid red;
+        }
+
+        .price span {
+            float: left;
+            height: 100%;
+            line-height: 40px;
+            text-align: center;
+        }
+
+        .price .miaosha {
+            width: 135px;
+        }
+
+        .price .normal {
+            width: 95px;
+        }
+
+        .price .miaosha {
+            position: relative;
+            background-color: red;
+            color: #fff;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .miaosha .tri {
+            position: absolute;
+            right: 0;
+            border-color: transparent #fff transparent transparent;
+            border-style: solid;
+            border-width: 40px 20px 0 0;
+        }
+
+        .normal {
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="tri"></div>
+    </div>
+    <br>
+
+    <div class="box1"></div>
+    <div class="price">
+        <span class="miaosha">
+            ￥1650
+            <i class="tri"></i>
+        </span>
+        <span class="normal">
+
+            ￥5650
+        </span>
+    </div>
+</body>
+
+</html>

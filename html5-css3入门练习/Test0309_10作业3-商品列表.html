@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商品列表</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            background-color: #fff;
+            font: 12px/1.5 'Microsoft YaHei', 'Heiti SC', tahoma, arial, 'Hiragino Sans GB', \\5B8B\4F53, sans-serif;
+            color: #666;
+        }
+
+        /* 清除浮动 */
+        .clearfix::before,
+        .clearfix::after {
+            content: '';
+            display: table;
+        }
+
+        .clearfix::after {
+            clear: both;
+        }
+
+        .goods {
+            /* display: inline-block; */
+            width: 283px;
+            margin: 20px auto;
+            border: 1px solid red;
+        }
+
+        .goods-title {
+            padding: 10px;
+            font-size: 14px;
+            font-weight: normal;
+            color: #666;
+        }
+
+        .goods-price {
+            padding: 0 10px;
+            /* line-height: 33px; */
+        }
+
+        .goods-price span {
+            font-size: 22px;
+            color: #E60012;
+        }
+
+        .goods-price del {
+            font-size: 14px;
+            font-weight: bold;
+            color: #A4A4A4;
+        }
+
+        .goods-progress {
+            padding: 0 10px;
+        }
+
+        .goods-progress i,
+        .goods-progress span {
+            color: red;
+        }
+
+        .bar {
+            /* position: relative; */
+            display: inline-block;
+            width: 130px;
+            height: 10px;
+            margin: 0 5px;
+            vertical-align: middle;
+            border: 1px solid red;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .bar-in {
+            width: 87%;
+            height: 100%;
+            background-color: #f24349;
+        }
+
+        .goods-buy {
+            display: block;
+            width: 100%;
+            height: 50px;
+            margin-top: 5px;
+            line-height: 50px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 20px;
+            color: #fff;
+            background-color: rgb(179, 25, 25);
+            transition: .2s;
+        }
+
+        .goods-buy:hover {
+            background-color: rgba(179, 25, 25, .8);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="goods clearfix">
+        <img src="img/mobile.jpg" alt="">
+        <h5 class="goods-title">Apple苹果iPhone 6s Plus（A1699）32G 金色 移动联通电信4G手机</h5>
+        <p class="goods-price">
+            <span>¥6088</span>
+            <del>￥6988</del>
+        </p>
+
+        <div class="goods-progress">
+            已售<i>87%</i>
+            <div class="bar">
+                <div class="bar-in"></div>
+            </div>
+            剩余<span>29</span>件
+        </div>
+
+        <a href="#" class="goods-buy">
+            立即抢购
+        </a>
+    </div>
+</body>
+
+</html>

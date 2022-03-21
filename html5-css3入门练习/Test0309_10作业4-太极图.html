@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>太极图</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            background-color: #ccc;
+        }
+
+        .taichi {
+            position: absolute;
+            width: 0;
+            height: 300px;
+            
+            top: 50%;
+            left: 50%;
+            margin-top: -150px;
+            margin-left: -150px;
+
+            border-width: 0 150px 0 150px;
+            border-style: solid;
+            border-color: transparent #fff transparent #000;
+            border-radius: 50%;
+        }
+
+        .taichi::before {
+            position: absolute;
+            content: '';
+            
+            width: 30px;
+            height: 30px;
+            top: 0;
+            right: -75px;
+            
+            background-color: #fff;
+            border: 60px solid #000;
+            border-radius: 50%;
+        }
+
+        .taichi::after {
+            position: absolute;
+            content: '';
+            
+            width: 30px;
+            height: 30px;
+            bottom: 0;
+            right: -75px;
+            
+            background-color: #000;
+            border: 60px solid #fff;
+            border-radius: 50%;
+        }
+
+        .taichi:hover {
+            background-color: orange;
+        }
+
+        .clearfix::before,.clearfix::after {
+            content: '';
+            display: table;
+        }
+
+        .clearfix::after {
+            clear: both;
+        }
+
+        h1 {
+            display: block;
+            font-size: 40px;
+        }
+
+        .center {
+            position: relative;
+        }
+
+        .center h1:nth-of-type(1) {
+            float: left;
+        }
+
+        .center h1:nth-of-type(2) {
+            float: right;
+        }
+
+        .rl {
+            writing-mode: tb-rl;
+            /* line-height: 300px; */
+            /* height: 300px; */
+            margin: 100px 20%;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="text-align: center;">太极生两仪</h1>
+    <div class="center clearfix">
+        <h1 class="rl">两仪生四象</h1>
+        <div class="taichi"></div>
+        <h1 class="rl">四象生八卦</h1>
+    </div>
+    <h1 style="text-align: center;">八卦定吉凶</h1>
+</body>
+
+</html>

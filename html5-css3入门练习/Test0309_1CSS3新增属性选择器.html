@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS3-新增属性选择器</title>
+
+    <style>
+        input[type=text] {
+            color: red;
+        }
+
+        div[class^=icon] {
+            color: pink;
+        }
+
+        /* []选择器的权重为【1,0】
+        因而，下方选择器的权重为【1,1】 */
+        section[class$=data] {
+            color: skyblue;
+        }
+
+        [class*=icon]{
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 2.属性选择器可以选择【属性=值】的某些元素 -->
+    <input type="text" name="" id="" value="Hello World">
+    <input type="password" name="" id="">
+    <!-- 3.属性选择器可以选择【属性以某个值开头】的某些元素 -->
+    <div class="icon1">小图标1</div>
+    <div class="icon2">小图标2</div>
+    <div class="icon3">小图标3</div>
+    <div class="icon4">小图标4</div>
+    <div>我是打酱油的</div>
+    <!-- 4.属性选择器可以选择【属性以某个值结尾】的某些元素 -->
+    <section class="icon1-data">我是安其拉</section>
+    <section class="icon2-data">我是哥斯拉</section>
+    <section class="icon3-icon">哪我是谁</section>
+</body>
+
+</html>

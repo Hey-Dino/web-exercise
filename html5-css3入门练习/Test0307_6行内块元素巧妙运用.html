@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>行内块元素巧妙运用</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        div {
+            text-align: center;
+        }
+
+        div a {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            line-height: 36px;
+            text-align: center;
+            background-color: #f7f7f7;
+            border: 1px solid #ccc;
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .prev,
+        .next {
+            width: 76px;
+        }
+
+        .current,
+        .elp {
+            background-color: #fff;
+            border: none;
+        }
+
+        .page {
+            outline: none;
+            width: 26px;
+            height: 36px;
+            padding: 0 10px;
+        }
+
+        .btn {
+            width: 46px;
+            height: 36px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <a href="#" class="prev">&lt;&lt;上一页</a>
+        <a href="#" class="current">2</a>
+        <a href="#">3</a>
+        <a href="#">4</a>
+        <a href="#">5</a>
+        <a href="#">6</a>
+        <a href="#" class="elp">...</a>
+        <a href="#" class="next">下一页&gt;&gt;</a>
+        共20页&nbsp;跳转到
+        <input type="text" name="" id="" class="page">
+        页
+        <input type="button" value="确定" class="btn">
+    </div>
+</body>
+
+</html>

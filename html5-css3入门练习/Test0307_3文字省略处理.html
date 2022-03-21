@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文字省略处理</title>
+
+    <style>
+        .box-1 {
+            width: 150px;
+            height: 80px;
+            margin: 100px auto;
+            background-color: skyblue;
+
+            /* 1.强制一行显示 */
+            white-space: nowrap;
+            /* 2.隐藏溢出部分 */
+            overflow: hidden;
+            /* 3.溢出部分使用省略号显示 */
+            text-overflow: ellipsis;
+        }
+
+        .box-2 {
+            width: 150px;
+            height: 80px;
+            margin: 100px auto;
+            background-color: skyblue;
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+            /* 弹性伸缩盒子模型显示 */
+            display: -webkit-box;
+            /* 限制一个块级元素中显示的文本行数 */
+            -webkit-line-clamp: 2;
+            /* 设置或检索伸缩盒子对象的子元素的排列方式 */
+            -webkit-box-orient: vertical;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 单行文字省略 -->
+    <h2 style="text-align: center;">单行省略</h2>
+    <div class="box-1">
+        啥也不说，此处省略一万字。。。
+    </div>
+
+    <!-- 多行文字省略 -->
+    <!-- 兼容性较差 -->
+    <h2 style="text-align: center;">在第二行显示省略号</h2>
+    <div class="box-2">
+        啥也不说，此处省略一万字一万个字一万个字
+    </div>
+</body>
+
+</html>

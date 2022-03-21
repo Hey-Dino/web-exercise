@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>京东浮动布局</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .box{
+            width: 1150px;
+            margin: 40px auto;
+        }
+
+        .box .left,
+        .box .center,
+        .box .right {
+            float: left;
+            width: 350px;
+            height: 390px;
+            /* border: 1px solid red; */
+        }
+
+        .box .left,
+        .box .center {
+            margin-right: 50px;
+        }
+
+        .box .left img,
+        .box .right img {
+            float: left;
+        }
+
+        .box ul img {
+            margin: 0 10px 10px 0;
+        }
+
+        .box ul .lrow {
+            margin-bottom: 0;
+        }
+
+        .box ul .lcol {
+            margin-right: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="left">
+            <ul>
+                <li><img class="" src="img/京东图片素材/left01.png" alt=""></li>
+                <li><img class="lcol" src="img/京东图片素材/left02.png" alt=""></li>
+                <li><img class="lrow" src="img/京东图片素材/left03.png" alt=""></li>
+                <li><img class="lrow lcol" src="img/京东图片素材/left04.png" alt=""></li>
+            </ul>
+        </div>
+        <div class="center">
+            <img src="img/京东图片素材/center.png" alt="">
+        </div>
+        <div class="right">
+            <ul>
+                <li><img class="" src="img/京东图片素材/right01.png" alt=""></li>
+                <li><img class="lcol" src="img/京东图片素材/right02.png" alt=""></li>
+                <li><img class="lrow" src="img/京东图片素材/right03.png" alt=""></li>
+                <li><img class="lrow lcol" src="img/京东图片素材/right04.png" alt=""></li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>

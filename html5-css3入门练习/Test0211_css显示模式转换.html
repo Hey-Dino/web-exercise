@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        a {
+            width: 100px;
+            height: 100px;
+            background-color: skyblue;
+            /* 转换为 块级元素 */
+            display: block;
+        }
+
+        a:hover {
+            background-color: #fff;
+        }
+
+        div {
+            /* 此时，width和height不起作用 */
+            width: 100px;
+            height: 100px;
+            background-color: #bbb;
+            /* 转换为 行内元素 */
+            display: inline;
+        }
+
+        span {
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+            /* 转换为 行内块元素 */
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>行内元素a 转换为块级元素</h2>
+    <a href="#">Demo1</a>
+    <a href="#">Demo2</a>
+    <a href="#">Demo3</a>
+
+    <h2>块级元素div 转换为行内元素</h2>
+    <div>123</div>
+    <div>123</div>
+    <div>123</div>
+
+    <h2>行内元素span 转换为行内块元素</h2>
+    <span>321</span>
+    <span>321</span>
+    <span>321</span>
+</body>
+
+</html>

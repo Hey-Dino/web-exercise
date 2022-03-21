@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS3-新增结构伪类选择器</title>
+
+    <style>
+        /* ul的第一个孩子，该孩子必须为li */
+        ul li:first-child {
+            background-color: skyblue;
+        }
+
+        /* ul的最后一个孩子，该孩子必须为li */
+        ul li:last-child {
+            background-color: skyblue;
+        }
+
+        /* ul的第n个孩子(此时n为4)，该孩子必须为li */
+        ul li:nth-child(4) {
+            background-color: pink;
+        }
+
+        /* 把所有偶数的孩子选出来 */
+        ul.second li:nth-child(even) {
+            background-color: #bbb;
+        }
+
+        /* 把所有奇数的孩子选出来 */
+        ul.second li:nth-child(odd) {
+            background-color: rgba(255, 166, 0, 0.583);
+        }
+
+        /* 从0开始，每次加1，往后面计算，此处即全选 */
+        ol li:nth-child(n) {
+            background-color: pink;
+        }
+
+        /* nth-child(2n) 代表偶数 nth-child(2n+1)代表奇数 */
+        /* nth-child(3n) 代表以3位倍数添加效果 */
+        ol.third li:nth-child(3n) {
+            background-color: rgba(0, 128, 0, 0.433);
+        }
+
+        /* 表示从第7个开始 */
+        ol.third li:nth-child(n+7) {
+            background-color: skyblue;
+        }
+
+        /* 表示前5个 */
+        ol.third li:nth-child(-n+5){
+            background-color: rgba(255, 166, 0, 0.576);
+        }
+
+        /* 不起效果，因为section第一个子元素非div */
+        section div:nth-child(1) {
+            background-color: burlywood;
+        }
+
+        /* 其效果，nth-of-type的作用是挑选section下div元素的第一个 */
+        section div:nth-of-type(1){
+            background-color: burlywood;
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li>我是第1个孩子</li>
+        <li>我是第2个孩子</li>
+        <li>我是第3个孩子</li>
+        <li>我是第4个孩子</li>
+        <li>我是第5个孩子</li>
+        <li>我是第6个孩子</li>
+        <li>我是第7个孩子</li>
+        <li>我是第8个孩子</li>
+    </ul>
+
+    <ul class="second">
+        <li>我是第1个孩子</li>
+        <li>我是第2个孩子</li>
+        <li>我是第3个孩子</li>
+        <li>我是第4个孩子</li>
+        <li>我是第5个孩子</li>
+        <li>我是第6个孩子</li>
+        <li>我是第7个孩子</li>
+        <li>我是第8个孩子</li>
+    </ul>
+
+    <ol>
+        <li>我是第1个孩子</li>
+        <li>我是第2个孩子</li>
+        <li>我是第3个孩子</li>
+        <li>我是第4个孩子</li>
+        <li>我是第5个孩子</li>
+        <li>我是第6个孩子</li>
+        <li>我是第7个孩子</li>
+        <li>我是第8个孩子</li>
+    </ol>
+
+    <ol class="third">
+        <li>我是第1个孩子</li>
+        <li>我是第2个孩子</li>
+        <li>我是第3个孩子</li>
+        <li>我是第4个孩子</li>
+        <li>我是第5个孩子</li>
+        <li>我是第6个孩子</li>
+        <li>我是第7个孩子</li>
+        <li>我是第8个孩子</li>
+    </ol>
+
+    <section>
+        <p>光头强</p>
+        <div>熊大</div>
+        <div>熊二</div>
+    </section>
+</body>
+
+</html>

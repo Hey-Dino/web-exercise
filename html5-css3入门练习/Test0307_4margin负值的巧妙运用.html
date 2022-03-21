@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>margin负值的巧妙运用</title>
+
+    <style>
+        ul {
+            height: 200px;
+            display: block;
+            margin-left: 10px;
+        }
+
+        ul li {
+            float: left;
+            width: 150px;
+            height: 200px;
+            border: 1px solid red;
+
+            list-style: none;
+        }
+
+        .change li{
+            margin-left: -1px;
+        }
+
+        .change li:hover {
+            position: relative;
+            border-color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>去除边框重叠效果</h1>
+    <h2>Normal</h2>
+    <ul class="normal">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+    <h2>Change</h2>
+    <ul class="change">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+</body>
+
+</html>

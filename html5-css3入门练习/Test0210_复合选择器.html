@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 后代选择器 */
+        .nav ul li a {
+            color: red;
+        }
+
+        /* 子代选择器 */
+        .hot>a {
+            color: pink;
+        }
+
+        /* 并集选择器 */
+        div, p, .pig>li {
+            font-weight: bold;
+            color: deepskyblue;
+        }
+
+        /* 伪类选择器 */
+        a:link {
+            color: #444;
+            text-decoration: none;
+        }
+        a:visited {
+            color: red;
+        }
+        a:hover {
+            color: aqua;
+        }
+        a:active {
+            color: yellow;
+        }
+
+        /* focus选择器 */
+        input:focus {
+            background-color: #bbb;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>后代选择器</h3>
+    <div class="nav">
+        <ul>
+            <li><a href="#">百度</a></li>
+            <li><a href="#">百度</a></li>
+            <li><a href="#">百度</a></li>
+        </ul>
+    </div>
+
+    <h3>子代选择器</h3>
+    <div class="hot">
+        <a href="#">大肘子</a>
+        <ul>
+            <li><a href="#">猪头</a></li>
+            <li><a href="#">猪尾巴</a></li>
+        </ul>
+    </div>
+
+    <h3>并集选择器</h3>
+    <div>熊大</div>
+    <p>熊二</p>
+    <span>光头强</span>
+    <ul class="pig">
+        <li>Peppa Pig</li>
+        <li>Mummy Pig</li>
+        <li>Daddy Pig</li>
+    </ul>
+
+    <h3>伪类选择器</h3>
+    <a href="#">这是一个链接</a>
+
+    <h3>focus选择器</h3>
+    <input type="text">
+    <input type="text">
+    <input type="text">
+</body>
+
+</html>

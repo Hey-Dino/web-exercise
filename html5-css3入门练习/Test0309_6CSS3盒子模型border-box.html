@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS3盒子模型border-box(box-sizing属性)</title>
+
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            padding: 20px;
+            background-color: pink;
+            border: 20px solid red;
+        }
+
+        .normal {
+            box-sizing: content-box;
+        }
+
+        .change {
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>宽、高被border、padding撑大</h1>
+    <div class="normal">
+        小猪佩奇
+    </div>
+    <br>
+    <h1>宽、高仍为200px</h1>
+    <div class="change">
+        小猪佩奇
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS基础Day07练习</title>
+
+    <style>
+        .trolley {
+            width: 67px;
+            height: 31px;
+            margin: 20px;
+            background: url(img/car.png) no-repeat;
+            transition: .2s;
+        }
+
+        .trolley:hover {
+            background: url(img/car.png) no-repeat 0 -32px;
+        }
+
+        .hong {
+            height: 25px;
+            line-height: 25px;
+            padding-left: 30px;
+            background: url(img/sprites.png) no-repeat -1px -184px;
+        }
+
+        .xin {
+            height: 107px;
+            line-height: 107px;
+            padding-left: 240px;
+            border: 1px solid black;
+            background: url(img/sprites.png) no-repeat 0 -350px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="trolley"></div>
+
+    <div class="hong">精灵图的本质是处理网页背景图像的一种技术</div>
+    <div class="xin">可以有效减少服务器接受和请求的次数，提高页面的加载速度</div>
+</body>
+
+</html>
