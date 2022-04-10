@@ -1,0 +1,66 @@
+.w {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.header {
+    position: relative;
+    width: 100%;
+    height: 84px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #b3191b;
+    /* background-color: pink; */
+}
+
+.logo img {
+    position: absolute;
+    top: 13px;
+}
+
+.registerea {
+    width: 100%;
+    height: 522px;
+    border: 1px solid #e0e0e0;
+}
+
+.registerea h3 {
+    width: 100%;
+    height: 41px;
+    padding-left: 10px;
+    line-height: 40px;
+    border-bottom: 1px solid #e0e0e0;
+    background-color: #ececec;
+
+    font-size: 16px;
+    font-weight: normal;
+    color: #000;
+}
+
+.login {
+    float: right;
+    padding-right: 10px;
+    font-size: 14px;
+}
+
+.login a {
+    display: inline-block;
+    color: #b3191b;
+}
+
+/* mode_copyright */
+.mod_copyright {
+    text-align: center;
+    padding-top: 20px;
+}
+
+.links {
+    padding-bottom: 15px;
+}
+
+.links a {
+    padding: 0 16px;
+}
+
+.copyright {
+    line-height: 20px;
+}
