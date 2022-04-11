@@ -47,6 +47,111 @@
     color: #b3191b;
 }
 
+.reg_form {
+    width: 600px;
+    margin: 50px auto 0;
+    /* background-color: pink; */
+}
+
+.reg_form ul li {
+    margin-bottom: 20px;
+}
+
+.reg_form ul li label {
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+}
+
+.reg_form input[type='text'],
+.reg_form input[type='pwd'] {
+    width: 240px;
+    height: 36px;
+    padding: 0 10px;
+    border: 1px solid #999;
+}
+
+.error,
+.success {
+    margin-left: 12px;
+}
+
+.error {
+    color: #c81523;
+}
+
+.success {
+    color: #42b840;
+}
+
+.error_icon,
+.success_icon {
+    display: inline-block;
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    margin-top: -2px;
+    margin-right: 5px;
+}
+
+.error_icon {
+    background: url(../images/error_icon.png);
+}
+
+.success_icon {
+    background: url(../images/success_icon.png) center;
+    background-size: cover;
+}
+
+
+.safe {
+    margin-top: -10px;
+    padding-left: 185px;
+}
+
+.safe span {
+    margin-right: 9px;
+}
+
+.safe em {
+    padding: 0 10px;
+    margin-left: 1px;
+    color: #fff;
+}
+
+.ruo {
+    background-color: #e52e52;
+}
+
+.zhong {
+    background-color: #42b840;
+}
+
+.qiang {
+    background-color: #f79003;
+}
+
+.reg_form input[type='checkbox'] {
+    vertical-align: middle;
+    margin-left: 100px;
+    margin-right: 12px;
+}
+
+.reg_form a {
+    margin-left: 8px;
+    color: #25a1d5;
+}
+
+.reg_form .btn {
+    width: 200px;
+    height: 34px;
+    margin-top: 30px;
+    margin-left: 110px;
+    background-color: #c81523;
+    font-size: 14px;
+    color: #fff;
+}
+
 /* mode_copyright */
 .mod_copyright {
     text-align: center;
