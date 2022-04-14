@@ -1,0 +1,124 @@
+/* crumb */
+.crumb {
+    height: 18px;
+    margin-top: 25px;
+}
+
+.crumb ul li {
+    float: left;
+}
+
+.crumb ul li:nth-child(2n) {
+    padding: 0 10px;
+}
+
+/* product-intro */
+.product-intro {
+    height: 570px;
+    margin-bottom: 30px;
+}
+
+.preview-wrap {
+    float: left;
+    width: 400px;
+    height: 100%;
+}
+
+.spec-img {
+    width: 400px;
+    height: 400px;
+    margin-top: 10px;
+    margin-bottom: 65px;
+    border: 1px solid #ededed;
+}
+
+.spec-list {
+    position: relative;
+    width: 100%;
+    height: 58px;
+    padding: 0 30px;
+    margin-bottom: 20px;
+}
+
+.spec-list ul li {
+    float: left;
+    width: 58px;
+    height: 58px;
+    margin: 0 5px;
+    border: 1px solid transparent;
+}
+
+.spec-list ul li:hover {
+    border-color: #d54f58;
+}
+
+.spec-list .spec-forward,
+.spec-list .spec-backward {
+    position: absolute;
+    width: 22px;
+    height: 32px;
+    top: 50%;
+    margin-top: -16px;
+}
+
+.spec-list .spec-forward {
+    left: 0;
+    background: url(../images/disabled-prev.png);
+}
+
+.spec-list .spec-backward {
+    right: 0;
+    background: url(../images/disabled-next.png);
+}
+
+/* preview-info */
+.preview-info span {
+    float: left;
+    margin-right: 35px;
+}
+
+.preview-info .left-btns {
+    float: left;
+}
+
+.preview-info .left-btns .follow {
+    margin-left: 38px;
+}
+
+.preview-info .left-btns .follow::before,
+.preview-info .left-btns .shared::before {
+    display: inline-block;
+    content: '';
+    width: 9px;
+    height: 9px;
+    margin-right: 5px;  
+}
+
+.preview-info .left-btns .shared::before {
+    background: url(../images/shared.png);
+}
+
+.preview-info .left-btns .follow::before {
+    background: url(../images/follow.png);
+}
+
+.preview-info .left-btns .follow {}
+
+.preview-info .right-btns {
+    float: right;
+    margin-right: 5px;
+}
+
+.right-btns .btn {
+    vertical-align: middle;
+    margin-top: -1px;
+}
+
+/* itemInfo-wrap */
+.itemInfo-wrap {
+    float: left;
+    width: 800px;
+    height: 100%;
+    background-color: pink;
+}
+
