@@ -180,7 +180,7 @@
     background-color: #c81623;
 }
 
-.summary-quan .dd .detail {
+.summary-quan .dd .quan-detail {
     margin-left: 12px;
 }
 
@@ -234,6 +234,7 @@
 .choose-attrs ul li a:hover,
 .choose-type ul li a:hover,
 .choose-suits ul li a:hover {
+    color: #666;
     border-color: #c81623;
 }
 
@@ -306,74 +307,18 @@
     background-color: #c81623;
 }
 
-/* guess-love */
-.guess-love {
-    height: 337px;
-    border: 1px solid #ddd;
-}
-
-.guess-love .guess-title {
-    height: 41px;
-    line-height: 40px;
-    padding-left: 12px;
-    border-bottom: 1px solid #ddd;
-    background-color: #f1f1f1;
-    font-weight: normal;
-    font-size: 16px;
-    color: #333;
-}
-
-.guess-love ul {
-    width: 1080px;
-    height: 295px;
-    margin: 0 auto;
-    margin-top: 25px;
-}
-
-.guess-love ul li {
-    float: left;
-}
-
-.guess-love ul li a {
-    display: inline-block;
-    width: 180px;
-    height: 245px;
-    padding: 5px 20px;
-}
-
-.guess-love ul li img {
-    width: 138px;
-    height: 120px;
-    background-color: pink;
-}
-
-.guess-love .prese {
-    font-size: 9px;
-    line-height: 20px;
-}
-
-.guess-love .price {
-    margin-bottom: 35px;
-    font-size: 20px;
-    font-weight: bold;
-    color: #c81623;
-}
-
-.guess-love .comment-num span {
-    color: #0076b4;
-}
-
 /* 详情页 */
 .aside {
     float: left;
     width: 210px;
     height: 100%;
+    margin-bottom: 20px;
     border: 1px solid #e7e7e7;
 }
 
 .aside .main ul li {
     float: left;
-    width: 105px;
+    width: 50%;
     height: 35px;
     line-height: 35px;
     text-align: center;
@@ -383,7 +328,7 @@
 }
 
 .aside ul li:nth-child(1) {
-    margin-left: -1px;
+    /* margin-left: -1px; */
 }
 
 .aside ul li:nth-child(2) {
@@ -400,13 +345,61 @@
     padding: 0 12px;
 }
 
-.coin ul li {
+.coin .category li {
     float: left;
-    width: 92px;
+    width: 50%;
     height: 30px;
     line-height: 30px;
     padding-left: 5px;
-    border-bottom: 1px dashed #e7e7e7;
+    border-top: 1px dashed #e7e7e7;
+}
+
+.coin .category li:nth-child(-n+2) {
+    border: none;
+}
+
+.coin .spec-goods {
+    margin-bottom: 5px;
+}
+
+.coin .spec-goods li .goods {
+    display: block;
+    width: 184px;
+    height: 220px;
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.coin .spec-goods li .goods img {
+    display: block;
+    width: 160px;
+    height: 125px;
+    margin: 0 auto;
+    background-color: skyblue;
+}
+
+.coin .spec-goods li .goods .pre {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 10px;
+}
+
+.coin .spec-goods li .goods .p-price {
+    font-weight: bold;
+}
+
+.coin .spec-goods li .goods .add-cart {
+    display: block;
+    width: 90px;
+    height: 28px;
+    line-height: 26px;
+    text-align: center;
+    margin: 0 auto;
+    border: 1px solid #e7e7e7;
+    background-color: #f7f7f7;
+    font-size: 14px;
+    color: #333;
 }
 
 .coin .tip {
@@ -463,7 +456,7 @@
 
 .tab-coin>div {
     float: left;
-    width: 807px;
+    width: 802px;
     height: 100%;
     padding: 12px 15px;
 }
@@ -491,6 +484,7 @@
     border: 1px solid #c81622;
 }
 
+/* suits */
 .suits {
     float: left;
     margin-left: 38px;
@@ -558,17 +552,17 @@
     margin-bottom: 17px;
 }
 
-.p-price{
+.info .p-price{
     margin-bottom: 45px;
     font-weight: bold;
     font-size: 12px;
 }
 
-.price {
+.info .price {
     color: #e12228;
 }
 
-.price span {
+.info .price span {
     font-size: 24px;
 }
 
@@ -589,4 +583,98 @@
 .detail {
     float: right;
     width: 980px;
+    margin-bottom: 20px;
+}
+
+.detail .tab-coin .basic-para {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.detail .tab-coin .basic-para ul li {
+    width: 100%;
+    line-height: 22px;
+}
+
+.detail .tab-coin .basic-para .more-para a {
+    position: absolute;
+    bottom: 20px;
+    right: 0;
+    margin-right: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+.detail .tab-coin .basic-para .more-para a::after {
+    content: '';
+    font-family: 'icomoon';
+    margin-left: 3px;
+}
+
+.detail .tab-coin .basic-para .more-para a:hover {
+    color: #c81623;
+}
+
+.detail .tab-coin .detail-content ul li {
+    width: 100%;
+}
+
+/* guess-love */
+.guess-love {
+    height: 337px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+}
+
+.guess-love .guess-title {
+    height: 41px;
+    line-height: 40px;
+    padding-left: 12px;
+    border-bottom: 1px solid #ddd;
+    background-color: #f1f1f1;
+    font-weight: normal;
+    font-size: 16px;
+    color: #333;
+}
+
+.guess-love ul {
+    width: 1080px;
+    height: 295px;
+    margin: 0 auto;
+    margin-top: 25px;
+}
+
+.guess-love ul li {
+    float: left;
+}
+
+.guess-love ul li a {
+    display: inline-block;
+    width: 180px;
+    height: 245px;
+    padding: 5px 20px;
+}
+
+.guess-love ul li img {
+    width: 138px;
+    height: 120px;
+    background-color: pink;
+}
+
+.guess-love .prese {
+    font-size: 9px;
+    line-height: 20px;
+}
+
+.guess-love .price {
+    margin-bottom: 35px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #c81623;
+}
+
+.guess-love .comment-num span {
+    color: #0076b4;
 }
