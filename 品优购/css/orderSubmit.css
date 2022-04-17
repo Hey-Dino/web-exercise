@@ -1,0 +1,18 @@
+/* header */
+.header .search {
+    top: 25px;
+    left: 774px;
+}
+
+.header .search input[type=search] {
+    width: 344px;
+}
+
+.sk {
+    position: absolute;
+    display: block;
+    top: 35px;
+    left: 195px;
+    font-size: 19px;
+    color: #333;
+}
