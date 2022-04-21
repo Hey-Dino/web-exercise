@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>transform</title>
+
+    <style>
+        .no1 {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background-color: skyblue;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .no2 {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+            transition: all .5s ease;
+        }
+
+        .no2:hover {
+            /* transform: translate(40px, 40px); */
+            /* 百分比是相对于自身的 */
+            transform: translate(50%, 50%);
+        }
+
+        span {
+            /* transform对行内元素无效 */
+            transform: translate(50%, 50%);
+        }
+
+        /* 旋转 */
+        .no3 {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+            transition: all .5s ease;
+        }
+
+        .no3:hover {
+            transform: rotate(45deg);
+        }
+
+        /* 特殊用法 */
+        .no4 {
+            position: relative;
+            width: 300px;
+            height: 50px;
+            border: 1px solid #ddd;
+        }
+
+        .no4::after {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            content: '';
+            width: 20px;
+            height: 20px;
+            border-right: 1px solid orange;
+            border-bottom: 1px solid orange;
+            transform: rotate(45deg);
+            transition: all .4s ease;
+        }
+
+        .no4:hover::after {
+            top: 20px;
+            transform: rotate(225deg);
+        }
+
+        .no5,
+        .no6 {
+            width: 200px;
+            height: 200px;
+            background-color: skyblue;
+            transform-origin: top right;
+            transition: all 1s ease;
+        }
+
+        .no6 {
+            background-color: pink;
+            transform-origin: 75% 25%;
+        }
+
+        .no5:hover,
+        .no6:hover {
+            transform: rotate(360deg);
+        }
+    </style>
+</head>
+
+<body>
+    <h1>transform: translate</h1>
+    <div class="no1"></div>
+    <div class="no2"></div>
+    <span>123</span>
+    <h1>transform: rotate</h1>
+    <div class="no3"></div>
+    <h1>特殊用法</h1>
+    <div class="no4"></div>
+    <h1>改变旋转中心点</h1>
+    <div class="no5"></div>
+    <div class="no6"></div>
+</body>
+
+</html>

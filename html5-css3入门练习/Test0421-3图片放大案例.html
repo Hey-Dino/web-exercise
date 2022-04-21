@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transform-图片放大案例</title>
+
+    <style>
+        div {
+            width: 350px;
+            height: 390px;
+            overflow: hidden;
+        }
+
+        div img {
+            transition: all .3s ease;
+        }
+
+        div:hover img {
+            transform: scale(1.1);
+        }
+
+        ul {
+            /* width: 1000px; */
+            height: 50px;
+            margin: 0 auto;
+            margin-top: 50px;
+        }
+
+        ul li {
+            list-style: none;
+            float: left;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            margin-left: 20px;
+            border: 1px solid skyblue;
+            border-radius: 50%;
+            transition: all .3s ease;
+        }
+
+        ul li:hover {
+            transform: scale(1.3);
+        }
+
+        .all {
+            width: 200px;
+            height: 200px;
+            background-color: orange;
+            transition: all .3s ease;
+        }
+
+        .all:hover {
+            /* 需注意书写顺序 */
+            /* 位移永远写在最前面 */
+            transform: translate(200px, 100px) rotate(180deg) scale(1.5);
+        }
+    </style>
+</head>
+
+<body>
+    <h1>鼠标移动到方格中，见效果</h1>
+    <div><img src="img/京东图片素材/center.png" alt=""></div>
+
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+    </ul>
+
+    <h1>translate、rotate、scale综合</h1>
+    <div class="all"></div>
+</body>
+
+</html>

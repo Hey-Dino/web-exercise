@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>transform-scale</title>
+
+    <style>
+        body {
+            text-align: center;
+        }
+        div {
+            width: 200px;
+            height: 200px;
+            margin: 100px auto;
+            background-color: skyblue;
+            transition: all .3s ease;
+        }
+        
+        div:hover {
+            /* 不等比放大 */
+            /* transform: scale(2, 1); */
+            /* 等比放大 */
+            /* transform: scale(2); */
+            /* 不等比缩小 */
+            /* transform: scale(.5, .25); */
+            /* 等比缩小 */
+            transform: scale(.5);
+            /* background-color: pink;
+            border-radius: 50%; */
+        }
+    </style>
+</head>
+
+<body>
+    <h1>鼠标移动到方格中，见效果</h1>
+    <div></div>
+    <h1>放大不改变原大小，不影响其他盒子位置</h1>
+</body>
+
+</html>

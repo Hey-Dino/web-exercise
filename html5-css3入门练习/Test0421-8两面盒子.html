@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>两面盒子</title>
+
+    <style>
+        /* 左右翻转 */
+        .box {
+            perspective: 400px;
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 100px auto;
+            border-radius: 50%;
+            background-color: pink;
+            transform-style: preserve-3d;
+            transition: all .5s;
+            animation: rotate 4s linear infinite;
+        }
+
+        .box div {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            line-height: 200px;
+            text-align: center;
+            border-radius: 50%;
+
+            font-size: 35px;
+            color: #fff;
+        }
+
+        .box1 {
+            /* 重要点，在Z轴上隔离盒子，避免覆盖 */
+            transform: translateZ(1px);
+            background-color: skyblue;
+        }
+
+        .box2 {
+            background-color: orange;
+            transform: rotateY(180deg);
+        }
+
+        .box:hover {
+            animation-play-state: paused;
+            /* transform: rotateY(180deg); */
+        }
+
+        @keyframes rotate {
+            0% {}
+
+            100% {
+                transform: rotateY(360deg);
+            }
+        }
+
+        /* 上下翻转 */
+        .test1 {
+            position: relative;
+            width: 200px;
+            height: 50px;
+            margin: 0 auto;
+            transform-style: preserve-3d;
+            transition: all 1s;
+            animation: roll 3s linear infinite;
+        }
+
+        .test1 div {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            line-height: 50px;
+            text-align: center;
+            font-size: 20px;
+            color: #fff;
+        }
+
+        .test1 .box1 {
+            background-color: pink;
+            transform: translateZ(25px);
+        }
+
+        .test1 .box2 {
+            background-color: skyblue;
+            /* 先移动，后旋转 */
+            transform: translateY(25px) rotateX(-90deg);
+        }
+
+        .test1 .box3 {
+            background-color: orange;
+            transform: translateZ(-25px) rotateX(-180deg);
+        }
+
+        .test1 .box4 {
+            background-color: green;
+            transform: translateY(-25px) rotateX(-270deg);
+        }
+
+        .test1:hover {
+            /* transform: rotateX(360deg); */
+            animation-play-state: paused;
+        }
+
+        @keyframes roll {
+            0% {}
+
+            100% {
+                transform: rotateX(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="box1">我是天蓝色</div>
+        <div class="box2">我是橙色</div>
+    </div>
+
+    <div class="test1">
+        <div class="box1">我是粉色</div>
+        <div class="box2">我是天蓝色</div>
+        <div class="box3">我是橙色</div>
+        <div class="box4">我是绿色</div>
+    </div>
+</body>
+
+</html>

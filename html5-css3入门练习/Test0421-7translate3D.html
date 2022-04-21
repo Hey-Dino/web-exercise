@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translate3D</title>
+
+    <style>
+        body {
+            perspective: 500px;
+        }
+
+        .no1 {
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+            background-color: skyblue;
+            /* transform: translate(200px, 200px); */
+            transition: all .3s;
+        }
+
+        .no1:hover {
+            /* transform: translateX(100px) translateY(100px) translateZ(100px); */
+            /* 简写 */
+            /* transform: translate3d(100px, 100px, 100px); */
+            /* 某一方向不移动，填入0 */
+            /* transform: translate3d(0, 100px, 100px); */
+            transform: translate3D(0, 0, 50px);
+        }
+
+        img {
+            display: block;
+            width: 320px;
+            height: 320px;
+            margin: 20px auto;
+            transition: all .3s;
+        }
+
+        img:hover {
+            /* transform: rotateX(-360deg); */
+            transform: rotateY(360deg);
+            /* transform: rotateZ(360deg); */
+            /* transform: rotate3d(x,y,z,deg); */
+            transform: rotate3d(1, 1, 1, 45deg);
+        }
+
+        .box { 
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+            transition: all .3s;
+            /* 保持3D效果 */
+            transform-style: preserve-3d;
+        }
+
+        .box div {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: skyblue;
+        }
+
+        .box div:last-child {
+            transform: rotateX(60deg);
+            background-color: pink;
+        }
+
+        .box:hover {
+            transform: rotateY(60deg);
+            
+        }
+    </style>
+</head>
+
+<body>
+    <div class="no1"></div>
+    <div class="pic"><img src="img/pig.jpg" alt=""></div>
+    <div class="box">
+        <div></div>
+        <div></div>
+    </div>
+</body>
+
+</html>

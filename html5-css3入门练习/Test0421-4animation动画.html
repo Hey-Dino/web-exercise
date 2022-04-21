@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动画-animation</title>
+
+    <style>
+        /* 1.定义动画 */
+        @keyframes move {
+            /* 开始状态 */
+            0% {
+
+            }
+
+            /* 结束状态 */
+            100% {
+                transform: translate(500px, 0);
+            }
+        }
+
+        @keyframes zoom {
+            from {}
+
+            to {
+                transform: scale(1.3);
+            }
+        }
+
+        .no1 {
+            width: 200px;
+            height: 200px;
+            background-color: skyblue;
+            /* 2.调用动画 */
+            animation-name: move;
+            /* 3.持续时间 */
+            animation-duration: 2s;
+            /* 4.持续次数 */
+            animation-iteration-count: infinite;
+            /* 5.何时开始 */
+            /* animation-delay: 1s; */
+            /* 动画结束后，默认[backwards]会回到其实状态，使用[forwards]可以使其停留在结束状态 */
+            /* animation-fill-mode: forwards; */
+        }
+
+        .no2 {
+            width: 200px;
+            height: 200px;
+            margin-top: 200px;
+            margin-left: 50px;
+            background-color: pink;
+            border-radius: 50%;
+            /* 调用动画 */
+            /* animation-name: zoom; */
+            /* 持续时间 */
+            /* animation-duration: 1s; */
+            /* 持续次数 */
+            /* animation-iteration-count: infinite; */
+            /* 是否反方向播放动画 默认为normal */
+            /* animation-direction: alternate; */
+            /* 简写形式 */
+            animation: zoom .7s ease infinite alternate;
+        }
+
+        .no2:hover {
+            /* 状态停止 */
+            /* 不包含在简写内容中 */
+            animation-play-state: paused;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="no1"></div>
+    <div class="no2"></div>
+</body>
+
+</html>
