@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据类型</title>
+
+    <script>
+        // 非全等匹配
+        console.log(1 == '1');
+        // 全等
+        console.log(1 === '1');
+        console.log(1 !== '1');
+
+        console.log(123 && 456);
+        console.log(0 && 123);
+
+        console.log(123 || 456);
+        console.log(0 || 0);
+
+        /* console.log('---------------');
+        var year = prompt("输入年份：");
+        if (year % 400 == 0 || year % 4 == 0 && year % 100 != 0) {
+            alert(year + '是闰年');
+        }
+        else {
+            alert(year + '不是闰年');
+        } */
+
+        /* console.log('---------------');
+        var num = prompt('请输入一个数字：');
+        alert(0 < num && num < 10 ? '0' + num : num); */
+
+        console.log('---------------');
+        var num = 2;
+        switch(num) {
+            case '2':
+                console.log('匹配\'2\'');
+                break;
+            // 全等匹配
+            case 2:
+                console.log('匹配2');
+                break;
+            default:
+                console.log('无匹配项');
+        }
+
+        console.log('---------------');
+        for(var i=1; i<=9; i++) {
+            var result = '';
+            for(var j=1; j<=i; j++) {
+                var tmp = (i*j);
+                tmp = tmp < 10 ? '0' + tmp : tmp;
+                result += j + '*' + i + '=' + tmp + ' ';
+            }
+            console.log(result);
+        }
+        
+        console.log('---------------');
+        var people = prompt('请输入班级人数:');
+        var sum = 0;
+        for(var i=1; i<=people; i++) {
+            var score = parseFloat(prompt('请输入第' + i + '位同学成绩:'));
+            sum += score;
+        }
+        alert('平均成绩:' + sum/people);
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -55,19 +55,8 @@ body {
 .none {
     display: none
 }
+
 /* 清除浮动 */
-/* .clearfix:after {
-    visibility: hidden;
-    clear: both;
-    display: block;
-    content: ".";
-    height: 0
-}
-
-.clearfix {
-    *zoom: 1
-} */
-
 .clearfix::before,
 .clearfix::after {
     content: '';

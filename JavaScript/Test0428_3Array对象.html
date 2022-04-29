@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array对象</title>
+    <link rel="shortcut icon" href="img/js.ico" type="image/x-icon">
+
+    <script>
+        // 创建方法
+        var arr = [1, 2, 4, 3];
+        arr.reverse();
+        console.log(arr);
+        arr.sort();
+
+        // 创建一个大小为3的空数组
+        var arr = new Array(3);
+        console.log(arr)
+        var arr = new Array(1, 2, 3);
+        // push有返回值，返回值为新数组的长度
+        arr.push(5, 'pink');
+        arr.unshift(0);
+        arr.pop();
+        console.log(arr);
+
+        console.log([] instanceof Array);
+        console.log(Array.isArray([]));
+        console.log({} instanceof Object);
+
+        // 排序
+        console.log('-----数组排序-----');
+        var arr = [1, 21, 2, 11];
+        arr.sort();
+        console.log(arr);
+        // arr = [1, 11, 2, 21];
+
+        // 带规则的排序
+        arr.sort(function (a, b) {
+            return a - b;
+        });
+        console.log(arr);
+
+        // 索引
+        console.log('-----数组索引-----');
+        console.log(arr.indexOf(1));
+        console.log(arr.lastIndexOf(1));
+
+        // 数组去重
+        var arr = [1, 1, 2, 1, 3, 2, 4, 3];
+        function unique(arr) {
+            var newArr = [];
+            for (var i = 0; i < arr.length; i++) {
+                var value = arr[i];
+                if (newArr.indexOf(value) === -1) {
+                    newArr.push(value);
+                }
+            }
+
+            return newArr;
+        }
+        console.log(unique(arr));
+
+        // 数组转字符串
+        console.log('-----数组转字符串-----');
+        console.log(['pink', 'peppa'].toString());
+        console.log(['pink', 'peppa'].join(' '));
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

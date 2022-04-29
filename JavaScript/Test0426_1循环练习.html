@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>循环练习</title>
+
+    <script>
+        // for循环
+        var tmp = '';
+        var row = prompt('请输入行数:');
+        for (var i = 1; i <= row; i++) {
+            for (var j = 1; j <= row; j++) {
+                tmp += '☆';
+            }
+            tmp += '\n';
+        }
+        console.log(tmp);
+
+        console.log('----------');
+        var tmp = '';
+        for (var i = row; i >= 1; i--) {
+            for (var j = 1; j <= i; j++) {
+                tmp += '☆';
+            }
+            tmp += '\n';
+        }
+        console.log(tmp);
+
+        console.log('----------');
+
+        // while循环 
+        var mes = prompt('Do you love me?');
+        while (mes != 'Yes') {
+            mes = prompt('Do you love me?');
+        }
+
+        // var mes;
+        do {
+            var mes = prompt('Do you love me?');
+        } while(mes != 'Yes');
+
+        // 练习
+        var sum = 0;
+        for (var i = 1; i <= 100; i++) {
+            sum += i;
+        }
+        console.log('总和:' + sum + ' 平均值:' + (sum / 100));
+
+        sum = 0;
+        for (var i = 1; i <= 100; i++) {
+            if (i % 2 == 0) {
+                sum += i;
+            }
+        }
+        console.log('总和:' + sum);
+
+        var row = prompt('请输入行数:');
+        var tmp = '';
+        for(var i = 1; i <= row; i++) {
+            for(var j = 1; j <= i; j++){
+                tmp += '☆';
+            }
+            tmp += '\n';
+        }
+        console.log(tmp);
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

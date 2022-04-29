@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math对象</title>
+    <link rel="shortcut icon" href="img/js.ico" type="image/x-icon">
+
+    <script>
+        console.log(Math.PI);
+        console.log(Math.max());
+        console.log(Math.min(-1, 1, -9));
+        console.log(Math.abs(-99));
+
+        // 取整
+        console.log(Math.floor(3.1));
+        console.log(Math.floor(-3.1));
+        console.log(Math.ceil(3.1));
+        console.log(Math.ceil(-3.1));
+        console.log(Math.round(3.5));
+        console.log(Math.round(-3.5));
+
+        // 取区间随机整数
+        console.log('-----取区间随机整数-----');
+        function getRandomIntInclusive(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1) + min);
+        }
+
+        console.log(getRandomIntInclusive(1.1, 4.5));
+
+        // var ran = getRandomIntInclusive(1, 10);
+        // console.log(ran);
+        // var guess = prompt('请输入你猜测的输入:')
+        // while(true) {
+        //     if (guess == ran) {
+        //         alert('猜对了');
+        //         break;
+        //     }
+        //     else if (guess > ran) {
+        //         guess = prompt('数字大了，继续猜:')
+        //     }
+        //     else {
+        //         guess = prompt('数字小了，继续猜:')
+        //     }
+        // }
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

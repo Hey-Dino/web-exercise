@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数组</title>
+
+    <script>
+        // 构造方式
+        var arr = new Array();
+        var arr = ['迪丽热巴', '古力娜扎', '玛尔扎哈'];
+        for (var i = 0; i < arr.length; i++) {
+            console.log(arr[i]);
+        }
+
+        arr.length = 5;
+        console.log(arr);
+        arr[3] = '哇哈哈';
+        console.log(arr);
+
+        var arr1 = [2, 0, 6, 1, 11, 5, 12, 10]
+        var arr2 = [];
+        var j = 0;
+        // for (var i = 0; i < arr1.length; i++) {
+        //     if (arr1[i] >= 10) {
+        //         arr2[j++] = arr1[i]
+        //     }
+        // }
+        for (var i = 0; i < arr1.length; i++) {
+            if (arr1[i] >= 10) {
+                arr2[arr2.length] = arr1[i]
+            }
+        }
+        console.log(arr2);
+
+        console.log('-----冒泡排序-----');
+        // 读入需要排序的字符
+        var tmp = prompt('请输入需要排序的数，使用空格隔开:');
+        var arr = tmp.split(' ');
+        for (var i = 0; i < arr.length; i++) {
+            arr[i] = parseInt(arr[i]);
+        }
+        console.log(arr);
+        
+        // arr = [10, 2, 5, 12, 1]
+        for (var i = 0; i < arr.length; i++) {
+            for (var j = 0; j < arr.length - i; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    var tmp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = tmp;
+                }
+            }
+        }
+        console.log(arr);
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

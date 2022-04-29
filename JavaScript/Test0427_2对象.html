@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>对象</title>
+    <link rel="shortcut icon" href="img/js.ico" type="image/x-icon">
+
+    <script>
+        // 1.利用字面量创建
+        console.log('------字面量创建------');
+        var obj = {
+            uname: 'pink',
+            age: 18,
+            sex: '男',
+
+            sayHi: function () {
+                console.log(
+                    'hi~'
+                );
+            }
+        }
+
+        // 调用属性
+        console.log(obj.uname);
+        console.log(obj['sex']);
+
+        // 调用方法
+        obj.sayHi();
+
+        // 练习
+        var dog = {
+            dname: '可可',
+            type: '阿拉斯加',
+            age: 5,
+            color: '棕红色',
+
+            bark: function () {
+                console.log('汪汪汪');
+            },
+            showFilm: function () {
+                console.log('演电影');
+            }
+        }
+
+
+        // new object
+        console.log('------new object------');
+        var obj = new Object();
+        obj.name = 'pink';
+        obj.sayHi = function () {
+            console.log('Hi~');
+        }
+        obj.sayHi();
+
+        var mr = new Object();
+        mr.name = '鸣人';
+        mr.skill = function () {
+            console.log('影分身术');
+        }
+        mr.skill();
+
+        // 构造函数
+        console.log('-----构造函数-----');
+        function Star(name, age, sex) {
+            this.name = name;
+            this.age = age;
+            this.sex = sex;
+            this.sing = function (sang) {
+                console.log(sang);
+            }
+        }
+        var ldh = new Star('刘德华', 45, '男');
+
+        for (var k in ldh) {
+            console.log(k + ': ' + ldh[k]);
+        }
+
+        // 练习
+        console.log('-----练习-----');
+        function Calculator() {
+            var tip = '1.加法运算\n2.减法运算\n3.乘法运算\n4.除法运算\n5.退出';
+
+            while(true) {
+                var choice = parseInt(prompt(tip));
+                if (choice == 5) {
+                    break;
+                }
+                
+                var result;
+                var num1 = parseInt(prompt('请输入第一个数字: '));
+                var num2 = parseInt(prompt('请输入第二个数字: '));
+
+                switch (choice) {
+                    case 1:
+                        result = num1 + num2;
+                        break;
+                    case 2:
+                        result = num1 - num2;
+                        break;
+                    case 3:
+                        result = num1 * num2;
+                        break;
+                    case 4:
+                        result = num1 / num2;
+                        break; 
+                }
+                alert('结果是: ' + result);
+            }
+        }
+
+        var cal = new Calculator();
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

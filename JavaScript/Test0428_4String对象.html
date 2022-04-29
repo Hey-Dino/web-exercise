@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>String对象</title>
+    <link rel="shortcut icon" href="img/js.ico" type="image/x-icon">
+
+    <script>
+        var str = '改革春风吹满地，中国人民真争气';
+        console.log(str.indexOf('春'));
+        console.log(str.indexOf('春', 3));
+
+        function CalNumAndAddress(str, letter) {
+            var num = 0, index = 0, array = [];
+
+            // while(true) {
+            //     index = str.indexOf(letter, index + 1);
+
+            //     if (index != -1) {
+            //         num += 1;
+            //         array.push(index);
+            //     }
+            //     else {
+            //         break;
+            //     }
+            // }
+
+            index = str.indexOf(letter, index);
+            while (index != -1) {
+                num++;
+                array.push(index);
+                index = str.indexOf(letter, index + 1);
+            }
+
+            console.log('出现次数: ' + num);
+            console.log('出现的位置: ' + array);
+        }
+
+        var str = 'abcoefoxyozzopp';
+        CalNumAndAddress(str, 'o');
+
+        var array = ['red', 'pink', 'orange', 'blue', 'red'];
+        CalNumAndAddress(array, 'red');
+
+        // 根据位置返回字符
+        console.log('-----根据位置返回字符-----');
+        console.log('peppa'.charAt(3));
+        console.log('peppa'[3]);
+        console.log('peppa'.charCodeAt(3));
+
+        // 计算字符串中各字母出现的次数，同时选出出现次数最大的字母
+        function CalLetterNum(str) {
+            var obj = {};
+            for (var i = 0; i < str.length; i++) {
+                var chars = str.charAt(i);
+                // 若字母在对象obj中存在的话，obj[chars]返回值为true
+                obj[chars] = obj[chars] ? obj[chars] + 1 : 1;
+            }
+
+            var max = 0, letter = '';
+            for (k in obj) {
+                if (obj[k] > max) {
+                    max = obj[k];
+                    letter = k;
+                }
+            }
+            
+            console.log('最常出现的字母是:' + letter + '\n出现的次数是:' + max);
+        }
+        var str = 'abcoefoxyozzopp';
+        CalLetterNum(str);
+
+        // 数组连接concat
+        var str1 = 'Hello';
+        var str2 = 'World';
+        console.log(str1.concat(str2));
+        console.log(str1);
+
+        var str3 = '改革春风吹满地';
+        // 第一个‘2’为截取开始位置，第二个‘2’为截取长度
+        console.log(str3.substr(2, 2));
+        // slice、substring的两个参数分别为start、end
+        console.log(str3.substring(2, str3.length));
+        console.log(str3.slice(-str3.length, -2));
+
+        console.log(str3.replace('地', '中国'));
+        var str4 = 'abcoefoxyozzopp';
+        while (str4.indexOf('o') !== -1) {
+            str4 = str4.replace('o', '*');
+        }
+        console.log(str4);
+
+        // 字符串转化为数组
+        var str5 = 'Red,Pink,Orange';
+        console.log(str5.split(','));
+        
+        // 大小写转换
+        console.log(str5.toUpperCase());
+        console.log(str5.toLowerCase());
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

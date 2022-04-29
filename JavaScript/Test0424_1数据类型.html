@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据类型</title>
+    <script>
+        var temp = 1;
+        var str = 'Peppa';
+        // 数据类型可以动态变化
+        temp = 'Gorge';
+        // 八进制 0开头
+        var num1 = 010;
+        console.log(num1);
+        // 十六进制
+        var num2 = 0x9;
+        console.log(num2);
+        var num3 = 0x10;
+        console.log(num3);
+        // 最大值\最小值
+        console.log(Number.MAX_VALUE);
+        console.log(Number.MIN_VALUE);
+        // 无穷大\无穷小
+        console.log(Number.MAX_VALUE * 2);
+        console.log(Number.MAX_VALUE * -2);
+        // 非数字
+        console.log('Peppa' - 100);
+        // 判断是否为非数字
+        console.log(isNaN('Peppa'));
+        console.log(isNaN(123));
+
+        // String
+        console.log('你是一个"高富帅"\nhhh');
+
+        // 检测字符串长度
+        var tmp = 'Peppa pig';
+        console.log(tmp.length);
+
+        var age = 22;
+        console.log('Peppa is ' + age + 'years old this year.');
+
+        // 显示年龄
+        // var age = prompt('请输入你的年龄：')
+        // alert('你今年' + age + '岁。')
+
+        // Boolean
+        var flag = true;
+        // 数学计算时，true为1，false为0
+        console.log(flag);
+        console.log(flag + 1);
+
+        // undefined
+        var flag1;
+        console.log(flag1);
+        // 与字符串相连
+        console.log(flag1 + ' peppa');
+        console.log(flag1 + 1);
+
+        // null
+        var space = null;
+        console.log(space);
+        console.log(space + 1);
+
+        console.log('---------------');
+        // typeof
+        console.log(typeof (1));
+        console.log(typeof ('peppa'));
+        console.log(typeof (undefined));
+        console.log(typeof (null));
+
+        console.log('---------------');
+        // 进制转换
+        tmp = 1;
+        // tmp = 1 + '';
+        // tmp = tmp.toString();
+        tmp = String(tmp);
+        console.log(typeof (tmp));
+
+        tmp = '12';
+        tmp = parseInt(tmp);
+        console.log(tmp);
+        // 自动取整，必须以数字开头
+        console.log(parseInt('3.14'));
+        console.log(parseInt('120px'));
+        console.log(parseInt('peppa'));
+
+        console.log(parseFloat('3.14'));
+
+        console.log(Number('20'));
+        console.log(Number('3.14'));
+        // 隐式转换
+        console.log('12' - 0);
+        // var year = prompt('请输入你的出生年份：');
+        // alert(2022 - Number(year));
+        // alert(2022 - year);
+
+        // var num1 = prompt('First Number:');
+        // var num2 = prompt('Second Number:');
+        // alert("Result: " + (num1 - num2));
+
+        console.log('----------------');
+        console.log(Boolean(''));
+        console.log(Boolean(0));
+        console.log(Boolean(undefined));
+        console.log(Boolean(NaN));
+        console.log(Boolean(null));
+        console.log(Boolean(123));
+
+        console.log('---------------');
+        var na = prompt('请输入你的姓名：');
+        var age = prompt('请输入你的年龄：');
+        var sex = prompt('请输入你的性别：');
+        alert('姓名：' + na + '\n年龄：' + age + '\n性别：' + sex);
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
