@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件</title>
+    <link rel="shortcut icon" href="img/js.ico" type="image/x-icon">
+</head>
+
+<body>
+    <button id="btn1">唐伯虎</button>
+    <br>
+    <button id="btn2">显示当前系统时间</button>
+    <div>某个时间</div>
+
+    <script>
+        // 事件三要素：事件源   事件类型    事件处理程序
+        // (1)事件源 事件被触发的对象
+        var btn = document.getElementById('btn1');
+        // (2)事件类型 如何触发，如鼠标点击（onclick）
+        // (3)事件处理程序 通过一个函数赋指的方式 完成
+        btn.onclick = function() {
+            alert('秋香');
+        }
+
+        var btn = document.getElementById('btn2');
+        var timer = document.querySelector('div');
+        btn.onclick = function() {
+            // timer.innerText = '2022-04-29';
+            timer.innerHTML = getTime();
+        }
+        // 可以不添加触发事件,刷新即显示
+        timer.innerHTML = getTime();
+
+        function getTime() {
+            var time = new Date();
+            var h = time.getHours();
+            h = h < 10 ? '0' + h : h;
+            var m = time.getMinutes();
+            m = m < 10 ? '0' + m : m;
+            var s = time.getSeconds();
+            s = s < 10 ? '0' + s : s;
+
+            return h + ':' + m + ':' + s;
+        }
+    </script>
+</body>
+
+</html>

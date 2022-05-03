@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM-获取元素</title>
+    <link rel="shortcut icon" href="img/js.ico" type="image/x-icon">   
+</head>
+
+<body>
+    <div id="time">2019-9-9</div>
+    <div id="time">2019-9-9</div>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    <ol id="ol">
+        <li>生僻字</li>
+        <li>生僻字</li>
+        <li>生僻字</li>
+    </ol>
+
+    <div class="box">Hello World</div>
+    <div class="box">Hello World</div>
+
+    <script>
+        // 1.文档从上到下加载，因而先有标签后有script
+        // 2.返回的是一个元素对象
+        // 通过ID名
+        var timer = document.getElementById('time');
+        console.log(timer);
+        console.dir(timer);
+        console.log(typeof(timer));
+
+        // 通过标签名
+        var lis = document.getElementsByTagName('li');
+        console.log(lis);
+        console.log(lis[0]);
+        // 伪元素组不可以作为父类
+        var ol = document.getElementsByTagName('ol');
+        var lis = ol[0].getElementsByTagName('li');
+        // var ol = document.getElementById('ol');
+        // var lis = ol.getElementsByTagName('li');
+        console.log(lis);
+        // HTML5新增
+        var boxs = document.getElementsByClassName('box');
+        console.log(boxs);
+
+
+        // 无差别选择器
+        // querySelector 只选取查询到的第一个标签
+        var firstBox = document.querySelector('.box');
+        console.log(firstBox);
+        var timer = document.querySelector('#time');
+        console.log(timer);
+        var li = document.querySelector('li');
+        console.log(li);
+
+        // querySelectorAll 选取查询到的所有标签
+        var lis = document.querySelectorAll('li');
+        console.log(lis);
+
+
+        // 获取HTML元素
+        var htmlEle = document.documentElement;
+        console.log(htmlEle);
+        // 获取body元素
+        var bodyEle = document.body;
+        console.log(bodyEle);
+        console.dir(bodyEle);
+    </script>
+</body>
+
+</html>

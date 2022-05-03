@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM练习</title>
+    <link rel="shortcut icon" href="img/js.ico" type="image/x-icon">
+
+    <style>
+        ul {
+            overflow: hidden;
+            width: 216px;
+        }
+
+        ul li {
+            list-style: none;
+            float: left;
+            width: 24px;
+            height: 24px;
+            margin: 15px;
+            background: url(img/sprite.png);
+        }
+
+        .div_1 {
+            width: 200px;
+            height: 200px;
+            line-height: 200px;
+            background-color: pink;
+            text-align: center;
+            transition: all .3s;
+        }
+
+        .change {
+            /* width: 200px;
+            height: 300px; */
+            border-radius: 50%;
+            background-color: skyblue;
+            transition: all .3s;
+        }
+
+        .register {
+            overflow: hidden;
+            width: 600px;
+            height: 40px;
+        }
+
+        .ipt {
+            float: left;
+            margin: 10px 0;
+        }
+
+        .message {
+            float: left;
+            display: none;
+            padding-left: 20px;
+            margin-left: 5px;
+            font-size: 12px;
+            color: #999;
+            background: url(img/mess.png) no-repeat left center;
+        }
+        .mess-wrong {
+            color: red;
+            background-image: url(img/wrong.png);
+        }
+    </style>
+</head>
+
+<body>
+    <h2>JavaScript-自动布置Spirit</h2>
+    <ul class="ul_1">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <script>
+        var ul_1 = document.querySelector('.ul_1');
+        var lis = ul_1.querySelectorAll('li');
+
+        for (var i = 0; i < lis.length; i++) {
+            var p_y = -44 * i;
+            lis[i].style.backgroundPosition = '0 ' + p_y + 'px';
+        }
+    </script>
+
+    <h2>失去焦点、获得较多-显示隐藏文本框内容</h2>
+    <input type="text" class="ipt_1" value="请输入内容">
+    <script>
+        var ipt_1 = document.querySelector('.ipt_1');
+        ipt_1.onfocus = function () {
+            // console.log('获得焦点');
+            if (this.value === '请输入内容') {
+                this.style.outline = 'none';
+                this.value = '';
+            }
+
+            this.style.color = '#000';
+        }
+        ipt_1.onblur = function () {
+            if (this.value === '') {
+                this.value = '请输入内容'
+            }
+            this.style.color = '#666';
+        }
+    </script>
+
+    <h2>通过className更改元素样式</h2>
+    <div class="div_1">改革春风吹满地</div>
+    <script>
+        var div_1 = document.querySelector('.div_1');
+        // div_1.onclick = function () {
+        //     // 改变当前元素类名为‘change’
+        //     if (this.className === 'div_1') {
+        //         // 此方式会去除旧类名
+        //         this.className = 'change';
+        //     }
+        //     else if (this.className === 'change') {
+        //         this.className = 'div_1';
+        //     }
+        // }
+        div_1.onclick = function () {
+            this.className += ' change';
+        }
+    </script>
+
+    <h2>注册提示信息</h2>
+    <div class="register">
+        <input type="password" class="ipt">
+        <p class="message">请输入6~16位密码</p>
+    </div>
+    <script>
+        var ipt = document.querySelector('.ipt');
+        var mess = document.querySelector('.message');
+
+        ipt.onfocus = function () {
+            mess.style.display = 'inline-block';
+        }
+
+        ipt.onblur = function () {
+            if (this.value.length > 0 || this.value.length < 6) {
+                console.log(this.value.length);
+                mess.className = 'message mess-wrong';
+                mess.innerText = '密码长度小于6';
+            }
+            else if (this.value.length > 16) {
+                mess.className = 'message mess-wrong';
+                mess.innerText = '密码长度大于16';
+            }
+            // else if (this.value.length == 0) {
+            //     mess.className = 'message';
+            //     mess.innerText = '请输入6~16位密码';
+            // }
+            else {
+                mess.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+
+</html>
