@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>节点操作</title>
+    <link rel="shortcut icon" href="img/js.ico" type="image/x-icon">
+</head>
+
+<body>
+    <h2>查找节点</h2>
+    <div class="demo">
+        <div class="box">
+            <span class="del">×</span>
+        </div>
+    </div>
+
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    <script>
+        console.log('-----查找父节点、所有子节点-----');
+        var del = document.querySelector('.del');
+        var demo = document.querySelector('.demo');
+        // 得到的是离元素最近的父元素，查询不到，返回值为null
+        console.log(del.parentNode);
+        console.log(del.childNodes);
+
+        var ul = document.querySelector('ul');
+        // childNodes 包含所有类型的节点
+        console.log(ul.childNodes);
+        // 非标准，实际开发中最常用，只包含元素节点
+        console.log(ul.children);
+
+        // 
+        console.log('-----查找某一个子节点-----');
+        console.log(ul.firstChild);
+        console.log(ul.firstElementChild);  // 会有兼容性问题
+        // 开发中的实际操作方法
+        console.log(ul.children[0]);
+        console.log(ul.children[ul.children.length - 1]);
+
+
+        console.log('-----查找兄弟节点-----');
+        console.log(ul.children[0].previousSibling);
+        console.log(ul.children[0].nextSibling);
+        // 此仍有兼容性问题
+        console.log(ul.children[0].previousElementSibling);
+        console.log(ul.children[0].nextElementSibling);
+        // 无好的解决方法，只能封装一个函数解决
+        function getNextElementSibling(element) {
+            var el = element;
+            while (el = el.nextSibling) {
+                if (el.nodeType === 1) {
+                    return el;
+                }
+            }
+
+            return null;
+        }
+
+        function getPreviousElementSibling(element) {
+            var el = element;
+            while (el = el.previousSibling) {
+                if (el.nodeType === 1) {
+                    return el;
+                }
+            }
+
+            return null;
+        }
+        console.log(getNextElementSibling(ul.children[0]));
+    </script>
+
+    <h2>创建节点</h2>
+    <ul class="ul2">
+        <li>中间</li>
+    </ul>
+    <script>
+        console.log('-----创建节点------');
+        var ul = document.querySelector('.ul2');
+        // 1、创建节点
+        var li1 = document.createElement('li');
+        // 2、添加节点，插入到队尾
+        ul.appendChild(li1);
+        // 插入到指定位置
+        // 同一个元素只能被插入一次
+        var li2 = document.createElement('li');
+        ul.insertBefore(li2, ul.children[0]);
+    </script>
+</body>
+
+</html>

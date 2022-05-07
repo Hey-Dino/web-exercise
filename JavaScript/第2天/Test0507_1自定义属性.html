@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自定义属性</title>
+    <link rel="shortcut icon" href="img/js.ico" type="image/x-icon">
+</head>
+
+<body>
+    <h1>点击F12键，查看Console内容</h1>
+    <div id="demo" index="1"></div>
+
+    <h2>获取属性值的两种方法</h2>
+    <h3>区分element.属性 和 element.getAttribute()的不同点</h3>
+    <!-- html标签原有的内置属性，index等用户自定义属性 -->
+
+    <script>
+        console.log('-----获取属性值-----');
+        var div = document.querySelector('div');
+        // element.属性只能获取内置属性
+        console.log(div.id);
+        console.log(div.index);  // 结果为undefined
+
+        // element.getAttribute() 可以获取内置属性、自定义属性
+        console.log(div.getAttribute('id'));
+        console.log(div.getAttribute('index'));
+
+        // 获取class时，两种方法的属性名略有区别
+        div.setAttribute('class', 'nav');
+        console.log(div.getAttribute('class'));
+        console.log(div.className);
+    </script>
+
+    <h2>设置属性的两种方法</h2>
+    <h3>类似于上述获取方法，不同点：element.setAttribute()</h3>
+    <script>
+        console.log('-----设置属性值-----');
+        var div = document.querySelector('div');
+
+        div.id = 'test';
+        console.log(div.id);
+
+        // element.setAttribute('属性', '属性值')
+        div.setAttribute('index', 2);
+        console.log(div.getAttribute('index'));
+    </script>
+
+    <h2>移除属性</h2>
+    <h3>element.removeAttribute()</h3>
+    <script>
+        console.log('-----移除自定义属性值-----');
+        var div = document.querySelector('div');
+
+        div.removeAttribute('index');
+        console.log(div.getAttribute('index'));
+    </script>
+
+    <h2>H5对自定义属性的规范</h2>
+    <h3>自定义属性应以"data-***"的形式命名，如"data-index"</h3>
+    <h3>H5新增获取自定义属性方法:element.dataset.index 或 element.dataset['index']，此时自定义属性名为：data-index</h3>
+</body>
+
+</html>

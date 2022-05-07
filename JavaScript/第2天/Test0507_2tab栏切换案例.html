@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tab栏切换案例</title>
+    <link rel="shortcut icon" href="img/js.ico" type="image/x-icon">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .tab {
+            width: 980px;
+            margin: 100px auto;
+        }
+
+        .tab_list {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+        }
+
+        .tab_list ul li {
+            float: left;
+            padding: 0 20px;
+            cursor: pointer;
+        }
+
+        .tab_list .current {
+            background-color: #c81623;
+            color: #fff;
+        }
+
+        .item {
+            display: none;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tab">
+        <div class="tab_list">
+            <ul>
+                <li class="current">商品介绍</li>
+                <li>规格与包装</li>
+                <li>售后保障</li>
+                <li>商品评价（50000）</li>
+                <li>手机社区</li>
+            </ul>
+        </div>
+        <div class="tab_con">
+            <div class="item" style="display: block;">
+                商品介绍模块内容
+            </div>
+            <div class="item">
+                规格与包装模块内容
+            </div>
+            <div class="item">
+                售后保障模块内容
+            </div>
+            <div class="item">
+                商品评价（50000）模块内容
+            </div>
+            <div class="item">
+                手机社区模块内容
+            </div>
+        </div>
+    </div>
+    <script>
+        var tab = document.querySelector('.tab');
+        var lis = tab.querySelector('.tab_list').querySelectorAll('li');
+        var items = tab.querySelector('.tab_con').querySelectorAll('.item');
+
+        for (var i = 0; i < lis.length; i++) {
+            // 给所有li设置索引号
+            lis[i].setAttribute('data-index', i);
+
+            lis[i].onclick = function () {
+                // 1.更改模块选项卡样式
+                for (var j = 0; j < lis.length; j++) {
+                    lis[j].className = '';
+                }
+
+                this.className = 'current';
+
+                // 2.调整显示内容
+                var index = this.getAttribute('data-index');
+                for (var j = 0; j < items.length; j++) {
+                    items[j].style.display = 'none';
+                }
+
+                items[index].style.display = 'block';
+            }
+        }
+    </script>
+</body>
+
+</html>
