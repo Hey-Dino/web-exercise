@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册事件</title>
+    <link rel="shortcut icon" href="img/js.ico" type="image/x-icon">
+
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            border: 1px solid pink;
+            background-color: skyblue;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>绑定事件</h1>
+    <h2>传统方法、事件监听注册事件的差别</h2>
+    <button>点击激发事件(传统方法)</button>
+    <button>点击激发事件(事件监听)</button>
+
+    <script>
+        var btns = document.querySelectorAll('button');
+        // 1.传统方法注册事件，事件具有唯一性
+        btns[0].onclick = function () {
+            alert('tip1');
+        }
+        btns[0].onclick = function () {
+            alert('tip2');
+        }
+
+        // 2.事件监听注册事件，addEventListener 里面的事件类型必须是字符串，且不带on
+        btns[1].addEventListener('click', function () {
+            alert('tip1');
+        });
+        btns[1].addEventListener('click', function () {
+            alert('tip2');
+        });
+
+    </script>
+
+
+    <h1>解绑事件</h1>
+    <div>传统方式</div>
+    <div>监听事件</div>
+    <script>
+        var divs = document.querySelectorAll('div');
+        // 传统方式绑定、解绑
+        divs[0].onclick = function () {
+            alert('div-0');
+            this.onclick = null;
+        }
+
+        // 监听函数绑定、解绑
+        function fn() {
+            alert('div');
+            this.removeEventListener('click', fn);
+        }
+        divs[1].addEventListener('click', fn);
+    </script>
+
+    <h2>Hello World</h2>
+</body>
+
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>对象属性</title>
+    <link rel="shortcut icon" href="img/js.ico" type="image/x-icon">
+
+    <style>
+        .event {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+        }
+
+        .div2 {
+            width: 200px;
+            height: 200px;
+            background-color: skyblue;
+        }
+
+        .fa {
+            overflow: hidden;
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+        }
+
+        .son {
+            width: 100px;
+            height: 100px;
+            margin: 50px auto;
+            background-color: skyblue;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>请按F12后，查看Console</h1>
+    <h2>事件对象</h2>
+    <div class="event"></div>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    <script>
+        var div = document.querySelector('.event');
+        var ul = document.querySelector('ul');
+
+        div.addEventListener('click', function (event) {
+            // console.log(event);
+            // // 适用于IE 6、7、8
+            // console.log(window.event);
+            // 兼容性写法
+            console.log(event || window.event);
+        });
+
+        ul.addEventListener('click', function (event) {
+            // target 指向触发该函数的对象，可以是ul，也可以是li，IE6、7、8不认识event.target
+            console.log(event.target);
+            // this指向绑定的对象，即ul
+            console.log(this);
+        });
+    </script>
+
+    <h2>事件对象的其余属性</h2>
+    <h3>返回事件类型，请移入、移除、点击下方盒子</h3>
+    <div class="div2"></div>
+    <script>
+        var div2 = document.querySelector(".div2");
+        function fn(e) {
+            console.log(e.type);
+        }
+        div2.addEventListener('mouseover', fn);
+        div2.addEventListener('mouseout', fn);
+        div2.addEventListener('click', fn);
+    </script>
+
+    <h2>阻止默认行为（事件），如让链接不跳转、按钮不提交</h2>
+    <a href="http://www.baidu.com">请点击该链接</a>
+    <br>
+    <button class="btn">按钮</button>
+    <script>
+        var a = document.querySelector('a');
+        var btn = document.querySelector('.btn');
+
+        a.onclick = function (e) {
+            // 普通浏览器
+            e.preventDefault();
+            // IE6、7、8
+            e.returnValue;
+            // 无兼容性问题，但是无法指向其下方操作
+            return false;
+            alert('');
+        };
+
+        btn.onclick = function (e) {
+            e.type;
+        };
+    </script>
+
+    <h2>阻止冒泡</h2>
+    <h2>DOM事件流-捕获、冒泡</h2>
+    <div class="fa">
+        <div class="son"></div>
+    </div>
+    <script>
+        var son = document.querySelector('.son');
+        var fa = document.querySelector('.fa');
+
+        son.addEventListener('click', function (e) {
+            alert('Son');
+            e.stopPropagation();
+            // IE6、7、8
+            e.cancelBubble();
+        });
+        fa.addEventListener('click', function (e) {
+            alert('Father');
+        });
+        // document.addEventListener('click', function () {
+        //     alert('Document');
+        // });
+    </script>
+
+    <h2>利用冒泡-事件委托</h2>
+    <ul class="ul2">
+        <li>知否知否，我有委托在手</li>
+        <li>知否知否，我有委托在手</li>
+        <li>知否知否，我有委托在手</li>
+        <li>知否知否，我有委托在手</li>
+    </ul>
+    <script>
+        var ul2 = document.querySelector('.ul2');
+
+        ul2.onclick = function(e) {
+            alert(e.target.innerText);
+            // 排他
+            for (var i = 0; i < ul2.children.length; i++) {
+                ul2.children[i].style.backgroundColor = 'transparent';
+            }
+            e.target.style.backgroundColor = 'pink';
+        } 
+    </script>
+
+    <h2>阻止右键菜单</h2>
+    <script>
+        document.addEventListener('contextmenu', function(e){
+            e.preventDefault();
+        });
+    </script>
+    
+    <h2>阻止鼠标选中</h2>
+    <script>
+        document.addEventListener('selectstart', function(e){
+            e.preventDefault();
+        });
+    </script>
+</body>
+
+</html>

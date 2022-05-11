@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>location对象</title>
+    <link rel="shortcut icon" href="img/js.ico" type="image/x-icon">
+</head>
+
+<body>
+    <h1>使用location.href</h1>
+    <h2>实例1</h2>
+    <button class="btn1">点击获取url</button>
+    <script>
+        var btn1 = document.querySelector('.btn1');
+        btn1.onclick = function () {
+            var h3 = document.createElement("h3");
+            h3.innerText = "href: " + location.href;
+            this.parentElement.insertBefore(h3, this.nextElementSibling);
+        }
+    </script>
+
+    <h2>实例2</h2>
+    <button class="btn2">点击跳转页面</button>
+    <div class="countdown"></div>
+    <script>
+        var btn2 = document.querySelector('.btn2');
+        btn2.addEventListener('click', function () {
+            var time = 2;
+            var countdown = document.querySelector('.countdown');
+
+            setInterval(function(){
+                if (time == -1) {
+                    location.href = "https://www.bilibili.com";
+                }
+                else {
+                    countdown.innerText = time-- + "s后跳转哔哩哔哩";
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+
+</html>

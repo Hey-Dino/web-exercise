@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOM-页面加载事件</title>
+    <link rel="shortcut icon" href="img/js.ico" type="image/x-icon">
+
+    <script>
+        // 传统方式具有唯一性
+        // window.onload = function () {
+        //     var btn1 = document.querySelector('.btn1');
+        //     btn1.onclick = function () {
+        //         alert('Hello JavaScript!')
+        //     }
+        // }
+
+        // onload事件在页面加载完后才执行
+        window.addEventListener('load', function () {
+            var btn1 = document.querySelector('.btn1');
+            btn1.onclick = function () {
+                alert('Hello JavaScript!')
+            }
+        });
+        window.addEventListener('load', function () {
+            alert('Hello JavaScript 2!')
+        });
+
+        // DOMContentLoaded加载先于load
+        document.addEventListener('DOMContentLoaded', function () {
+            alert('DOMContentLoaded!')
+        })
+    </script>
+</head>
+
+<body>
+    <h1>window.load</h1>
+    <button class="btn1">This is a button.</button>
+</body>
+
+</html>

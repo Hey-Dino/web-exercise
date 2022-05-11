@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>location-对象方法</title>
+    <link rel="shortcut icon" href="img/js.ico" type="image/x-icon">
+</head>
+
+<body>
+    <h2>assign / replace / onload</h2>
+    <button class="btn1">点击跳转/刷新</button>
+    <script>
+        var btn1 = document.querySelector('.btn1');
+        btn1.onclick = function () {
+            // 重定向页面，可回退(若自动跳转，同样不可回退)
+            // location.assign('http://www.bilibili.com');
+            // location.href = 'http://www.bilibili.com';
+
+            // 替换当前页面，不可回退
+            // location.replace('http://www.bilibili.com');
+
+            // 重新加载页面，添加参数true表示强制刷新
+            location.reload('http://www.bilibili.com', true);
+        }
+    </script>
+</body>
+
+</html>

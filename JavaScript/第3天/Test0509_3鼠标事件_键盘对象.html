@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>常见的鼠标、键盘对象</title>
+    <link rel="shortcut icon" href="img/js.ico" type="image/x-icon">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            padding: 0;
+        }
+
+        body {
+            width: 100%;
+            height: 2000px;
+        }
+
+        img {
+            position: absolute;
+            z-index: 2;
+            transform: translate(1px, 1px);
+            /* top: 0; */
+            /* left: 0; */
+        }
+
+        .sear-box {
+            position: relative;
+            width: 200px;
+            height: 30px;
+            margin-top: 50px;
+        }
+
+        .sear-box .search2 {
+            width: 100%;
+            height: 100%;
+        }
+
+        .sear-box .big-cont {
+            display: none;
+            position: absolute;
+            top: -50px;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            line-height: 38px;
+            font-size: 18px;
+            border: 1px solid #666;
+        }
+
+        .sear-box .big-cont::after {
+            position: absolute;
+            top: 100%;
+            left: 10px;
+            content: '';
+            border-width: 10px 10px 0px 10px;
+            border-style: solid;
+            border-color: skyblue transparent transparent transparent;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>按F12，查看Console，点击屏幕可视区域</h1>
+    <script>
+        document.addEventListener('click', function (e) {
+            // console.log(e);
+
+            // 相对与可视窗口
+            // console.log("X:" + e.clientX + " Y:" + e.clientY);
+            // 相对于文档页面
+            console.log("X:" + e.pageX + " Y:" + e.pageY);
+            // 相对于屏幕
+            // console.log("X:" + e.screenX + " Y:" + e.screenY);
+        });
+    </script>
+
+    <h2>跟随鼠标的图片</h2>
+    <img src="img/angel.gif" alt="">
+    <script>
+        var img = document.querySelector('img');
+
+        document.addEventListener('mousemove', function (e) {
+            var x = e.pageX;
+            var y = e.pageY;
+            img.style.left = x + "px";
+            img.style.top = y + "px";
+        });
+    </script>
+
+    <h1>键盘⌨事件</h1>
+    <script>
+        document.addEventListener('keyup', function (e) {
+            // console.log('我弹起了');
+            // kekup 不区分大小写，有bug，实际操作好像又支持了
+            console.log("keyup:" + e.key + " " + e.keyCode);
+        });
+        document.addEventListener('keydown', function () {
+            // console.log('我按下了-keydown');
+        });
+        // keypress 不识别功能键，如方向键、Ctrl
+        document.addEventListener('keypress', function (e) {
+            // console.log('我按下了-keypress');
+            console.log("keypress:" + e.key + " " + e.keyCode);
+        });
+
+        // 执行顺序：keydown -> keypress -> keyup
+    </script>
+
+    <h2>仿京东，按S键定位搜索框</h2>
+    <input type="text" class="search">
+    <script>
+        var search = document.querySelector('.search');
+        document.addEventListener('keyup', function (e) {
+            if (e.keyCode === 83) {
+                search.focus();
+            }
+        })
+    </script>
+
+    <h2>仿京东物流查询功能，突出输入内容</h2>
+    <div class="sear-box">
+        <input type="text" class="search2" placeholder="请输入您的快递单号">
+        <div class="big-cont"></div>
+    </div>
+    <script>
+        var search2 = document.querySelector('.search2');
+        var big_cont = document.querySelector('.big-cont');
+
+        search2.addEventListener('keyup', function(e) {
+            if (this.value !== '') {
+                big_cont.style.display = 'block';
+                big_cont.innerHTML = this.value;
+            }
+            else {
+                big_cont.style.display = 'none';
+            }
+        });
+
+        // 若离开文本框，则隐藏提示样式
+        search2.addEventListener('blur', function(e) {
+            big_cont.style.display = 'none';
+        });
+
+        search2.addEventListener('focus', function() {
+            if (search2.value !== '') {
+                big_cont.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+
+</html>

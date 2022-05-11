@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>调整窗口大小事件</title>
+    <link rel="shortcut icon" href="img/js.ico" type="image/x-icon">
+
+    <style>
+        .div1 {
+            width: 200px;
+            height: 200px;
+            line-height: 200px;
+            text-align: center;
+            background-color: skyblue;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>监听页面大小变化</h2>
+    <script>
+        window.addEventListener('load', function () {
+            var div1 = document.querySelector('.div1');
+            // 为span赋指
+            div1.children[0].innerHTML = window.innerWidth;
+
+            window.onresize = function () {
+                // 为span赋指
+                div1.children[0].innerHTML = window.innerWidth;
+
+                if (window.innerWidth < 800) {
+                    div1.style.display = 'none';
+                } else {
+                    div1.style.display = 'block';
+                }
+            }
+        })
+    </script>
+    <div class="div1">页面尺寸: <span></span>px</div>
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM事件流</title>
+    <link rel="shortcut icon" href="img/js.ico" type="image/x-icon">
+
+    <style>
+        .fa {
+            overflow: hidden;
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+        }
+
+        .son {
+            width: 100px;
+            height: 100px;
+            margin: 50px auto;
+            background-color: skyblue;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>DOM事件流-捕获、冒泡</h2>
+    <div class="fa">
+        <div class="son"></div>
+    </div>
+    <script>
+        var son = document.querySelector('.son');
+        var fa = document.querySelector('.fa');
+
+        // 事件捕获
+        // son.addEventListener('click', function () {
+        //     alert('Son');
+        // }, true);
+        // fa.addEventListener('click', function () {
+        //     alert('Father');
+        // }, true);
+
+        // 事件冒泡，addEventListener的第三个参数为空 或 false
+        son.addEventListener('click', function () {
+            alert('Son');
+        }, false);
+        fa.addEventListener('click', function () {
+            alert('Father');
+        }, false);
+        // document.addEventListener('click', function () {
+        //     alert('Document');
+        // }, false);
+    </script>
+</body>
+
+</html>

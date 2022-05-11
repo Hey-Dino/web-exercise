@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>节点操作2</title>
+    <link rel="shortcut icon" href="img/js.ico" type="image/x-icon">
+</head>
+
+<body>
+    <h2>删除节点</h2>
+    <button class="btn1">删除</button>
+    <ul class="ul1">
+        <li>熊大</li>
+        <li>熊二</li>
+        <li>光头强</li>
+    </ul>
+    <script>
+        var btn1 = document.querySelector('.btn1');
+        var ul1 = document.querySelector('.ul1');
+
+        btn1.onclick = function () {
+            ul1.removeChild(ul1.children[0]);
+            console.log(ul1.children);
+
+            if (ul1.children.length === 0) {
+                this.disabled = true;
+            }
+        }
+    </script>
+
+    <h3>发布/删除留言</h3>
+    <textarea id="" cols="30" rows="10"></textarea>
+    <button class="btn2">提交</button>
+    <ul class="ul2"></ul>
+    <script>
+        var textarea = document.querySelector('textarea');
+        var btn2 = document.querySelector('.btn2');
+        var ul2 = document.querySelector('.ul2');
+
+        btn2.onclick = function () {
+            if (textarea.value === '') {
+                alert('文本内容为空！');
+            } else {
+                // 创建节点
+                var li = document.createElement('li');
+                // 为节点添加数据
+                li.innerHTML = textarea.value + '<a href="javascript:;">删除</a>';
+                // 插入节点
+                ul2.insertBefore(li, ul2.children[0]);
+                // 删除textarea的内容
+                textarea.value = '';
+
+                // 删除留言
+                var as = ul2.querySelectorAll('a');
+                for (var i = 0; i < as.length; i++) {
+                    as[i].onclick = function () {
+                        ul2.removeChild(this.parentNode);
+                    }
+                }
+            }
+        }
+    </script>
+
+    <h2>复制节点</h2>
+    <button class="btn3">克隆第一个li</button>
+    <ul class="ul3">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    <script>
+        var ul = document.querySelector('.ul3');
+        var btn3 = document.querySelector('.btn3');
+
+        btn3.onclick = function () {
+            // cloneNode的参数为空或false，为浅拷贝，只复制标签不复制里面的内容
+            // cloneNode的参数为true，为深拷贝
+            var node = ul.children[0].cloneNode(true);
+            ul.append(node);
+        }
+    </script>
+
+    <h2>动态生成表格案例</h2>
+    <button class="btn4">上传数据</button>
+    <table>
+        <thead>
+            <tr>
+                <th>姓名</th>
+                <th>科目</th>
+                <th>成绩</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <script>
+        // 模拟数据
+        var datas = [{
+            name: 'Pepaa',
+            subject: 'JavaScript',
+            score: 100
+        }, {
+            name: 'George',
+            subject: 'JavaScript',
+            score: 99
+        }, {
+            name: 'Pepro',
+            subject: 'JavaScript',
+            score: 98
+        }];
+
+        var btn4 = document.querySelector('.btn4');
+        var table = document.querySelector('table');
+        var tbody = table.querySelector('tbody');
+
+        btn4.onclick = function () {
+            for (var i = 0; i < datas.length; i++) {
+                // 获取对象
+                var data = datas[i];
+                // 创建行tr
+                var tr = document.createElement('tr');
+
+                // 为行赋值
+                for (var j in data) {
+                    // 创建单元格
+                    var td = document.createElement('td');
+                    // 为单元格插入数据
+                    td.innerHTML = data[j];
+                    // 在行tr中插入上述单元格
+                    tr.append(td);
+                }
+                var td = document.createElement('td');
+                td.innerHTML = '<a href="javascript:;">删除</a>';
+                tr.append(td);
+
+                tbody.append(tr);
+
+                // 增加删除功能
+                var a = tr.querySelector('a');
+                a.onclick = function () {
+                    tbody.removeChild(this.parentNode.parentNode);
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

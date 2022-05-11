@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>offset对象</title>
+    <link rel="shortcut icon" href="img/js.ico" type="image/x-icon">
+
+    <style>
+        /* offset基础用法 */
+        .dad {
+            overflow: hidden;
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: auto;
+            background-color: skyblue;
+        }
+
+        .son {
+            width: 100px;
+            height: 100px;
+            margin: 48px auto;
+            background-color: pink;
+            border: 2px solid orange;
+        }
+
+        /* offset实例 */
+        .demo1 {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            line-height: 30px;
+            text-align: center;
+            background-color: skyblue;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>offset基础用法</h1>
+    <div>
+        <div class="dad">
+            <div class="son" style="width: 100px;height: 100px;"></div>
+        </div>
+    </div>
+
+    <script>
+        var dad = document.querySelector('.dad');
+        var son = document.querySelector('.son');
+
+        console.log('-----offsetTop、offsetLeft------');
+        console.log(dad.offsetTop);
+        console.log(dad.offsetLeft);
+        // offsetTop、offsetLeft是针对带有定位的父标签计算的
+        console.log(son.offsetTop);
+        console.log(son.offsetLeft);
+
+        console.log('\n-----offsetWidth、offsetHeight------');
+        // offsetWidth、offsetHeight包含padding和border在内
+        console.log("son的offsetWidth: " + son.offsetWidth);
+        // offset是只读属性
+        son.offsetWidth = '300px';
+        console.log("son的offsetHeight: " + son.offsetHeight);
+        // element.width、element.height只能识别行内样式属性
+        console.log("son的Width: " + son.style.width);
+        console.log("son的Height: " + son.style.height);
+
+        console.log('\n-----offsetParent------');
+        // dad.offsetParent是针对带有定位的父标签判断的
+        // dad的直接父类div未带有定位，因而向上查询其间接父类，最终找到body
+        console.log(dad.offsetParent);
+        console.log(dad.parentNode);
+    </script>
+
+    <h1>offset实例</h1>
+    <h2>实例一：获取鼠标在盒子内的坐标</h2>
+    <div class="demo1">
+        x坐标：&nbsp;<span>0</span>px
+        <br>
+        Y坐标：&nbsp;<span>0</span>px
+    </div>
+    <script>
+        var demo1 = document.querySelector('.demo1');
+        demo1.addEventListener('mousemove', function (e) {
+            var x = e.pageX - this.offsetLeft;
+            var y = e.pageY - this.offsetTop;
+
+            this.children[0].innerText = x;
+            this.children[2].innerText = y;
+        });
+
+        demo1.addEventListener('mouseout', function () {
+            this.children[0].innerText = 0;
+            this.children[2].innerText = 0;
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>定时器</title>
+    <link rel="shortcut icon" href="img/js.ico" type="image/x-icon">
+
+    <style>
+        .div1 {
+            width: 200px;
+            height: 200px;
+            line-height: 200px;
+            text-align: center;
+            background-color: skyblue;
+        }
+
+        .div2 {
+            overflow: hidden;
+            width: 200px;
+            height: 200px;
+            background-color: #f6472d;
+        }
+
+        .div2 ul {
+            overflow: hidden;
+            width: 180px;
+            margin: 75px auto;
+            padding: 0;
+        }
+
+        .div2 ul li {
+            float: left;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            margin: 0 5px;
+            padding-left: 0;
+            list-style: none;
+            background-color: #2f3330;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>setTimeout-延时调用</h1>
+    <h2>刷新等待5S</h2>
+    <script>
+        function callback() {
+            alert('爆炸了！！！')
+        }
+        // setTimeout(callback, 5000)
+    </script>
+
+    <h2>设置多个定时器，刷新后等待10s、20s</h2>
+    <script>
+        // setTimeout的第一个参数为回调函数
+        // var time1 = setTimeout(callback, 10000);
+        // var time2 = setTimeout(callback, 20000);
+    </script>
+
+
+    <h2>自动关闭广告</h2>
+    <img src="img/ad.jpg">
+    <script>
+        var ad = document.querySelector('img');
+
+        function close(element) {
+            element.style.display = 'none';
+        }
+        // 下方二者效果不同
+        var time3 = setTimeout(close, 3000, ad);
+    </script>
+
+
+    <h2>停止计时器</h2>
+    <button class="btn1">3s内点击停止自动关闭上方广告</button>
+    <script>
+        var btn1 = document.querySelector('.btn1');
+        btn1.addEventListener('click', function () {
+            clearTimeout(time3);
+        });
+
+        // 若3s内为点击，按钮切换为不可点击
+        setTimeout(function () {
+            btn1.disabled = true;
+        }, 3000);
+    </script>
+
+
+    <h1>setInterval-间隔反复调用</h1>
+    <div class="div1">累积: <span></span>ms</div>
+    <script>
+        var div1 = document.querySelector('.div1');
+        var span = div1.firstElementChild;
+        var num = 0;
+
+        function update_num() {
+            num++;
+            span.innerText = num;
+        }
+
+        setInterval(update_num, 1);
+    </script>
+
+
+    <h2>实例-倒计时效果</h2>
+    <div class="div2">
+        <ul class="countdown">
+            <li class="hour">1</li>
+            <li class="minute">2</li>
+            <li class="second">3</li>
+        </ul>
+    </div>
+    <script>
+        var countdown = document.querySelector('.countdown');
+        var hour = countdown.children[0];
+        var minute = countdown.children[1];
+        var second = countdown.children[2];
+        countDown()
+
+        function countDown(futher) {
+            var now = +new Date();
+            var diff = (futher - now) / 1000;
+            console.log('Futher:' + futher/1000 + " Now:" + now/1000 + " " +(futher > now));
+
+            h = parseInt(diff / 60 / 60 % 24);
+            h = h < 10 ? '0' + h : h;
+            m = parseInt(diff / 60 % 60);
+            m = m < 10 ? '0' + m : m;
+            s = parseInt(diff % 60);
+            s = s < 10 ? '0' + s : s;
+
+            hour.innerText = h;
+            minute.innerText = m;
+            second.innerText = s;
+        }
+
+        var futher = +new Date(2022, 05, 10);
+        console.log("Futher:" + futher/1000);
+        setInterval(countDown, 1000, futher);
+    </script>
+</body>
+
+</html>
