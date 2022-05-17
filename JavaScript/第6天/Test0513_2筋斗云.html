@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>筋斗云</title>
+    <link rel="shortcut icon" href="img/js.ico" type="image/x-icon">
+    <script src="js/animate.js"></script>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            background-color: black;
+        }
+
+        .c-nav {
+            position: relative;
+            width: 900px;
+            height: 42px;
+            line-height: 42px;
+            margin: 100px auto;
+            border-radius: 10px;
+            background: #fff url(img/rss.png) no-repeat center right;
+        }
+
+        .c-nav ul {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .c-nav ul li {
+            float: left;
+            list-style: none;
+        }
+
+        .c-nav ul li a {
+            display: inline-block;
+            padding: 0 10px;
+            text-decoration: none;
+            color: #333;
+            transition: all .3s;
+        }
+
+        .c-nav ul li a:hover {
+            color: #fff;
+        }
+
+        .c-nav ul li.current a {
+            color: #0dff1d;
+        }
+
+        .c-nav .cloud {
+            position: absolute;
+            width: 83px;
+            height: 42px;
+            top: 0;
+            left: 0;
+            background: url(img/cloud.gif) no-repeat;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        window.addEventListener('load', () => {
+            var c_nav = document.querySelector('.c-nav');
+            var cloud = c_nav.querySelector('.cloud');
+            var ul = c_nav.querySelector('ul');
+            var lis = ul.children;
+
+            // 记录筋斗云当前left
+            var current = 0;
+            for (var i = 0; i < lis.length; i++) {
+                lis[i].addEventListener('mouseenter', function () {
+                    animate(cloud, this.offsetLeft);
+                });
+                lis[i].addEventListener('mouseleave', function () {
+                    animate(cloud, current);
+                });
+                lis[i].addEventListener('click', function () {
+                    current = this.offsetLeft;
+                });
+            }
+        })
+    </script>
+
+    <div class="c-nav">
+        <span class="cloud"></span>
+        <ul>
+            <li class="current"><a href="#">首页新闻</a></li>
+            <li><a href="#">师资力量</a></li>
+            <li><a href="#">活动策划</a></li>
+            <li><a href="#">企业文化</a></li>
+            <li><a href="#">招聘信息</a></li>
+            <li><a href="#">公司简介</a></li>
+            <li><a href="#">我是佩奇</a></li>
+            <li><a href="#">啥是佩奇</a></li>
+        </ul>
+    </div>
+</body>
+
+</html>

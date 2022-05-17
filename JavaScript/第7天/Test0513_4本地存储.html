@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>本地存储</title>
+    <link rel="shortcut icon" href="img/js.ico" type="image/x-icon">
+</head>
+
+<body>
+    <h1>本地存储-按F12键，点击Application</h1>
+    <h3>存储数据：请在两个输入框中均输入信息。<br>获取数据、删除数据：请第一个数据库输入信息。<br>删除所有数据：无需任何输入。</h3>
+    <h2>sessionStorage</h2>
+    <input type="text" class="ipt1" placeholder="键">
+    <input type="text" class="ipt2" placeholder="值">
+    <br>
+    <button class="btn-1">存储数据</button>
+    <button class="btn-2">获取数据</button>
+    <button class="btn-3">删除数据</button>
+    <button class="btn-4">删除所有数据</button>
+
+    <script>
+        var ipt1 = document.querySelector('.ipt1');
+        var ipt2 = document.querySelector('.ipt2');
+        var btns = document.querySelectorAll('button');
+        var btn1 = btns[0];
+        var btn2 = btns[1];
+        var btn3 = btns[2];
+        var btn4 = btns[3];
+
+        // 存储数据
+        btn1.addEventListener('click', function () {
+            sessionStorage.setItem(ipt1.value, ipt2.value);
+        });
+        // 获取数据
+        btn2.addEventListener('click', function () {
+            ipt2.value = sessionStorage.getItem(ipt1.value);
+        });
+        // 删除数据
+        btn3.addEventListener('click', function () {
+            sessionStorage.removeItem(ipt1.value);
+        });
+        // 删除所有数据
+        btn4.addEventListener('click', function () {
+            var flag = confirm('确定删除所有数据吗？');
+            if (flag) {
+                sessionStorage.clear();
+            }
+        });
+    </script>
+
+    <h2>localStorage</h2>
+    <input type="text" class="ipt3" placeholder="键">
+    <input type="text" class="ipt4" placeholder="值">
+    <br>
+    <button class="btn-5">存储数据</button>
+    <button class="btn-6">获取数据</button>
+    <button class="btn-7">删除数据</button>
+    <button class="btn-8">删除所有数据</button>
+    <script>
+        var ipt3 = document.querySelector('.ipt3');
+        var ipt4 = document.querySelector('.ipt4');
+        var btns = document.querySelectorAll('button');
+        console.log(btns);
+        var btn5 = btns[4];
+        var btn6 = btns[5];
+        var btn7 = btns[6];
+        var btn8 = btns[7];
+
+        // 存储数据
+        btn5.addEventListener('click', function () {
+            localStorage.setItem(ipt3.value, ipt4.value);
+        });
+        // 获取数据
+        btn6.addEventListener('click', function () {
+            ipt4.value = localStorage.getItem(ipt3.value);
+        });
+        // 删除数据
+        btn7.addEventListener('click', function () {
+            localStorage.removeItem(ipt3.value);
+        });
+        // 删除所有数据
+        btn8.addEventListener('click', function () {
+            var flag = confirm('确定删除所有数据吗？');
+            if (flag) {
+                localStorage.clear();
+            }
+        });
+    </script>
+
+    <h2>二者区别：<br>sessionStorage的生命周期随网页的关闭而结束。<br>而localstorage的数据存储于浏览器中，生命周期不随网页的关闭而结束。</h2>
+</body>
+
+</html>

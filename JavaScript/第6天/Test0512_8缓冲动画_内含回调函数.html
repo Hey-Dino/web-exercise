@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>缓冲动画</title>
+    <link rel="shortcut icon" href="img/js.ico" type="image/x-icon">
+
+    <style>
+        div {
+            position: absolute;
+            top: 100px;
+            left: 0;
+            width: 200px;
+            height: 200px;
+            background-color: skyblue;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>简单缓冲动——内含回调函数</h2>
+    <button class="btn800">点击移动到800</button>
+    <button class="btn500">点击移动到500</button>
+    <div></div>
+    <script>
+        // 缓动动画函数封装obj目标对象 target 目标位置
+        // 思路：
+        // 1. 让盒子每次移动的距离慢慢变小， 速度就会慢慢落下来。
+        // 2. 核心算法：(目标值 - 现在的位置) / 10 做为每次移动的距离 步长
+        // 3. 停止的条件是： 让当前盒子位置等于目标位置就停止定时器
+
+        var btn800 = document.querySelector('.btn800');
+        var btn500 = document.querySelector('.btn500');
+        var div = document.querySelector('div');
+
+        // 移动函数
+        function animate(obj, target, callback) {
+            clearInterval(obj.timer);
+
+            obj.timer = setInterval(() => {
+                // 判断是否移动到目标位置
+                if (target == obj.offsetLeft) {
+                    clearInterval(obj.timer);
+
+                    // 判断回调函数是否存在，存在则调用
+                    if (callback) {
+                        callback();
+                    }
+                }
+
+                // 若未移动到目标位置，则计算步长后移动obj
+                var step = (target - obj.offsetLeft) / 10;
+                console.log(step);
+                // 正数则向上取整，负数则向下取整
+                step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                obj.style.left = obj.offsetLeft + step + 'px';
+            }, 15);
+        }
+
+        btn800.addEventListener('click', function () {
+            animate(div, 800, function () {
+                div.style.borderRadius = '50%';
+            });
+        });
+
+        btn500.addEventListener('click', function () {
+            animate(div, 500);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>利用本地存储——记住用户名</title>
+    <link rel="shortcut icon" href="img/js.ico" type="image/x-icon">
+</head>
+
+<body>
+    <h2>✔-记住用户名（使用本地存储）</h2>
+    <input type="text" class="ipt" placeholder="请输入姓名">
+    <input type="checkbox" class="checkbox">记住用户名
+    <script>
+        var ipt = document.querySelector('.ipt');
+        var checkbox = document.querySelector('.checkbox');
+
+        // 检查用户名是否已经存在
+        if (localStorage.getItem('uname')) {
+            ipt.value = localStorage.getItem('uname');
+            checkbox.checked = true;
+        }
+
+        function remember() {
+            // 复选框选中，判断文本框是否为空，不为空则添加/更新用户名
+            if (checkbox.checked == true) {
+                if (ipt.value != '') {
+                    localStorage.setItem('uname', ipt.value)
+                }
+            }else {  // 复选框未选中，判断文本框内容是否为已添加的用户名，是的话就删除用户名
+                if (ipt.value == localStorage.getItem('uname')) {
+                    localStorage.removeItem('uname');
+                }
+            }
+        }
+
+        ipt.addEventListener('blur', function () {
+            remember();
+        })
+
+        checkbox.addEventListener('click', function () {
+            remember();
+        })
+    </script>
+</body>
+
+</html>

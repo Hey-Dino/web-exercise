@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>scroll、scrollBy、scrollTo区别</title>
+    <link rel="shortcut icon" href="img/js.ico" type="image/x-icon">
+
+    <style>
+        p {
+            font-size: 60px;
+        }
+
+        .btn1 {
+            position: fixed;
+            top: 200px;
+            left: 0;
+        }
+
+        .btn2 {
+            position: fixed;
+            top: 200px;
+            left: 125px;
+        }
+
+        .btn3 {
+            position: fixed;
+            top: 200px;
+            left: 260px;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        window.scroll(0, 100);
+
+        function scroll1() {
+            window.scroll(0, 200);
+            console.log(1);
+        }
+
+        function scrollBy1() {
+            window.scrollBy(0, 200);
+        }
+
+        function scrollTo1() {
+            window.scrollTo(0, 200);
+        }
+    </script>
+
+    <h2>scroll、scrollBy、scrollTo区别</h2>
+    <button class="btn1" onclick="scroll1()">scroll(0, 200)</button>
+    <button class="btn2" onclick="scrollBy1()">scrollBy(0, 200)</button>
+    <button class="btn3" onclick="scrollTo1()">scrollTo(0, 200)</button>
+    <p>Hello World! Hello JavaScript! Hello World! Hello JavaScript! Hello World! Hello JavaScript! Hello World! Hello
+        JavaScript! Hello World! Hello JavaScript! Hello World! Hello JavaScript! Hello World! Hello JavaScript! Hello
+        World! Hello JavaScript! Hello World! Hello JavaScript! Hello World! Hello JavaScript! Hello World! Hello
+        JavaScript! Hello World! Hello JavaScript! Hello World! Hello JavaScript! Hello World! Hello JavaScript! Hello
+        World! Hello JavaScript! Hello World! Hello JavaScript! Hello World! Hello JavaScript! Hello World! Hello
+        JavaScript! Hello World! Hello JavaScript! Hello World! Hello JavaScript! Hello World! Hello JavaScript! Hello
+        World! Hello JavaScript! Hello World! Hello JavaScript! Hello World! Hello JavaScript! Hello World! Hello
+        JavaScript! Hello World! Hello JavaScript! Hello World! Hello JavaScript! Hello World! Hello JavaScript! Hello
+        World! Hello JavaScript! Hello World! Hello JavaScript! Hello World! Hello JavaScript! Hello World! Hello
+        JavaScript! Hello World! Hello JavaScript! Hello World! Hello JavaScript! Hello World! Hello JavaScript! Hello
+        World! Hello JavaScript! Hello World! Hello JavaScript! Hello World! Hello JavaScript! Hello World! Hello
+        JavaScript! Hello World! Hello JavaScript! Hello World! Hello JavaScript! Hello World! Hello JavaScript! Hello
+        World! Hello JavaScript! Hello World! Hello JavaScript! Hello World! Hello JavaScript! Hello World! Hello
+        JavaScript! Hello World! Hello JavaScript! Hello World! Hello JavaScript! Hello World! Hello JavaScript! Hello
+        World! Hello JavaScript! Hello World! Hello JavaScript! Hello World! Hello JavaScript! Hello World! Hello
+        JavaScript! Hello World! Hello JavaScript! Hello World! Hello JavaScript! Hello World! Hello JavaScript! Hello
+        World! Hello JavaScript! Hello World! Hello JavaScript! Hello World! Hello JavaScript! Hello World! Hello
+        JavaScript! Hello World! Hello JavaScript! Hello World! Hello JavaScript! Hello World! Hello JavaScript! Hello
+        World! Hello JavaScript! Hello World! Hello JavaScript! Hello World! Hello JavaScript! Hello World! Hello
+        JavaScript! Hello World! Hello JavaScript! Hello World! Hello JavaScript! Hello World! Hello JavaScript! Hello
+        World! Hello JavaScript! </p>
+
+
+</body>
+
+</html>

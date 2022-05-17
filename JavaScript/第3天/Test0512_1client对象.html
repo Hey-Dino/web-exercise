@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>client对象</title>
+    <link rel="shortcut icon" href="img/js.ico" type="image/x-icon">
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            border: 5px solid pink;
+            background-color: skyblue;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>按F12，选择Console查看具体信息</h2>
+    <div></div>
+    <script>
+        var div = document.querySelector('div');
+        console.log('clientWidth: ' + div.clientWidth);
+        console.log('clientHeight: ' + div.clientHeight);
+        console.log('offsetWidth: ' + div.offsetWidth);
+        console.log('offsetHeight: ' + div.offsetHeight);
+        console.log('-----边框-----');
+        console.log('clientLeft: ' + div.clientLeft);
+        console.log('clientTop: ' + div.clientTop);
+    </script>
+</body>
+
+</html>

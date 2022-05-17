@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动画函数封装</title>
+    <link rel="shortcut icon" href="img/js.ico" type="image/x-icon">
+
+    <style>
+        div,
+        span {
+            position: absolute;
+            left: 0;
+            width: 200px;
+            height: 200px;
+        }
+
+        div {
+            background-color: skyblue;
+        }
+
+        span {
+            background-color: pink;
+        }
+
+        button {
+            position: absolute;
+            top: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>动画函数封装</h2>
+    <div></div>
+    <span></span>
+    <button>bug已改,无法加速</button>
+
+    <script>
+        // function animate(obj, target, time) {
+        //     var timer = setInterval(function () {
+        //         obj.style.left = obj.offsetLeft + 2 + 'px';
+
+        //         if (obj.offsetLeft > target) {
+        //             // 停止动画，实质是停止计时器
+        //             clearInterval(timer);
+        //         }
+        //     }, time)
+        // }
+
+        var div = document.querySelector('div');
+        var span = document.querySelector('span');
+        var btn = document.querySelector('button');
+
+        animate(div, 600, 30);
+        animate(span, 1200, 10);
+
+        // 上面动画每次调用，都会生成一个定时器对象
+        // 可以修改为以下写法，使每次调用产生的定时器都 作为obj的属性
+        function animate(obj, target, time) {
+            // 清除定时器，避免重复调用导致定时器累加
+            clearInterval(obj.timer);
+
+            obj.timer = setInterval(function () {
+                obj.style.left = obj.offsetLeft + 2 + 'px';
+
+                if (obj.offsetLeft >= target) {
+                    // 停止动画，实质是停止计时器
+                    clearInterval(obj.timer);
+                }
+            }, time)
+        }
+
+        // 存在的bug，定时器累加
+        btn.onclick = function () {
+            animate(span, 1200, 10);
+        }
+        // 解决方法，调用定时器前，清除所有相同的定时器
+    </script>
+</body>
+
+</html>

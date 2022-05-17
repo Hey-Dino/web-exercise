@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>scroll对象</title>
+    <link rel="shortcut icon" href="img/js.ico" type="image/x-icon">
+
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            border: 5px solid pink;
+            /* 设置滚动条 */
+            overflow: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>按F12，选择Console，拖动滚动条同时查看具体信息</h2>
+    <div>
+        Hello JavaScript! Hello Scroll! Hello JavaScript! Hello Scroll! Hello JavaScript! Hello Scroll! Hello
+        JavaScript! Hello Scroll! Hello JavaScript! Hello Scroll! Hello JavaScript! Hello Scroll! Hello JavaScript!
+        Hello Scroll! Hello JavaScript! Hello Scroll! Hello JavaScript! Hello Scroll!
+    </div>
+    <script>
+        var div = document.querySelector('div');
+        console.log('-----scroll和client差别-----');
+        console.log('scrollWidth: ' + div.scrollWidth);
+        console.log('scrollHeight: ' + div.scrollHeight);
+        console.log('clientWidth: ' + div.clientWidth);
+        console.log('clientHeight: ' + div.clientHeight);
+
+        div.addEventListener('scroll', function () {
+            console.log('scrollTop: ' + this.scrollTop);
+        })
+    </script>
+</body>
+
+</html>

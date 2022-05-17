@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>立即执行函数</title>
+    <link rel="shortcut icon" href="img/js.ico" type="image/x-icon">
+</head>
+
+<body>
+    <h1>无需调用，立马执行</h1>
+    <h2>按F12，选择Console查看具体信息</h2>
+    <script>
+        // 1.写法1
+        (function (a) {
+            console.log(a);
+        })('Hello World');
+        // 2.写法2
+        (function sum(a, b) {
+            console.log("a + b = " + (a + b));
+        }(10, 20));
+
+        // 3.好处：独自创建一个作用域，所有变量为局部变量
+    </script>
+</body>
+
+</html>
