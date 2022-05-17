@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery筛选方法</title>
+    <link rel="shortcut icon" href="img/jQuery.ico" type="image/x-icon">
+    <script src="js/jquery.min.js"></script>
+</head>
+
+<body>
+    <h2>jQuery筛选方法</h2>
+    <ol>
+        <li>我是ol的li</li>
+        <li>我是ol的li</li>
+        <li class="item">我是ol的li</li>
+        <li>我是ol的li</li>
+        <li>我是ol的li</li>
+        <li>我是ol的li</li>
+    </ol>
+
+    <ul>
+        <li>我是ul的li</li>
+        <li>我是ul的li</li>
+        <li>我是ul的li</li>
+        <li>我是ul的li</li>
+        <li>我是ul的li</li>
+        <li>我是ul的li</li>
+    </ul>
+
+    <div class="current new">我有个current类型</div>
+    <div>我没有current类型</div>
+
+    <script>
+        // 兄弟元素
+        $('ol li.item').siblings('li').css('fontSize', '18px');
+        $('ol li.item').nextAll('li').css('backgroundColor', 'pink');
+        $('ol li.item').prevAll('li').css('backgroundColor', 'skyblue');
+        // 第n个元素 第一种方式无法动态更改index
+        $('ul li:eq(2)').css('color', 'red');
+        $('ul li').eq(3).css('color', 'orange');
+        // 判断是否有某个类名
+        console.log($('div:first').hasClass('current'));
+        console.log($('div:last').hasClass('current'));
+    </script>
+</body>
+
+</html>

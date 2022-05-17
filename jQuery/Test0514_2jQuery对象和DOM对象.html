@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery对象和DOM对象</title>
+    <link rel="shortcut icon" href="img/jQuery.ico" type="image/x-icon">
+    <script src="js/jquery.min.js"></script>
+
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: skyblue;
+        }
+
+        video {
+            width: 300px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>jQuery对象和DOM对象</h1>
+    <h2>二者差别</h2>
+    <div></div>
+    <script>
+        // DOM对象
+        var div = document.querySelector('div');
+        console.dir(div);
+
+        // jQuery对象
+        $('div');
+        console.dir($('div'));
+
+        // 二者的方法不能混用
+        // div.hide();
+        // $('div').style.display = 'none';
+    </script>
+
+    <h2>jQuery对象与DOM对象相互转换</h2>
+    <video src=""></video>
+    <script>
+        var video = document.querySelector('video');
+        // 转化为jQuery对象
+        $(video);
+
+        // 转化为DOM对象
+        // $('video')[0].play();
+        $('video').get(0).play();
+        console.log('报错原因：未写明视频的src');
+    </script>
+</body>
+
+</html>

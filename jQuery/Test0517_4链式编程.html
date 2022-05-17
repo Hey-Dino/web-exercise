@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>链式编程</title>
+    <!-- 引入ico图标 -->
+    <link rel="shortcut icon" href="img/jQuery.ico" type="image/x-icon">
+    <!-- 引入jQuery文件 -->
+    <script src="js/jquery.min.js"></script>
+
+    <style>
+        button {
+            list-style: none;
+
+            float: left;
+            margin: 5px;
+            width: 50px;
+            height: 30px;
+            text-align: center;
+
+            cursor: pointer;
+        }
+
+        .current {
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>链式编程（点击“快速”试一试）</h2>
+    <h3>将多个jQuery语句汇总成一句</h3>
+    <button>快速</button>
+    <button>快速</button>
+    <button>快速</button>
+    <button>快速</button>
+    <button>快速</button>
+    <button>快速</button>
+
+    <script>
+        $('button').click(function () {
+            $(this).css('backgroundColor', 'skyblue').siblings('button').css('backgroundColor', '');
+        });
+    </script>
+</body>
+
+</html>

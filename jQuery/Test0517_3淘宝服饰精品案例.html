@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>淘宝服饰精品案例</title>
+    <link rel="shortcut icon" href="img/jQuery.ico" type="image/x-icon">
+    <script src="js/jquery.min.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        ul,
+        ol {
+            padding: 0;
+            margin: 0;
+        }
+
+        /* ul */
+        ul {
+            overflow: hidden;
+            float: left;
+            width: 60px;
+
+            border: 1px solid pink;
+        }
+
+        ul li {
+            width: 100%;
+            height: 30px;
+            line-height: 29px;
+            text-align: center;
+            border-bottom: 1px solid pink;
+        }
+
+        ul li:last-child {
+            border-bottom: none;
+            line-height: 30px;
+        }
+
+        ul li:hover {
+            background-color: pink;
+        }
+
+        /* ol */
+        ol {
+            float: left;
+            width: 204px;
+            height: 272px;
+            line-height: 272px;
+            text-align: center;
+            background-color: pink;
+        }
+
+        ol li {
+            display: none;
+            float: left;
+            width: 100%;
+            height: 100%;
+            /* background-color: transparent; */
+
+            font-size: 30px;
+            font-weight: bold;
+        }
+    </style>
+
+    <script>
+        $(function () {
+            $('ul li').mouseenter(function () {
+                // 获取该li的序号
+                var index = $(this).index();
+                
+                // 显示对应的ol li
+                $('ol li').eq(index).show();
+
+                // 隐藏其于ol li
+                $('ol li').eq(index).siblings('li').hide();
+            });
+        })
+    </script>
+</head>
+
+<body>
+    <h2>淘宝服饰精品案例</h2>
+    <div class="tab">
+        <ul>
+            <li>女鞋</li>
+            <li>雪地靴</li>
+            <li>冬裙</li>
+            <li>呢大衣</li>
+            <li>毛衣</li>
+            <li>棉服</li>
+            <li>女裤</li>
+            <li>羽绒服</li>
+            <li>牛仔裤</li>
+        </ul>
+        <ol>
+            <li>女鞋</li>
+            <li>雪地靴</li>
+            <li>冬裙</li>
+            <li>呢大衣</li>
+            <li>毛衣</li>
+            <li>棉服</li>
+            <li>女裤</li>
+            <li>羽绒服</li>
+            <li>牛仔裤</li>
+        </ol>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery排他思想</title>
+    <link rel="shortcut icon" href="img/jQuery.ico" type="image/x-icon">
+    <script src="js/jquery.min.js"></script>
+
+    <style>
+        button {
+            list-style: none;
+
+            float: left;
+            margin: 5px;
+            width: 50px;
+            height: 30px;
+            text-align: center;
+            border: 1px solid #333;
+
+            cursor: pointer;
+        }
+
+        .current {
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        $(function () {
+            $('button').click(function () {
+                $(this).css('backgroundColor', 'skyblue');
+                $(this).siblings('button').css('backgroundColor', '')
+            });
+        });
+    </script>
+
+    <h2>jQuery——排他思想实现</h2>
+    <button>快速</button>
+    <button>快速</button>
+    <button>快速</button>
+    <button>快速</button>
+    <button>快速</button>
+    <button>快速</button>
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery修改样式-CSS方法</title>
+    <link rel="shortcut icon" href="img/jQuery.ico" type="image/x-icon">
+    <script src="js/jquery.min.js"></script>
+
+    <style>
+        .div-1,
+        .div-2 {
+            width: 200px;
+            height: 200px;
+            line-height: 200px;
+            text-align: center;
+            background-color: pink;
+        }
+
+        button {
+            margin: 10px 0;
+        }
+
+        .current {
+            width: 300px;
+            height: 300px;
+            background-color: skyblue;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>jQuery修改样式</h2>
+    <h3>CSS方法</h3>
+    <div class="div-1"></div>
+    <button class="btn-1">点击修改上方盒子样式</button>
+
+    <script>
+        // 显示div宽度
+        $('div').get(0).innerText = "宽度: " + $('div').css('width');
+
+        $('.btn-1').click(function () {
+            // **********本网页重点**********
+            $('.div-1').css('width', '300px');
+            $('.div-1').css({
+                height: 300,
+                "backgroundColor": "skyblue"
+            });
+
+            // 更新显示div宽度
+            $('.div-1').get(0).innerText = "宽度: " + $('div').css('width');
+            // 修改div的line-height
+            $('.div-1').css('lineHeight', $('div').css('height'))
+        });
+    </script>
+
+    <h3>操作类方法</h3>
+    <div class="div-2"></div>
+    <button class="btn-2">点击修改上方盒子样式</button>
+    <script>
+        $('.btn-2').click(function () {
+            // 1.添加类
+            // $('.div-2').addClass('current');
+            // 2.移除类
+            // $('.div-2').removeClass('current');
+            // 3.切换类
+            $('.div-2').toggleClass('current');
+        });
+    </script>
+</body>
+
+</html>

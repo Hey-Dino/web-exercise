@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery的基本使用</title>
+    <link rel="shortcut icon" href="img/jQuery.ico" type="image/x-icon">
+    <script src="js/jquery.min.js"></script>
+
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: skyblue;
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+    <button class="btn">点击隐藏上方盒子</button>
+    <script>
+        // 1.等页面DOM加载完成（传统）
+        // $(document).ready(function () {
+        //     var btn = document.querySelector('.btn');
+        //     btn.addEventListener('click', function () {
+        //         $('div').hide();
+        //     });
+        // });
+
+        // 2.新写法
+        $(function () {
+            var btn = document.querySelector('.btn');
+            btn.addEventListener('click', function () {
+                $('div').hide();
+            });
+        })
+    </script>
+</body>
+
+</html>

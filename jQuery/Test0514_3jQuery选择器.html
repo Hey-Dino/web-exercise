@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery选择器</title>
+    <link rel="shortcut icon" href="img/jQuery.ico" type="image/x-icon">
+    <script src="js/jquery.min.js"></script>
+
+</head>
+
+<body>
+    <div>Hello jQuery!</div>
+    <div>Hello jQuery!</div>
+    <div>Hello jQuery!</div>
+    <div>Hello jQuery!</div>
+    <ul>
+        <li>Hello World!</li>
+        <li>Hello World!</li>
+        <li>Hello World!</li>
+        <li>Hello World!</li>
+    </ul>
+
+    <script>
+        console.log('-----隐式迭代-----');
+        // 获取所有对象，并更改其背景颜色
+        $('div').css('backgroundColor', 'skyblue');
+
+        // 筛选选择器
+        $('ul li:first').css('color', '#fff');
+        $('ul li:last').css('color', 'white');
+        $('ul li:odd').css('backgroundColor', 'skyblue');
+        $('ul li:even').css('backgroundColor', 'deeppink');
+        $('ul li:eq(3)').css('fontSize', '30px');
+    </script>
+</body>
+
+</html>

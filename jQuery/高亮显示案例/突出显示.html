@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>突出显示</title>
+    <link rel="shortcut icon" href="../img/jQuery.ico" type="image/x-icon">
+    <script src="../js/jquery.min.js"></script>
+
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        body {
+            background: #000;
+        }
+
+        .wrap {
+            margin: 100px auto 0;
+            width: 630px;
+            height: 394px;
+            padding: 10px 0 0 10px;
+            background: #000;
+            overflow: hidden;
+            border: 1px solid #fff;
+        }
+
+        .wrap li {
+            float: left;
+            margin: 0 10px 10px 0;
+        }
+
+        .wrap img {
+            display: block;
+            border: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        $(function () {
+            $('.wrap ul li').hover(function () {
+                $(this).siblings('li').stop().fadeTo('fast', 0.5);
+            }, function () {
+                $(this).siblings('li').stop().fadeTo('fast', 1);
+            });
+        })
+    </script>
+
+    <div class="wrap">
+        <ul>
+            <li>
+                <a href="#"><img src="images/01.jpg" alt="" /></a>
+            </li>
+            <li>
+                <a href="#"><img src="images/02.jpg" alt="" /></a>
+            </li>
+            <li>
+                <a href="#"><img src="images/03.jpg" alt="" /></a>
+            </li>
+            <li>
+                <a href="#"><img src="images/04.jpg" alt="" /></a>
+            </li>
+            <li>
+                <a href="#"><img src="images/05.jpg" alt="" /></a>
+            </li>
+            <li>
+                <a href="#"><img src="images/06.jpg" alt="" /></a>
+            </li>
+        </ul>
+    </div>
+</body>
+
+</html>
