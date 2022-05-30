@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件绑定、委托</title>
+    <link rel="shortcut icon" href="img/jQuery.ico" type="image/x-icon">
+    <script src="js/jquery.min.js"></script>
+
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: skyblue;
+        }
+
+        .current {
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>事件绑定on</h2>
+    <div></div>
+    <script>
+        $('div').on({
+            'mouseenter mouseleave': function () {
+                $(this).toggleClass('current');
+            },
+            'click': function () {
+                $(this).css('backgroundColor', 'orange');
+            }
+        });
+    </script>
+
+    <h2>事件委托</h2>
+    <ul>
+        <li>我们是原有的li</li>
+        <li>我们是原有的li</li>
+        <li>我们是原有的li</li>
+        <li>我们是原有的li</li>
+    </ul>
+    <script>
+        // 无动态绑定，对js生成的元素无效
+        // $('ul li').click(function () {
+        //     alert($(this).text());
+        // });
+
+        // 事件委托
+        $('ul').on('click', 'li', function () {
+            alert($(this).text());
+        });
+
+        // on具有动态邦定的效果
+        var li = $('<li>我是新建的li</li>');
+        $('ul').append(li);
+    </script>
+</body>
+
+</html>

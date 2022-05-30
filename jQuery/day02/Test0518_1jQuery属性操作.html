@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery属性操作</title>
+    <link rel="shortcut icon" href="img/jQuery.ico" type="image/x-icon">
+    <script src="js/jquery.min.js"></script>
+
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: skyblue;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>获取属性</h2>
+    <div class="div-1" title="This is a box." index="1"></div>
+    <script>
+        console.log('-----prop-----');
+        // 1.获取固有属性的值
+        console.log($('.div-1').prop('class'));
+        // 修改固有属性的值
+        $('.div-1').prop('title', 'This is a blue box.');
+        // 无法获取自定义属性
+        console.log($('.div-1').prop('index'));
+
+        console.log('-----attr-----');
+        // 2.获取自定义属性
+        console.log($('.div-1').attr('index'));
+        // 修改自定义属性
+        $('.div-1').attr('index', 2);
+
+        console.log('-----data-----');
+        // 3.数据缓存，不显示在标签中
+        $('.div-1').data('box-name', 'blue-box');
+        console.log($('.div-1').data('box-name'));
+        console.log($('.div-1').data('index'));
+    </script>
+</body>
+
+</html>

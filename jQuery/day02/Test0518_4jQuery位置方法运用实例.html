@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery位置方法实例-返回顶部</title>
+    <link rel="shortcut icon" href="img/jQuery.ico" type="image/x-icon">
+    <script src="js/jquery.min.js"></script>
+
+    <style>
+        .w {
+            width: 1200px;
+            height: 1000px;
+            margin: 300px auto;
+            background-color: skyblue;
+        }
+
+        .backTop {
+            display: none;
+            position: fixed;
+            bottom: 100px;
+            right: 50px;
+            width: 50px;
+            height: 50px;
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="w"></div>
+    <div class="backTop">返回顶部</div>
+
+    <script>
+        $(window).scroll(function () {
+            var wTop = $('.w').offset().top;
+
+            if (wTop <= $(document).scrollTop()) {
+                $('.backTop').fadeIn('fast');
+            } else {
+                $('.backTop').fadeOut('fast');
+            }
+        });
+
+        $('.backTop').click(function () {
+            // 1.该方法直接跳转，无过渡效果
+            // $(document).scrollTop(0);
+            // 2.利用animate可以实现动画效果
+            $('body, html').animate({
+                scrollTop: 0
+            });
+        });
+    </script>
+</body>
+
+</html>

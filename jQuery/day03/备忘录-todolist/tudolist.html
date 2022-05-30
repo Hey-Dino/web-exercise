@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>ToDoList—最简单的待办事项列表</title>
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/todolist.js"></script>
+</head>
+
+<body>
+    <header>
+        <section>
+            <label for="title">ToDoList</label>
+            <input type="text" id="title" name="title" placeholder="添加ToDo" required="required" autocomplete="off" />
+        </section>
+    </header>
+    <section>
+        <h2>正在进行 <span id="todocount"></span></h2>
+        <ol id="todolist" class="demo-box">
+
+        </ol>
+        <h2>已经完成 <span id="donecount"></span></h2>
+        <ul id="donelist">
+
+        </ul>
+    </section>
+    <footer>
+        Copyright &copy; 2014 todolist.cn
+    </footer>
+
+    <!-- 
+        思路：
+        1、设置输入框的键盘监听事件，当Enter键落下时，将旧数据和新数据和合并后，保存回本地
+        
+        2、设置加载、渲染函数load()，根据本地存储的数据，动态生成节点（PS：1、可以有本地存储的done值，判断渲染位置是在“正在进行”还是“已经完成”；2、需要为每个删除按钮链接添加自定义属性index，以备删除操作）
+        
+        3、设置删除按钮的点击监听事件（因为删除按钮是动态生成的，因而使用事件委托）；1、读取本地数据；2、根据index值，删除上一步数据；3、将修改后的数据重新存入本地；4、调用load()函数重新加载、渲染
+        
+        4、设置单选框的点击监听事件；1、读取本地数据；2、根据index以及单选框的checked值，更改数据中的done值；3、将修改后的数据重新存入本地；4、调用load()函数重新加载、渲染。
+
+    -->
+</body>
+
+</html>

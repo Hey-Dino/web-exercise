@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件解绑</title>
+    <link rel="shortcut icon" href="img/jQuery.ico" type="image/x-icon">
+    <script src="js/jquery.min.js"></script>
+
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: skyblue;
+        }
+    </style>
+
+    <script>
+        $(function () {
+            // 事件绑定
+            $('div').on({
+                mouseenter: function () {
+                    $(this).css('backgroundColor', 'orange');
+                },
+                mouseleave: function () {
+                    $(this).css('backgroundColor', 'pink')
+                },
+                click: function () {
+                    $(this).css('backgroundColor', 'skyblue');
+                }
+            });
+            // 事件解绑
+            // 部分解绑
+            $('div').off('click');
+            // 全部解绑
+            // $('div').off();
+
+            // 事件委托
+            $('ul').on('click', 'li', function () {
+                alert($(this).text());
+            });
+            // 解除事件委托
+            $('ul').off('click', 'li');
+
+            // 单次触发
+            $('p').one('click', function(){
+                alert('你无法再点击我了!!!');
+            });
+        })
+    </script>
+</head>
+
+<body>
+    <h3>事件绑定</h3>
+    <div></div>
+    <h3>事件委托</h3>
+    <ul>
+        <li>我是都是li</li>
+        <li>我是都是li</li>
+        <li>我是都是li</li>
+        <li>我是都是li</li>
+    </ul>
+    <h3>one的使用，点击下方文字试试</h3>
+    <p>我是屁</p>
+</body>
+
+</html>

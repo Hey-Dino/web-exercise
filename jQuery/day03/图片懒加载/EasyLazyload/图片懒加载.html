@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片懒加载</title>
+    <link rel="shortcut icon" href="../img/jQuery.ico" type="image/x-icon">
+
+    <style>
+        img {
+            width: 400px;
+            height: 400px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 2.更改img的src属性 -->
+    <!-- Ctrl + H 可以调出快速更改 -->
+    <img data-lazy-src="img/1.jpg">
+    <img data-lazy-src="img/1.jpg">
+    <img data-lazy-src="img/1.jpg">
+    <img data-lazy-src="img/1.jpg">
+    <img data-lazy-src="img/1.jpg">
+    <img data-lazy-src="img/1.jpg">
+    <img data-lazy-src="img/1.jpg">
+
+    <!-- 1.引入JS -->
+    <script src="dist/jquery-1.11.0.min.js"></script>
+    <script src="dist/EasyLazyload.min.js"></script>
+
+    <!-- 3.调用JS方法 -->
+    <script>
+        lazyLoadInit({
+            coverColor: "white",
+            showTime: 500
+        });
+    </script>
+</body>
+
+</html>

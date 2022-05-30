@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery位置方法</title>
+    <link rel="shortcut icon" href="img/jQuery.ico" type="image/x-icon">
+    <script src="js/jquery.min.js"></script>
+
+    <style>
+        .dad {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 100px;
+            background-color: pink;
+        }
+
+        .son {
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            width: 100px;
+            height: 100px;
+            background-color: skyblue;
+            overflow: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dad">
+        <div class="son"> I am son. I am son. I am son. I am son. I am son. I am son.</div>
+    </div>
+    <script>
+        // 1.获取距离文档的位置（偏移）
+        console.log($('.son').offset());
+        // 设置offset值，定位的top、left会被覆盖
+        $('.son').offset({
+            top: 200,
+            left: 200
+        });
+
+        // 2.获取距离带定位父类的距离
+        console.log($('.son').position());
+        // position只读不写，下方写法无效
+        $('.son').position({
+            top: 60,
+            left: 60
+        });
+
+        // 3.卷曲的头部或左部
+        $('.son').scrollTop(15);
+        $('.son').scroll(function(){
+            console.log($(this).scrollTop());
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery元素操作</title>
+    <link rel="shortcut icon" href="img/jQuery.ico" type="image/x-icon">
+    <script src="js/jquery.min.js"></script>
+
+    <style>
+        .demo-1 {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>遍历元素-each方法</h2>
+    <div class="demo-1">1</div>
+    <div class="demo-1">2</div>
+    <div class="demo-1">3</div>
+    <script>
+        var arr = ['pink', 'skyblue', 'orange'];
+
+        // 为文本分别设置颜色
+        // 写法1
+        $('div').each(function (index, elem) {
+            // elem为DOM元素，需先转换为jQuery元素
+            $(elem).css('backgroundColor', arr[index])
+        });
+
+        // 写法2，主要用于数据处理
+        console.log('-----遍历数组-----');
+        $.each(arr, function (index, ele) {
+            console.log(index + ' ' + ele);
+        });
+        console.log('-----遍历对象-----');
+        $.each({'name': 'Dino', 'age':22}, function(i, ele) {
+            console.log(i + ' ' + ele);
+        });
+    </script>
+
+    <h2>创建、添加元素</h2>
+    <h3>内部添加</h3>
+    <ul>
+        <li>我是原先的li</li>
+    </ul>
+    <h3>外部添加</h3>
+    <div class="demo-2">我是原先的div</div>
+    <script>
+        // 1.创建元素
+        var li = $('<li>我是创建的li</li>');
+        var span = $('<span>我是创建的span</span>');
+
+        // 2.添加元素
+        // 内部添加
+        // $('ul').append(li);
+        $('ul').prepend(li);
+        // 外部添加
+        $('.demo-2').after(span);
+        // $('.demo-2').before(span);
+
+        // 3.删除元素
+        // $('ul').remove();  // 清除自身
+        // $('ul').empty();  // 清除子节点
+        $('ul').html('');  // 与empty相同
+    </script>
+</body>
+
+</html>

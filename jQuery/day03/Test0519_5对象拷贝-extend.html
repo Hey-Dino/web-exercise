@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>对象拷贝</title>
+    <link rel="shortcut icon" href="img/jQuery.ico" type="image/x-icon">
+    <script src="js/jquery.min.js"></script>
+</head>
+
+<body>
+    <h1>按F12键，查看Console！！！</h1>
+    <script>
+        var targetObj = {
+            id: '01',
+            name: 'Dino',
+            mess: {
+                language: 'JavaScript'
+            }
+        };
+        var sourceObj = {
+            id: '02',
+            name: 'Peppa',
+            mess: {
+                language: 'jQuery',
+                time: '90day'
+            }
+        };
+
+        // 1.浅拷贝，只拷贝复制数据mess的地址
+        // $.extend(targetObj, sourceObj);
+        // console.log('-----浅拷贝-----');
+        // console.log(targetObj);
+        // console.log(sourceObj);
+        // // 修改源对象sourceObj、目标对象targetObj某一方的复杂数据，都会对对方造成影响
+        // targetObj.mess.language = 'Vue';
+        // console.log('---已修改复杂数据---');
+        // console.log(targetObj);
+        // console.log(sourceObj);
+
+        // 2.深拷贝，拷贝复杂数据，形成新地址
+        $.extend(true, targetObj, sourceObj);
+        console.log('-----深拷贝-----');
+        // console.log(targetObj);
+        // console.log(sourceObj);
+        // 修改源对象sourceObj、目标对象targetObj某一方的复杂数据，不会对对方造成影响
+        targetObj.mess.language = 'Vue';
+        console.log('---已修改复杂数据---');
+        console.log(targetObj);
+        console.log(sourceObj);
+    </script>
+</body>
+
+</html>

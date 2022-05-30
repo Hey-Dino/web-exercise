@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>瀑布流插件使用</title>
+    <link rel="shortcut icon" href="img/jQuery.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/default.css">
+    <link rel="stylesheet" href="css/normalize.css">
+
+    <!-- 3.添加CSS样式 -->
+    <style>
+        #gallery-wrapper {
+            position: relative;
+            max-width: 75%;
+            width: 75%;
+            margin: 50px auto;
+        }
+
+        img.thumb {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .white-panel {
+            position: absolute;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+            padding: 10px;
+        }
+
+        .white-panel h1 {
+            font-size: 1em;
+        }
+
+        .white-panel h1 a {
+            color: #A92733;
+        }
+
+        .white-panel:hover {
+            box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+            margin-top: -5px;
+            -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 2.添加HTML结构 -->
+    <section id="gallery-wrapper">
+        <article class="white-panel">
+            <img src="img/1.jpg" class="thumb">
+            <h1><a href="#">Title 1</a></h1>
+            <p>Description 1</p>
+        </article>
+
+        <article class="white-panel">
+            <img src="img/2.jpg" class="thumb">
+            <h1><a href="#">Title 2</a></h1>
+            <p>Description 2</p>
+        </article>
+
+        <article class="white-panel">
+            <img src="img/3.jpg" class="thumb">
+            <h1><a href="#">Title 3</a></h1>
+            <p>Description 3</p>
+        </article>
+
+        <article class="white-panel">
+            <img src="img/4.jpg" class="thumb">
+            <h1><a href="#">Title 3</a></h1>
+            <p>Description 3</p>
+        </article>
+
+        <article class="white-panel">
+            <img src="img/5.jpg" class="thumb">
+            <h1><a href="#">Title 3</a></h1>
+            <p>Description 3</p>
+        </article>
+
+        <article class="white-panel">
+            <img src="img/6.jpg" class="thumb">
+            <h1><a href="#">Title 3</a></h1>
+            <p>Description 3</p>
+        </article>
+
+        <article class="white-panel">
+            <img src="img/7.jpg" class="thumb">
+            <h1><a href="#">Title 3</a></h1>
+            <p>Description 3</p>
+        </article> <article class="white-panel">
+            <img src="img/8.jpg" class="thumb">
+            <h1><a href="#">Title 3</a></h1>
+            <p>Description 3</p>
+        </article> <article class="white-panel">
+            <img src="img/9.jpg" class="thumb">
+            <h1><a href="#">Title 3</a></h1>
+            <p>Description 3</p>
+        </article>
+    </section>
+
+    <!-- 1.引入JS文件 -->
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="js/pinterest_grid.js"></script>
+
+    <!-- 4.调用JS方法 -->
+    <script>
+        $("#gallery-wrapper").pinterest_grid(
+            {
+                no_columns: 4,
+                padding_x: 10,
+                padding_y: 10,
+                margin_bottom: 50,
+                single_column_breakpoint: 700
+            }
+        );
+    </script>
+</body>
+
+</html>

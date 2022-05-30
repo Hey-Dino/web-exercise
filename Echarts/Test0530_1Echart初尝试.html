@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Echarts初尝试</title>
+
+
+
+    <style>
+        .box1 {
+            width: 400px;
+            height: 300px;
+            padding: 20px;
+            /* background-color: skyblue; */
+        }
+
+        .box2 {
+            width: 600px;
+            height: 500px;
+            padding: 20px;
+        }
+    </style>
+
+    <!-- 1.引入Echarts的JS文件 -->
+    <script src="js/echarts.min.js"></script>
+</head>
+
+<body>
+    <h2>柱状图</h2>
+    <!-- 2.定义一个有宽高的盒子 -->
+    <div class="box1"></div>
+    <h2>饼图</h2>
+    <div class="box2"></div>
+
+
+    <script>
+        // 3.初始化Echarts实例对象
+        var myEchart1 = echarts.init(document.querySelector(".box1"));
+        var myEchart2 = echarts.init(document.querySelector(".box2"));
+
+        // 4.指定配置项和数据(option)
+        var option1 = {
+            color: ['skyblue', 'orange'],
+            title: {
+                text: 'ECharts 入门示例'
+            },
+            tooltip: {},
+            legend: {
+                data: ['销量', '数量']
+            },
+            grid: {
+                left: '0%',
+                right: '3%',
+                bottom: '0%',
+                containLabel: true
+            },
+            xAxis: {
+                data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+            },
+            yAxis: {},
+            series: [
+                {
+                    name: '销量',
+                    type: 'bar',
+                    data: [5, 20, 36, 10, 10, 20]
+                },
+                {
+                    name: '数量',
+                    type: 'bar',
+                    data: [4, 23, 33, 11, 9, 16]
+                }
+            ]
+        };
+
+        var option2 = {
+            legend: {
+                top: 'bottom'
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    mark: { show: true },
+                    dataView: { show: true, readOnly: false },
+                    restore: { show: true },
+                    saveAsImage: { show: true }
+                }
+            },
+            series: [
+                {
+                    name: 'Nightingale Chart',
+                    type: 'pie',
+                    radius: [50, 250],
+                    center: ['50%', '50%'],
+                    roseType: 'area',
+                    itemStyle: {
+                        borderRadius: 8
+                    },
+                    data: [
+                        { value: 40, name: 'rose 1' },
+                        { value: 38, name: 'rose 2' },
+                        { value: 32, name: 'rose 3' },
+                        { value: 30, name: 'rose 4' },
+                        { value: 28, name: 'rose 5' },
+                        { value: 26, name: 'rose 6' },
+                        { value: 22, name: 'rose 7' },
+                        { value: 18, name: 'rose 8' }
+                    ]
+                }
+            ]
+        };
+
+        // 5.将配置项设置给echarts对象
+        myEchart1.setOption(option1);
+        myEchart2.setOption(option2);
+    </script>
+</body>
+
+</html>

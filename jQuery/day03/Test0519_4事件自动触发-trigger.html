@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件自动触发</title>
+    <link rel="shortcut icon" href="img/jQuery.ico" type="image/x-icon">
+    <script src="js/jquery.min.js"></script>
+
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            line-height: 200px;
+            text-align: center;
+            margin-bottom: 10px;
+            background-color: skyblue;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>无需点击，自动触发alert</h3>
+    <input type="text">
+    <script>
+        $('input').on('focus', function () {
+            $(this).val('此为自动填入信息！！！');
+        });
+        // 1.自动触发方法一
+        // $('input').focus();
+        // 2.方法二
+        // $('input').trigger('focus');
+        // 3.方法三，triggerhandle不会触发元素的默认效果
+        // 如input元素focus时，光标闪动效果
+        $('input').triggerHandler('focus');
+    </script>
+
+    <h3>阻止事件冒泡</h3>
+    <div id="div-1">点击试试，有事件冒泡</div>
+    <div id="div-2">点击试试，无事件冒泡</div>
+    <script>
+        $('div').on('click', function () {
+            alert('你点击了盒子！');
+        });
+
+        $(document).on('click', function () {
+            alert('冒泡触发了父类document的点击事件！');
+        })
+
+        // 阻止div-2的事件冒泡
+        $('#div-2').on('click', function (e) {
+            e.stopPropagation();
+        });
+    </script>
+
+    <h3>阻止默认行为-链接的跳转</h3>
+    <a href="http://www.baidu.com">百度官网</a>
+    <script>
+        $('a').on('click', function (e) {
+            e.preventDefault();
+        });
+    </script>
+</body>
+
+</html>

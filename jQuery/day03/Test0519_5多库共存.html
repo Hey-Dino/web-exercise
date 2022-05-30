@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多库共存</title>
+    <link rel="shortcut icon" href="img/jQuery.ico" type="image/x-icon">
+    <script src="js/jquery.min.js"></script>
+
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: skyblue;
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+    <script>
+        // 利用我们使用符号$自定义函数
+        function $(element) {
+            return document.querySelector(element);
+        }
+        // 此时$()所使用的是我们自定义的函数，其返回的是DOM对象
+        console.log($('div'));
+
+        // 因为$()已被占用，下方的jQuery方法使用是不合法
+        // $.each();
+        
+        // 1.解决方法一，使用jQuery
+        jQuery.each();
+
+        // 2.解决方法二，重命名
+        var dino = jQuery.noConflict();
+        console.log(dino('div'));
+    </script>
+</body>
+
+</html>
