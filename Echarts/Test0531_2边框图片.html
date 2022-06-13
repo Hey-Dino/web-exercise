@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>边框图片</title>
+
+    <style>
+        div {
+            width: 300px;
+            height: 300px;
+            border: 15px solid pink;
+            border-image-source: url(img/border.png);
+            border-image-slice: 166 166 166 166;
+            /* 默认为border的宽度，此不会挤占文字的空间 */
+            border-image-width: 30px;
+            /* 拉伸效果，默认为stretch */
+            /* border-image-repeat: round; */
+        }
+    </style>
+</head>
+
+<body>
+    <div>123</div>
+</body>
+
+</html>

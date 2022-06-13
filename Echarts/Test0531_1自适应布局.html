@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自适应布局</title>
+
+    <!-- 1.引入插件 -->
+    <script src="js/flexible.js"></script>
+
+    <style>
+        div {
+            width: 2.5rem;
+            height: 2.5rem;
+            background-color: skyblue;
+        }
+
+        @media screen and (max-width: 1024px) {
+            html {
+                font-size: 42.66px !important;
+            }
+        }
+
+        @media screen and (min-width: 1920px) {
+            html {
+                font-size: 80px !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+</body>
+
+</html>
