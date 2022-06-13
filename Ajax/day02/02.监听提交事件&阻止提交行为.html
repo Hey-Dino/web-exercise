@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax-监听提交事件&阻止提交行为</title>
+
+    <script src="./lib/jquery.js"></script>
+</head>
+
+<body>
+    <h2>Ajax-监听提交事件&阻止提交行为</h2>
+    <form action="/login" id="form01">
+        <input type="text" name="phone" placeholder="请输入手机号">
+        <input type="password" name="password" placeholder="请输入密码">
+        <input type="submit" value="提交">
+    </form>
+
+    <script>
+        $(function () {
+            // 监听表单提交事件
+            $("#form01").on("submit", function (e) {
+                alert("提交表单");
+                // 阻止表单提交行为
+                e.preventDefault();
+            });
+        })
+    </script>
+</body>
+
+</html>

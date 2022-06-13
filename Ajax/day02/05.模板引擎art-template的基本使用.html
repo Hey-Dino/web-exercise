@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模板引擎art-template的基本使用</title>
+
+    <script src="./lib/jquery.js"></script>
+    <!-- 1.导入art-template -->
+    <script src="./lib/template-web.js"></script>
+</head>
+
+<body>
+    <div id="container"></div>
+
+    <!-- 3.定义模板，必须定义到type为text/html的script中 -->
+    <script type="text/html" id="tpl-user">
+        <div>
+            <!-- 原文输出 -->
+            <h3>{{@ title}}</h3>
+            <!-- 标准输出 -->
+            <span>姓名: </span>{{name}}<br/>
+            <span>年龄: </span>{{age}}<br/>
+            <!-- 条件输出 -->
+            <span>会员: </span>{{if isVIP}} 是 {{else}} 否 {{/if}}<br/>
+            <!-- 过滤器 -->
+            <span>注册时间: </span>{{regTime | dateFormat}}<br/>
+            <!-- 循环输出 -->
+            <span>爱好</span>
+            <ul>
+                {{each hobby}}
+                <li>{{$value}}（{{$index}}）</li>
+                {{/each}}
+            </ul>
+        </div>
+    </script>
+
+    <script>
+        // 过滤器(过滤器必须在“渲染HTML结构”前定义)
+        template.defaults.imports.dateFormat = function (time) {
+            var year = time.getFullYear();
+            var month = time.getMonth() + 1;
+            var day = time.getDate();
+
+            return year + "-" + month + "-" + day;
+        };
+
+        // 2.定义数据
+        var data = {
+            title: '<h3>用户信息</h3>',
+            name: 'zs',
+            age: 20,
+            isVIP: true,
+            regTime: new Date(),
+            hobby: ['吃饭', '睡觉', '打豆豆']
+        }
+
+        // 4.调用template函数
+        var htmlStr = template("tpl-user", data);
+
+        // 5.渲染HTML结构
+        $("#container").html(htmlStr);
+    </script>
+</body>
+
+</html>

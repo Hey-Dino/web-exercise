@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自定义简易模板引擎</title>
+
+    <script src="./lib/jquery.js"></script>
+</head>
+
+<body>
+    <h2>自定义简易模板引擎</h2>
+    <div class="container"></div>
+
+    <!-- 模板 -->
+    <script type="text/html" id="ctmTle">
+        <div>Name:{{name}}<br/>Age:{{age}}<br/>Save:{{save}}</div>
+    </script>
+
+    <script>
+        // 数据
+        var data = {
+            name: "Dino",
+            age: 22,
+            save: 100
+        }
+
+        // 自定义模板引擎
+        function customTemplate(id, data) {
+            var str = $("#" + id).html();
+
+            // 定义正则
+            var pattern = /{{\s*([a-zA-Z]+)\s*}}/;
+
+            var patternResult = false;
+            while (patternResult = pattern.exec(str)) {
+                // 替换
+                str = str.replace(patternResult[0], data[patternResult[1]]);
+            }
+
+            return str;
+        }
+
+        var htmlStr = customTemplate("ctmTle", data);
+        // 渲染HTML结构
+        $(".container").empty().html(htmlStr);
+    </script>
+</body>
+
+</html>

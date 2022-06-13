@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax-form表单</title>
+</head>
+
+<body>
+    <h2>target="_self" method="GET" enctype="application/x-www-form-urlencoded"(均为默认设置)</h2>
+    <form action="/login" target="_self" method="GET" enctype="application/x-www-form-urlencoded">
+        <input type="text" name="phone" placeholder="请输入手机号">
+        <input type="password" name="password" placeholder="请输入密码">
+        <input type="submit" value="提交">
+    </form>
+
+    <h2>target="_blank" method="POST"</h2>
+    <form action="login" target="_blank" method="POST">
+        <input type="text" name="phone" placeholder="请输入手机号">
+        <input type="password" name="password" placeholder="请输入密码">
+        <input type="submit" value="提交">
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图书管理</title>
+
+    <link rel="stylesheet" href="lib/bootstrap.css">
+    <script src="lib/jquery.js"></script>
+
+    <style>
+        body {
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 图书添加面板 -->
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">添加图书</h3>
+        </div>
+        <div class="panel-body form-inline">
+            <div class="input-group">
+                <div class="input-group-addon">书名</div>
+                <input type="text" class="form-control" id="iptBookname" placeholder="请输入书名">
+            </div>
+            <div class="input-group">
+                <div class="input-group-addon">作者</div>
+                <input type="text" class="form-control" id="iptAuthor" placeholder="请输入作者">
+            </div>
+            <div class="input-group">
+                <div class="input-group-addon">出版社</div>
+                <input type="text" class="form-control" id="iptPublisher" placeholder="请输入出版社">
+            </div>
+            <button type="button" class="btn btn-primary" id="btnAdd">添加</button>
+        </div>
+    </div>
+
+    <!-- 图书展示表格 -->
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>书名</th>
+                <th>作者</th>
+                <th>出版社</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        $(function () {
+            getBookList();
+
+            // 获取图书信息
+            function getBookList() {
+                // 1.发起Ajax请求获取图书列表数据
+                $.get("http://www.liulongbin.top:3006/api/getbooks", function (res) {
+                    // 2.获取列表数据是否成功
+                    if (res.status !== 200)
+                        return alert("获取失败");
+
+                    // 3.渲染页面结构
+                    var rows = []
+                    $.each(res.data, function (i, ele) {
+                        rows.push("<tr><td>" + ele.id + "</td><td>" + ele.bookname + "</td><td>" + ele.author + "</td><td>" + ele.publisher + "</td><td><button type='button' class='btn btn-primary' id='btnDel' data-id=" + ele.id + ">删除</button></td></tr>");
+                    });
+
+                    // 5.渲染表格结构
+                    $("tbody").empty().append(rows.join(''));
+                });
+            };
+
+            // 删除图书信息
+            $("tbody").on("click", "#btnDel", function () {
+                // 1.获取删除列的ID号
+                var id = $(this).attr("data-id");
+
+                // 2.发起Ajax请求删除图书数据
+                $.get("http://www.liulongbin.top:3006/api/delbook", { id: id }, function (res) {
+                    if (res.status !== 200)
+                        return alert("删除失败");
+
+                    // 3.重新加载数据
+                    getBookList();
+                });
+            });
+
+            // 添加图书信息
+            $("#btnAdd").on("click", function () {
+                // 1.获取输入框内容
+                var bookname = $("#iptBookname").val();
+                var author = $("#iptAuthor").val();
+                var publisher = $("#iptPublisher").val();
+
+                // 2.判断输入框是否有完整数据
+                if (bookname == '' || author == '' || publisher == '')
+                    return alert("请填写完整的图书信息！");
+
+                // 3.发起Ajax请求添加图书数据
+                $.post("http://www.liulongbin.top:3006/api/addbook", {
+                    bookname: bookname,
+                    author: author,
+                    publisher: publisher
+                }, function (res) {
+                    console.log(res);
+                    if (res.status !== 201)
+                        return alert("添加图书信息失败！");
+
+                    // 清除输入框信息
+                    $("#iptBookname").val('');
+                    $("#iptAuthor").val('');
+                    $("#iptPublisher").val('');
+
+                    // 更新图书信息
+                    getBookList();
+                });
+            });
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正则在模板引擎中的使用</title>
+</head>
+
+<body>
+    <script>
+        var data = {
+            name: "Dino",
+            age: 22,
+            save: 100
+        }
+
+        var str = "<div>Name:{{name}} Age:{{age}} Save:{{save}}</div>";
+        // 定义正则
+        var pattern = /{{\s*([a-zA-Z]+)\s*}}/;
+
+        var patternResult = false;
+        while (patternResult = pattern.exec(str)) {
+            console.log(patternResult);
+            // 替换
+            str = str.replace(patternResult[0], data[patternResult[1]]);
+        }
+        console.log("Result:", str);
+    </script>
+</body>
+
+</html>
