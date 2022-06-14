@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XHR Level2-使用FormData管理表单数据</title>
+</head>
+
+<body>
+    <h2>按F12键，选择Console</h2>
+    <form id="form1">
+        <input type="text" name="uname" autocomplete="off">
+        <input type="password" name="upwd">
+        <button type="submit">提交数据</button>
+    </form>
+
+    <script>
+        // 1.创建FormData实例
+        var fd = new FormData();
+        // 2.调用append函数，向FormData中追加数据
+        fd.append("uname", "Dino");
+        fd.append("upwd", "123456");
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://www.liulongbin.top:3006/api/formdata");
+        xhr.send(fd);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log(JSON.parse(xhr.responseText));
+            }
+        };
+
+
+        // 通过DOM操作，获取 form表单元素
+        var form = document.querySelector("#form1");
+        // 监听点击事件
+        form.addEventListener("submit", function (e) {
+            // 阻止表单的默认提交行为
+            e.preventDefault();
+
+            var fd = new FormData(form);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "http://www.liulongbin.top:3006/api/formdata");
+            xhr.send(fd);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    console.log(JSON.parse(xhr.responseText));
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

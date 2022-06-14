@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XMLHtmlRequest－发起GET请求</title>
+</head>
+
+<body>
+    <h1>按F12键，选择Console</h1>
+    <h2>不带参数、带参数的请求</h2>
+    <script>
+        // // 1.创建XHR对象
+        // var xhr = new XMLHttpRequest();
+        // // 2.调用open方法（指定请求方式和URL地址）
+        // xhr.open("GET", "http://www.liulongbin.top:3006/api/getbooks");
+        // // 3.调用send函数（发起Ajax请求）
+        // xhr.send();
+        // // 4.监听onreadystatechange事件
+        // xhr.onreadystatechange = function () {
+        //     // 4.1 readyState为xhr的请求状态，status为服务器响应状态
+        //     if (xhr.readyState === 4 && xhr.status === 200) {
+        //         // 4.2 打印服务器响应回来的数据
+        //         console.log(xhr.responseText);
+        //     }
+        // }
+
+        // 1.创建XHR对象
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://www.liulongbin.top:3006/api/getbooks?id=1&bookname=西游记");
+        // 3.调用send函数（发起Ajax请求）
+        xhr.send();
+        // 4.监听onreadystatechange事件
+        xhr.onreadystatechange = function () {
+            // 4.1 readyState为xhr的请求状态，status为服务器响应状态
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // 4.2 打印服务器响应回来的数据
+                console.log(xhr.responseText);
+            }
+        }
+    </script>
+</body>
+
+</html>

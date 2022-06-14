@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>使用XHR发起POST请求</title>
+</head>
+
+<body>
+    <h2>按F12键，选择Console</h2>
+    <script>
+        // 1.创建xhr对象
+        var xhr = new XMLHttpRequest();
+        // 2.调用open()
+        xhr.open("POST", "http://www.liulongbin.top:3006/api/addbook");
+        // 3.设置Content-Type属性（固定写法）
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        // 4.调用send()，同时将数据以 查询字符串 的形式，提交给服务器
+        xhr.send("bookname=骆驼祥子&author=老舍&publisher=南海出版社");
+        // 5.监听onreadystatechange事件
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log(xhr.responseText);
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON和JS对象互转</title>
+</head>
+
+<body>
+    <h2>按F12键，选择Console</h2>
+    <script>
+        console.log("-----JS对象-----");
+        var jsObj = { "name": "Dino", "age": 22 };
+        console.log("JS对象:", jsObj, "JS格式:", typeof (jsObj));
+
+        console.log("\n-----JSON对象-----");
+        var jsonObj = '{ "name": "Dino", "age": 22 }';
+        console.log("JSON对象:", jsonObj, "JSON格式:", typeof (jsonObj));
+
+        console.log("\n-----JS对象 转 JSON对象-----");
+        console.log(JSON.stringify(jsObj));
+
+        console.log("\n-----JSON对象 转 JS对象-----");
+        console.log(JSON.parse(jsonObj));
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XHR Level2-文件上传</title>
+
+    <link rel="stylesheet" href="./lib/bootstrap.css">
+</head>
+
+<body>
+    <h2>使用XHR Level2实现文件上传</h2>
+    <input type="file" id="file">
+    <button id="btnUpload">上传图片</button>
+
+    <!-- bootstrap 中的进度条 -->
+    <div class="progress" style="width: 500px; margin: 15px 10px;">
+        <div class="progress-bar progress-bar-striped active" style="width: 0%" id="percent">
+            0%
+        </div>
+    </div>
+    <!-- 图片展示 -->
+    <img src="" alt="" id="img" style="width: 800px;">
+
+    <script>
+        var btnUpload = document.querySelector("#btnUpload");
+        btnUpload.addEventListener("click", function () {
+            // 1.判断上传文件是否为空
+            var files = document.querySelector("#file").files;
+            if (files.length === 0) {
+                alert("请选择要上传的文件。");
+            }
+
+            // 2.获取需要数据
+            var fd = new FormData();
+            fd.append("avatar", files[0]);
+
+            // 3.发送POST请求
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "http://www.liulongbin.top:3006/api/upload/avatar");
+            // 监听xhr.upload 的 onprogress 事件，即【监听上传进度】（该监听函数需置于 send() 之前）
+            xhr.upload.onprogress = function (e) {
+                // e.lengthComputable 是一个布尔值，表示当前上传的资源是否具有可计算的长度
+                if (e.lengthComputable) {
+                    // e.loaded 已传输的字节，e.total 需传输的总字节
+                    var percentComputable = Math.ceil((e.loaded / e.total) * 100);
+
+                    var percent = document.querySelector("#percent");
+                    percent.style.width = percentComputable + "%";
+                    percent.innerHTML = percentComputable + "%";
+                }
+            };
+            // 加载结束
+            xhr.upload.onload = function () {
+                var percent = document.querySelector("#percent");
+                percent.className = "progress-bar progress-bar-success";
+            }
+            xhr.send(fd);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // 将 JSON对象 转化为 JS对象
+                    var res = JSON.parse(xhr.responseText);
+
+                    // 上传失败，提示“文件上传失败!”
+                    if (res.status !== 200)
+                        return alert("文件上传失败!");
+
+                    // 上传成功，展示图片
+                    document.querySelector("#img").src = "http://www.liulongbin.top:3006" + res.url;
+                }
+            };
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>封装自己的Ajax函数</title>
+
+    <script src="./js/itheima.js"></script>
+</head>
+
+<body>
+    <h2>按F12键，选择Network，点击最左侧按钮试试</h2>
+    <button id="getBooks">获取图书信息</button>
+    <button id="addBook">增加图书信息（固定）</button>
+
+    <script>
+        var getBooks = document.querySelector("#getBooks");
+        var addBook = document.querySelector("#addBook");
+
+        getBooks.addEventListener("click", function () {
+            itheima({
+                "method": "GET",
+                "url": "http://www.liulongbin.top:3006/api/getbooks",
+                "data": {
+                    // "id": 1
+                }
+            });
+        });
+
+        addBook.addEventListener("click", function () {
+            itheima({
+                "method": "POST",
+                "url": "http://www.liulongbin.top:3006/api/addbook",
+                "data": {
+                    "bookname": "骆驼祥子",
+                    "author": "老舍",
+                    "publisher": "南海出版社"
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
