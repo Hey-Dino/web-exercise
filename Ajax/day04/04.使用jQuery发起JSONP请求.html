@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>使用jQuery发起JSONP请求</title>
+
+    <!-- 1.导入jQuery包 -->
+    <script src="./lib/jquery.js"></script>
+</head>
+
+<body>
+    <h2>按F12键，选择Console</h2>
+    <script>
+        $.ajax({
+            method: "GET",
+            url: "http://www.liulongbin.top:3006/api/jsonp",
+            // 如果要使用 $.ajax() 发起 JSONP 请求，必须指定 datatype 为 jsonp
+            dataType: "JSONP",
+            data: {
+                "name": "zs",
+                "age": 20
+            },
+            // 发送到服务端的参数名称，默认值为 callback
+            jsonp: "callback",
+            // 自定义的回调函数名称，默认值为 jQueryxxx 格式
+            jsonpCallback: 'abc',
+            success: function (res) {
+                console.log("成功接收到数据");
+                console.log(res);
+            }
+        });
+    </script>
+</body>
+
+</html>

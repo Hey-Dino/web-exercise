@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>节流阀使用-鼠标跟随</title>
+
+    <script src="./lib/jquery.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        #angle {
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="./img/angel.gif" id="angle">
+
+    <script>
+        // 跟随鼠标的对象
+        var angel = $("#angle");
+        // 节流阀（延时器对象）
+        var timer = null;
+
+        $(document).on("mousemove", function (e) {
+            // 判断节流阀是否为空，不为空则直接退出
+            if (timer)
+                return;
+
+            timer = setTimeout(function () {
+                // 设置angle的位置
+                angel.css("top", e.pageY + "px").css("left", e.pageX + "px");
+
+                // 清空节流阀，方便下次开启延时器
+                timer = null;
+            }, 16);
+        });
+    </script>
+</body>
+
+</html>
