@@ -3,12 +3,15 @@ const express = require('express');
 // 创建 express 的服务器实例
 const app = express();
 
+
 // 导入 cors 中间件，并注册为全局中间件
 const cors = require('cors');
 app.use(cors());
 
+
 // 配置解析表单数据的中间件
 app.use(express.urlencoded({ extended: false }));
+
 
 // 添加 封装错误响应信息 的中间件
 app.use((req, res, next) => {
@@ -23,11 +26,13 @@ app.use((req, res, next) => {
     next();
 });
 
+
 // 配置解析 token 的中间件
 const config = require('./config');
 const expressJwt = require('express-jwt');
 // 使用 .unless({ path: [/^\/api\//] }) 指定哪些接口不需要进行 Token 的身份认证
 app.use(expressJwt({ secret: config.jwtSecretKey }).unless({ path: [/^\/api\//] }));
+
 
 // 导入 路由模块，并注册为全局中间件
 const router = require('./router/user');
@@ -37,6 +42,11 @@ app.use('/api', router);
 const userinfoRouter = require('./router/userinfo');
 // 注意：以 /my 开头的接口，都是有权限的接口，需要进行 Token 身份认证
 app.use('/my', userinfoRouter);
+
+// 导入并使用文章分类路由模块
+const artCateRouter = require('./router/artcate');
+app.use('/my/article', artCateRouter);
+
 
 // 错误级别中间件
 const Joi = require('joi');
