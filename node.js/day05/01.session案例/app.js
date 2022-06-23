@@ -36,6 +36,7 @@ app.get('/api/username', (req, res) => {
     if (!req.session.isLogin)
         return res.send({ status: 1, msg: 'fail' });
 
+    console.log(req.session)
     res.send({ status: 0, msg: 'success', username: req.session.user.username });
 })
 
