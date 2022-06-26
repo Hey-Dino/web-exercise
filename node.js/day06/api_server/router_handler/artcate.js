@@ -70,7 +70,7 @@ module.exports.deleteCateById = (req, res) => {
 
 // 根据 ID 号，查找文章分类
 module.exports.getArtCateById = (req, res) => {
-    const sqlStr = `SELECT * FROM ev_article_cate WHERE id=?`;
+    const sqlStr = `SELECT * FROM ev_article_cate WHERE id=? AND is_delete=0`;
     db.query(sqlStr, req.params.id, (err, results) => {
         // 执行 SQL 语句失败
         if (err)

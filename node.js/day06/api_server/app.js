@@ -47,6 +47,12 @@ app.use('/my', userinfoRouter);
 const artCateRouter = require('./router/artcate');
 app.use('/my/article', artCateRouter);
 
+// 导入并使用文章路由模块
+const articleRouter = require('./router/article');
+app.use('/my/article', articleRouter);
+// 托管静态资源文件
+app.use('/uploads', express.static('./uploads'));
+
 
 // 错误级别中间件
 const Joi = require('joi');
