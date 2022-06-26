@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid布局</title>
+
+    <script src="./js/vue.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #gridBox {
+            display: grid;
+            width: 300px;
+            height: 300px;
+            /* 3行 rows */
+            grid-template-rows: 100px 100px 100px;
+            /* 2列 columns */
+            grid-template-columns: 200px 100px;
+            /* 分配区域 areas */
+            grid-template-areas: 'box1 box3'
+                'box1 box4'
+                'box2 box5';
+        }
+    </style>
+</head>
+
+<body>
+    <div id="gridBox">
+        <div v-for="(item, index) in arr" :key="index" :style="{background: item.bgColor
+                    , 'grid-area':'box' + (index + 1)}">
+            <h3>{{item.title}}</h3>
+            <p>{{item.content}}</p>
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#gridBox',
+            data: {
+                arr: [
+                    { title: 'box1标题', content: 'box1内容', bgColor: 'pink' },
+                    { title: 'box2标题', content: 'box2内容', bgColor: 'skyblue' },
+                    { title: 'box3标题', content: 'box3内容', bgColor: 'gray' },
+                    { title: 'box4标题', content: 'box4内容', bgColor: 'orange' },
+                    { title: 'box5标题', content: 'box5内容', bgColor: 'yellowgreen' }
+                ]
+            }
+        });
+    </script>
+</body>
+
+</html>

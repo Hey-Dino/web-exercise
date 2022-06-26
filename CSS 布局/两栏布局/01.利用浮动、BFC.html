@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>两栏布局-利用浮动、BFC</title>
+
+    <style>
+        .container {
+            height: 200px;
+        }
+
+        .left {
+            float: left;
+            width: 200px;
+            height: 100%;
+            background-color: skyblue;
+        }
+
+        .right {
+            height: 100%;
+            /* 方式一：加外边距 */
+            /* margin-left: 200px; */
+            /* 方式二：利用BFC */
+            overflow: hidden;
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="left"></div>
+        <div class="right"></div>
+    </div>
+</body>
+
+</html>

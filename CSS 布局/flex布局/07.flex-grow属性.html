@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flex-grow属性</title>
+
+    <style>
+        .container {
+            display: flex;
+
+            width: 550px;
+            height: 300px;
+            border: 5px solid #ccc;
+        }
+
+        .container div {
+            box-sizing: border-box;
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+
+            color: white;
+            font-size: 40px;
+            text-align: center;
+
+            border: 1px solid #999;
+            background-color: skyblue;
+        }
+
+        #box1 {
+            /* 为0情况下，可以不写 */
+            flex-grow: 0;
+        }
+
+        #box2 {
+            flex-grow: 1;
+        }
+
+        #box3 {
+            flex-grow: 3;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>flex-grow属性: 按剩余空间进行等比分配</h2>
+    <div class="container">
+        <div id="box1">1</div>
+        <div id="box2">2</div>
+        <div id="box3">3</div>
+    </div>
+</body>
+
+</html>

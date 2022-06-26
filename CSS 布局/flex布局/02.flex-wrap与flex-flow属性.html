@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flex-wrap与flex-flow属性</title>
+
+    <style>
+        .container {
+            display: flex;
+
+            width: 300px;
+            height: 300px;
+            border: 5px solid #ccc;
+        }
+
+        .container div {
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            background-color: skyblue;
+        }
+
+        #box1 {
+            flex-wrap: wrap-reverse;
+        }
+
+        #box2 {
+            /* flex-flow: column wrap; */
+            flex-flow: column wrap-reverse;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>flex-wrap属性</h2>
+    <div class="container" id="box1">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+    </div>
+
+    <h2>flex-flow属性</h2>
+    <div class="container" id="box2">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+    </div>
+</body>
+
+</html>

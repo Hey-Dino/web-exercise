@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三栏布局-借助浮动</title>
+
+    <style>
+        .container {
+            height: 200px;
+        }
+
+        .left {
+            width: 200px;
+            height: 100%;
+            float: left;
+            background-color: pink;
+        }
+
+        .right {
+            width: 200px;
+            height: 100%;
+            float: right;
+            background-color: skyblue;
+        }
+
+        .main {
+            height: 100%;
+            /* 实现方式1 */
+            /* margin: 0 200px; */
+            /* 实现方式2 */
+            overflow: hidden;
+            background-color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="left"></div>
+        <div class="right"></div>
+        <div class="main"></div>
+    </div>
+</body>
+
+</html>

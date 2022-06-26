@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>align-items属性</title>
+
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+            /* align-items属性 */
+            /* align-items: flex-start; */
+            /* align-items: flex-end; */
+            align-items: center;
+
+            width: 400px;
+            height: 300px;
+            border: 5px solid #ccc;
+        }
+
+        .container div {
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+
+            color: white;
+            font-size: 40px;
+            text-align: center;
+
+            background-color: skyblue;
+            border: 1px solid #aaa;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>align-items属性: 单行在副轴的位置</h2>
+    <div class="container">
+        <div id="box1">1</div>
+        <div id="box2">2</div>
+        <div id="box3">3</div>
+    </div>
+</body>
+
+</html>

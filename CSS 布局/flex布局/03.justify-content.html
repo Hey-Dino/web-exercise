@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>justify-content属性</title>
+
+    <script src="../js/jquery.min.js"></script>
+
+    <style>
+        .container {
+            display: flex;
+            /* flex-direction: row-reverse; */
+            justify-content: flex-start;
+
+            width: 400px;
+            height: 300px;
+            border: 5px solid #ccc;
+        }
+
+        .container div {
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+
+            color: white;
+            font-size: 40px;
+            text-align: center;
+        }
+
+        #box1 {
+            background-color: skyblue;
+        }
+
+        #box2 {
+            background-color: orange;
+        }
+
+        #box3 {
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>justify-content属性: 多行在主轴的对齐方式</h2>
+    <div class="container">
+        <div id="box1">1</div>
+        <div id="box2">2</div>
+        <div id="box3">3</div>
+    </div>
+
+    <h2>点击切换&nbsp;justify-content&nbsp;属性</h2>
+    <div class="radioGroup">
+        <div>
+            <input type="radio" name="radio" id="radio-1" checked>
+            <label for="radio-1">flex-start</label>
+        </div>
+        <div>
+            <input type="radio" name="radio" id="radio-2">
+            <label for="radio-2">flex-end</label>
+        </div>
+        <div>
+            <input type="radio" name="radio" id="radio-3">
+            <label for="radio-3">center</label>
+        </div>
+
+        <br>
+        <div>
+            <input type="radio" name="radio" id="radio-4">
+            <label for="radio-4">left</label>
+        </div>
+        <div>
+            <input type="radio" name="radio" id="radio-5">
+            <label for="radio-5">right</label>
+        </div>
+
+        <br>
+        <div>
+            <input type="radio" name="radio" id="radio-6">
+            <label for="radio-6">space-between</label>
+        </div>
+        <div>
+            <input type="radio" name="radio" id="radio-7">
+            <label for="radio-7">space-around</label>
+        </div>
+        <div>
+            <input type="radio" name="radio" id="radio-8">
+            <label for="radio-8">space-evenly</label>
+        </div>
+    </div>
+
+    <script>
+        $('input[type=radio]').on('click', function () {
+            var justifyContent = $(this).siblings('label').text();
+            $('.container').css('justify-content', justifyContent);
+        });
+    </script>
+</body>
+
+</html>
