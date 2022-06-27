@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小米移动端布局简单模仿</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            /* flex是随高度撑开的，没有高度的话，main就不显示 */
+            height: 100vh;
+        }
+
+        header {
+            height: 50px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        footer {
+            height: 50px;
+            border-top: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <header>header</header>
+    <main>main</main>
+    <footer>footer</footer>
+</body>
+
+</html>

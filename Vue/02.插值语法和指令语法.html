@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>插值语法和指令语法</title>
+
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 
+        总结：
+            1.插值语法需要{{}}
+            2.指令语法需要:
+    -->
+
+    <div class="root">
+        <h2>插值语法</h2>
+        <h3>Hello, my name is {{name}}。<br>我的学校是位于{{school.address}}的{{school.name.toUpperCase()}}</h3>
+        <hr>
+        <h2>指令语法</h2>
+        <!-- 1.旧写法 -->
+        <!-- <a v-bind:href="school.url">点击访问我们学校的官网</a> -->
+        <!-- 2.新写法 -->
+        <a :href="school.url">点击访问我们学校的官网</a>
+    </div>
+
+    <script>
+        new Vue({
+            el: '.root',
+            data: {
+                name: 'Dino',
+                school: {
+                    name: 'hstc',
+                    address: 'Teochew',
+                    url: 'http://www.hstc.edu.cn'
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

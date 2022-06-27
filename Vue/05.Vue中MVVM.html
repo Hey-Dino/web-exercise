@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue中MVVM</title>
+
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 
+        MVVM模型：
+            1. M：模型（Model）：data中的数据
+            2. V：视图（View）：模板代码
+            3. VM： 视图模型（ViewModel）：Vue实例（vm名称的由来）
+    -->
+
+    <!-- 模板代码（View） -->
+    <div id="root">
+        你好，{{name}}
+    </div>
+
+    <script>
+        // 视图模型（ViewModel）
+        const vm = new Vue({
+            el: '#root',
+            // 模型（Model）
+            data: {
+                name: 'Dino'
+            }
+        });
+
+        console.log(vm);
+    </script>
+</body>
+
+</html>
