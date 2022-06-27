@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flex复合属性: 汇总flex-grow、flex-shrink、flex-basis</title>
+
+    <style>
+        #container {
+            display: flex;
+
+            width: 320px;
+            height: 320px;
+            border: 5px solid #ccc;
+        }
+
+        #container div {
+            /* 3个数值分别为 flex-grow、flex-shrink、flex-basis */
+            flex: 1 0 100px;
+
+            width: 100px;
+            height: 100px;
+            padding: 10px;
+            background-clip: content-box;
+            background-color: pink;
+
+            box-sizing: border-box;
+        }
+
+        #container div:nth-child(2) {
+            flex: 0 1 90px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+    </div>
+</body>
+
+</html>

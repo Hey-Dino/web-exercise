@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flex-shrink属性: 缩小比例</title>
+
+    <style>
+        #container {
+            display: flex;
+            /* flex-direction: column; */
+
+            width: 300px;
+            height: 300px;
+            border: 5px solid #ccc;
+
+            color: white;
+            font-size: 30px;
+        }
+        
+        #container div {
+            width: 110px;
+            height: 110px;
+            padding: 10px;
+
+            background-clip: content-box;
+            box-sizing: border-box;
+
+            background-color: skyblue;
+        }
+
+        #container div:nth-child(1) {
+            /* 0 表示不缩小 */
+            flex-shrink: 0;
+        }
+
+        #container div:nth-child(2) {
+            flex-shrink: 1;
+        }
+
+        #container div:nth-child(3) {
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+    </div>
+</body>
+
+</html>
