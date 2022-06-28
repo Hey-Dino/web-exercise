@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>order运用实例</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            height: 100vh;
+        }
+
+        article {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            height: 100%;
+        }
+
+        article section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            margin: 10px;
+
+            background-color: #ccc;
+            color: #fff;
+        }
+
+        section h2 {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        section span {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            height: 50px;
+            background-color: #aaa;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <article>
+        <section>
+            <h2>Dino</h2>
+            <span>up</span>
+        </section>
+        <section>
+            <h2>HSTC</h2>
+            <span>up</span>
+        </section>
+        <section>
+            <h2>Peppa Pig</h2>
+            <span>up</span>
+        </section>
+    </article>
+
+    <script>
+        var spans = document.querySelectorAll('span');
+
+        spans.forEach(span => {
+            span.addEventListener('click', function () {
+                let order = getComputedStyle(this.parentElement, null).order;
+                this.parentElement.style.order = order * 1 - 1;
+            });
+        });
+    </script>
+</body>
+
+</html>

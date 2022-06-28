@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>移动端通用菜单</title>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        header,
+        footer {
+            display: flex;
+            justify-content: space-around;
+
+            height: 50px;
+            background-color: #eee;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        /* footer 布局 */
+        footer {
+            border-top: 1px solid #ccc;
+        }
+
+        footer section {
+            display: flex;
+            flex-direction: column-reverse;
+        }
+
+        footer section:nth-child(1) {
+            width: 50px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        footer section:nth-child(n+2) {
+            flex: 1;
+            border-left: 1px solid #ccc;
+        }
+
+        footer section h4 {
+            flex: 0 0 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            cursor: pointer;
+        }
+
+        footer section ul {
+            display: flex;
+            flex-direction: column;
+            
+
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        footer section ul li {
+            flex: 0 0 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            cursor: pointer;
+        }
+
+        footer section ul li:nth-child(n+2) {
+            border-top: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <header></header>
+    <main></main>
+    <footer>
+        <section>1</section>
+        <section>
+            <h4>核心技能</h4>
+            <ul>
+                <li>数据分析</li>
+                <li>一周大会员</li>
+                <li>Office书籍</li>
+            </ul>
+        </section>
+        <section>
+            <h4>核心技能</h4>
+            <ul>
+                <li>数据分析</li>
+                <li>一周大会员</li>
+                <li>Office书籍</li>
+            </ul>
+        </section>
+        <section>
+            <h4>核心技能</h4>
+            <ul>
+                <li>数据分析</li>
+                <li>一周大会员</li>
+                <li>Office书籍</li>
+            </ul>
+        </section>
+    </footer>
+
+
+    <script>
+        $('section h4').on('click', function () {
+            $(this).siblings('ul').fadeToggle();
+        });
+    </script>
+</body>
+
+</html>
