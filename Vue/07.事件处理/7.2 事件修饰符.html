@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件修饰符</title>
+
+    <script src="../js/vue.js"></script>
+
+    <style>
+        .outer {
+            width: 200px;
+            height: 100px;
+            padding: 20px;
+            background-color: skyblue;
+        }
+
+        .inner {
+            width: 100%;
+            height: 100%;
+            background-color: pink;
+        }
+
+        .outer ul {
+            width: 100%;
+            height: 100%;
+
+            margin: 0;
+            padding: 0;
+
+            overflow: auto;
+        }
+
+        .outer ul li {
+            list-style: none;
+            height: 60px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 
+        Vue中的事件修饰符：
+            常用：
+            1.prevent：阻止默认事件；
+            2.stop：阻止事件冒泡；
+            3.once：事件只触发一次
+            不常用：
+            4.capture：使用事件的捕获模式；
+            5.self：只有event.target是当前操作的元素时才触发事件
+            6.passive：事件的默认行为立即执行，无需等待事件回调执行完毕
+    -->
+
+    <!-- 事件只触发一次 -->
+    <div id="root">
+        <h2>prevent</h2>
+        <div class="outer">
+            <!-- 阻止默认事件、事件冒泡 -->
+            <a :href="url" @click.prevent="showInfo">点击显示提示信息</a>
+        </div>
+
+        <h2>stop</h2>
+        <div class="outer" @click="showMsg('Outer')">
+            <div class="inner" @click.stop="showMsg('Inner')">Inner</div>
+        </div>
+
+        <h2>capture</h2>
+        <div class="outer" @click.capture="showMsg('Outer')">
+            <div class="inner" @click="showMsg('Inner')">Inner</div>
+        </div>
+
+        <h2>self</h2>
+        <div class="outer" @click.self="showMsg('Outer')">
+            <div class="inner" @click="showMsg('Inner')">Inner</div>
+        </div>
+
+        <h2>passive</h2>
+        <div class="outer">
+            <!-- 先执行滚动,再执行回调函数 -->
+            <!-- 将 wheel 改为 scroll 则无需使用passive -->
+            <ul @wheel.passive="demo(3000)">
+                <li>Hello, Vue!</li>
+                <li>Hello, Vue!</li>
+                <li>Hello, Vue!</li>
+                <li>Hello, Vue!</li>
+                <li>Hello, Vue!</li>
+                <li>Hello, Vue!</li>
+                <li>Hello, Vue!</li>
+                <li>Hello, Vue!</li>
+                <li>Hello, Vue!</li>
+                <li>Hello, Vue!</li>
+                <li>Hello, Vue!</li>
+                <li>Hello, Vue!</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#root',
+            data: {
+                url: 'http://www.baidu.com'
+            },
+            methods: {
+                showInfo(e) {
+                    // 阻止链接的默认行为，原生写法
+                    // e.preventDefault();
+                    // 阻止冒泡
+                    // e.stopPropagation();
+
+                    alert('你点击了链接，该链接默认行为被阻止！');
+                },
+                showMsg(msg) {
+                    alert('你点击了' + msg);
+                },
+                demo(num) {
+                    for (let i = 0; i < num; i++) {
+                        console.log('Hello, Vue! Use Passive!')
+                    };
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

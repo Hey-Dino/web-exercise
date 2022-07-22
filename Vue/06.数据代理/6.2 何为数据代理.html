@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>何为数据代理</title>
+</head>
+
+<body>
+    <h2>按F12键，选择Console</h2>
+    <!-- 数据代理: 通过一个对象代理对另一个对象中属性的操作（读getter/写setter） -->
+    <script>
+        let obj1 = {
+            x: 100
+        }
+        let obj2 = {
+            y: 100
+        }
+
+        // 开启代理
+        Object.defineProperty(obj2, 'x', {
+            get() {
+                return obj1.x;
+            },
+
+            set(value) {
+                obj1.x = value;
+            }
+        });
+
+        console.log('obj-1:', obj1);
+        console.log('obj-2:', obj2);
+    </script>
+</body>
+
+</html>

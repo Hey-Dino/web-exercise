@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天气案例-监视属性（包含data和computed）</title>
+
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 
+        监视属性watch:
+            1.当被监视的属性变化时，回调函数自动调用，进行相关操作
+            2.监视的属性必须存在，才能进行监视！！
+            3.监视的两种方法：
+                (1)new Vue时传入watch配置
+                (2)通过vm.$watch监视
+    -->
+
+    <div id="root">
+        <h2>今天天气很{{info}}</h2>
+        <button @click="isHot = !isHot">更改天气</button>
+
+        <script>
+            var vm = new Vue({
+                el: '#root',
+                data: {
+                    isHot: true
+                },
+                computed: {
+                    info() {
+                        return this.isHot ? '炎热' : '凉爽';
+                    }
+                },
+                watch: {
+                    isHot: {
+                        immediate: true,    // 初始化时，让handler被调用一下
+                        // 当isHot发生改变时，handler被调用
+                        handler(newValue, oldValue) {
+                            console.log('isHot被修改了，' + oldValue + "->" + newValue);
+                        }
+                    },
+                    info: {
+                        handler(newValue, oldValue) {
+                            console.log('info被修改了，' + oldValue + "->" + newValue);
+                        }
+                    }
+                }
+            });
+
+            vm.$watch('isHot', {
+                handler(newValue, oldValue) {
+                    console.log('isHot被修改了(vm.$watch)，' + oldValue + "->" + newValue);
+                }
+            })
+        </script>
+    </div>
+</body>
+
+</html>

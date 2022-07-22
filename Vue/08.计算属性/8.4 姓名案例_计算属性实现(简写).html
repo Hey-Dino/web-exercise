@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>姓名案例_计算属性实现(简写)</title>
+
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        姓：<input type="text" v-model="lastName"><br>
+        名：<input type="text" v-model="firstName"><br>
+        <!-- 注意：不要写成fullName()，计算属性和methods方法不同 -->
+        全名：<span>{{fullName}}</span>
+    </div>
+
+    <script>
+        // 只有不使用Setter方法时，才能使用简写方式
+        var vm = new Vue({
+            el: '#root',
+            data: {
+                lastName: '张',
+                firstName: '三'
+            },
+            computed: {
+                /* fullName: {
+                    get() {
+                        // console.log('调用了computed方法')
+                        return this.lastName + '-' + this.firstName;
+                    },
+                    set(fullName) {
+                        var splitName = fullName.split('-');
+                        this.lastName = splitName[0];
+                        this.firstName = splitName[1];
+                    }
+                } */
+                fullName() {
+                    return this.lastName + '-' + this.firstName;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>姓名案例_计算属性实现</title>
+
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        姓：<input type="text" v-model="lastName"><br>
+        名：<input type="text" v-model="firstName"><br>
+        全名：<span>{{fullName}}</span>
+    </div>
+
+    <script>
+        // get的作用：当有人读取fullName的时候，get就会被调用，且返回值作为fullName的值
+        // get什么时候被调用？1.初次读取fullName时；2.所依赖的呃数据发送变化时。
+        // 计算属性和methods方法的区别：计算属性只调用一次，再次调用时，调用的为其缓存。
+        var vm = new Vue({
+            el: '#root',
+            data: {
+                lastName: '张',
+                firstName: '三'
+            },
+            computed: {
+                fullName: {
+                    get() {
+                        // console.log('调用了computed方法')
+                        return this.lastName + '-' + this.firstName;
+                    },
+                    set(fullName) {
+                        var splitName = fullName.split('-');
+                        this.lastName = splitName[0];
+                        this.firstName = splitName[1];
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

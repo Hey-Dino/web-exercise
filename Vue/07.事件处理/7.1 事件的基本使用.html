@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件处理</title>
+
+    <script src="./js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h2>你好，我是{{name}}</h2>
+        <!-- 1.普通写法、无参调用 -->
+        <button v-on:click="showInfo1">点击显示提示信息(无参)</button>
+        <!-- 2.简写、带参调用 -->
+        <!-- $event 在前后皆可 -->
+        <button @click="showInfo2($event, 66)">点击显示提示信息(带参)</button>
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                name: 'Dino'
+            },
+            methods: {
+                showInfo1(event) {
+                    console.log('-----showInfo1()------');
+                    console.log('event:',event);
+                    console.log('event.target:', event.target);
+                    console.log('this === vm ?', this === vm);
+                },
+                showInfo2(event, number) {
+                    console.log('-----showInfo2()------');
+                    console.log('event:', event);
+                    console.log('number:',number);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
