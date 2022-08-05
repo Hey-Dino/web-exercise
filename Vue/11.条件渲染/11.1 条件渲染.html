@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>条件渲染</title>
+
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 
+        1.v-if
+            写法：
+                (1)v-if="表达式"
+                (2)v-else-if="表达式"
+                (3)v-else="表达式"
+            适用于：奇幻频率较低的场景
+            特点：不展示的DOM元素直接被移除
+            注意：v-if可以和v-else-if、v-else搭配使用，但要求结构不能被“打断”。
+
+        2.v-show
+            写法：v-show="表达式"
+            适用于：切换频率较高的场景
+            特点：不展示的DOM元素未被移除，仅仅是使用样式属性display隐藏
+
+        3.备注：使用v-if时，元素可能无法获取到，而使用v-show一定可以获取到。
+    -->
+
+    <div id="root">
+        <h2>Value: {{value}}</h2>
+        <button @click="value++">点我Value值加1</button>
+        <h4 v-show="value == 1">Angular</h4>
+        <h4 v-show="value == 1">React</h4>
+        <h4 v-show="value == 2">Vue</h4>
+
+        <!-- else 只能和 v-if 搭配使用，不能与v-show搭配使用 -->
+        <!-- <h4 v-if="value == 1">Angular</h4>
+        <h4 v-else-if="value == 2">React</h4>
+        <h4 v-else>Vue</h4> -->
+
+        <!-- template 为模板引擎，渲染时会标签被省略；同时，其只能和 v-if 搭配使用才能起效果 -->
+        <template v-if="value == 3">
+            <h4>Angular</h4>
+            <h4>React</h4>
+            <h4>Vue</h4>
+        </template>
+    </div>
+
+    <script>
+        new Vue({
+            el: "#root",
+            data: {
+                value: 0
+            }
+        })
+    </script>
+</body>
+
+</html>

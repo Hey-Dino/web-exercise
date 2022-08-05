@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>绑定class样式</title>
+
+    <script src="../js/vue.js"></script>
+
+    <style>
+        .basic {
+            width: 200px;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            border: 5px solid #333;
+
+            font-size: 20px;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .normal {
+            background-color: skyblue;
+        }
+
+        .happy {
+            background-image: linear-gradient(red, orange);
+            border-color: #ccc;
+        }
+
+        .sad {
+            background-color: #444;
+            border-color: #333;
+        }
+
+        .type1 {
+            border-radius: 50px;
+        }
+
+        .type2 {
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, .5);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        <!-- 绑定class样——字符串写法，适用于：样式的类名不确定，需要动态指定 -->
+        <div class="basic" :class="mood" @click="changeMood_1">点击切换心情</div>
+
+        <br><br>
+
+        <!-- 绑定class样式——数组写法，适用于：要绑定的样式个数不确定，名字也不确定 -->
+        <div class="basic" :class="classArr" @click="changeMood_3">点击切换心情</div>
+
+        <br><br>
+
+        <!-- 绑定class样式——对象写法，适用于：要绑定的个数不确定、名字不确定，要动态确定 -->
+        <div class="basic" :class="objArr" @click="changeMood_3">点击切换心情</div>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '#root',
+            data: {
+                mood: 'normal',
+                classArr: ['type1', 'type2'],
+                objArr: {
+                    type1: true,
+                    type2: false
+                }
+            },
+            methods: {
+                changeMood_1() {
+                    this.mood = 'happy';
+                },
+                changeMood_2() {
+                    var arr = ['normal', 'happy', 'sad'];
+                    var index = Math.floor(Math.random() * 3);
+                    this.mood = this.arr[index];
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

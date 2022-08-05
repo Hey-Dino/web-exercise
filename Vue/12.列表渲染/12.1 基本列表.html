@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>基本列表渲染</title>
+
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 
+        v-for 指令：
+            1、用于展示列表数据
+            2、语法：v-for = "(item, index) in xxx" :key="yyy"
+            3、可便利：数组、对象、字符串、指定次数
+    -->
+
+    <div id="root">
+        <h3>遍历数组(使用最多)</h3>
+        <ul>
+            <li v-for="person in persons" :key="person.id">
+                {{person.uname}}-{{person.age}}
+            </li>
+        </ul>
+
+        <h3>遍历对象</h3>
+        <ul>
+            <li v-for="(val, key) of car" :key="key">
+                {{key}} : {{val}}
+            </li>
+        </ul>
+
+        <h3>遍历字符串(使用较少)</h3>
+        <ul>
+            <li v-for="(val, key) in str" :key="key">
+                {{val}}-{{key}}
+            </li>
+        </ul>
+
+        <h3>遍历指定次数</h3>
+        <ul>
+            <li v-for="(a, b) in 4">
+                {{a}}-{{b}}
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        new Vue({
+            el: "#root",
+            data: {
+                persons: [
+                    { id: "01", uname: "Dino", age: 22 },
+                    { id: "02", uname: "Pedro", age: 20 },
+                    { id: "03", uname: "Peppa", age: 18 }
+                ],
+                car: { carName: "Audi RS6", carPrice: "70W" },
+                str: "Vue"
+            }
+        })
+    </script>
+</body>
+
+</html>

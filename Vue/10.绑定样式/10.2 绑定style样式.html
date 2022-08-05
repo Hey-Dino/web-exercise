@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>绑定style样式</title>
+
+    <script src="../js/vue.js"></script>
+
+    <style>
+        .normal {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 200px;
+            height: 100px;
+            border: 1px solid #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        <h2>绑定style，对象写法</h2>
+        <div class="normal" :style="{fontSize: '20px', fontWeight: 'bold', backgroundColor: 'skyblue'}">{{tip}}</div>
+        <!-- 绑定style，对象写法 -->
+        <div class="normal" :style="styleObj1">{{tip}}</div>
+
+        <br><br>
+
+        <h2>绑定style，数组写法</h2>
+        <div class="normal" :style="[styleObj1, styleObj2]">{{tip}}</div>
+        <!-- 绑定style，数组写法 -->
+        <div class="normal" :style="styleArr">{{tip}}</div>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#root',
+            data: {
+                tip: '绑定style样式',
+                styleObj1: {
+                    fontSize: '20px',
+                    fontWeight: 'bold',
+                    backgroundColor: 'skyblue',
+                },
+                styleObj2: {
+                    color: '#fff',
+                },
+                styleArr: [
+                    {
+                        fontSize: '20px',
+                        fontWeight: 'bold',
+                        backgroundColor: 'skyblue',
+                    },
+                    {
+                        color: '#fff',
+                    }
+                ]
+            },
+        });
+    </script>
+</body>
+
+</html>
