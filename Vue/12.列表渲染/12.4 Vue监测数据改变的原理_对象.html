@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue监测数据改变的原理</title>
+
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <h2>按F12键，选择Console</h2>
+
+    <script>
+        let data = {
+            name: "Dino",
+            city: "GuangZhou",
+            friends: {
+                p1: "Pedro",
+                p2: "Peppa"
+            }
+        }
+
+        // 1、主动监测数据变化
+        /* let tempName = data.name;
+        setInterval(() => {
+            if (data.name != tempName) {
+                console.log("姓名被修改了。");
+                tempName = data.name;
+            }
+        }, 500); */
+
+        // 2、错误写法，可能因为无限递归导致读取、写入失败
+        //  提示：Maximum call stack size exceeded
+        /* Object.defineProperty(data, "name", {
+            get() {
+                // [return data.name]返回name的过程又会调用get()方法，导致递归
+                return data.name;
+            },
+            set(val) {
+                // [data.name = val]设置name的过程又会调用set()方法，导致递归
+                data.name = val;
+            }
+        }); */
+
+        // 3、正确写法，添加观察者
+        // 创建一个监视的实例对象，用于监视data中数据的变化
+        let obs = new Observer(data);
+        let vm = {};
+        vm._data = data = obs;
+
+        function Observer(obj) {
+            // 获取被代理对象属性的键
+            let keys = Object.keys(obj);
+
+            keys.forEach((key) => {
+                // this 表示添加getter和setter方法的对象，为obs
+                Object.defineProperty(this, key, {
+                    get() {
+                        // ES6 关联写法，此时表示key为一个变量。
+                        // 与创痛obj.key 写法有差别
+                        return obj[key];
+                    },
+                    set(val) {
+                        obj[key] = val;
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

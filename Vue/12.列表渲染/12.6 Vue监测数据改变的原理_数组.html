@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue监测数据改变的原理</title>
+
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h2>姓名: {{name}}</h2>
+        <h2>所在城市: {{city}}</h2>
+        <h2>爱好:</h2>
+        <ul>
+            <li v-for="(h, index) in hobby" ::key="index">{{h}}</li>
+        </ul>
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: "#root",
+            data: {
+                name: "Dino",
+                city: "GuangZhou",
+                hobby: ["吃饭", "睡觉", "打豆豆"]
+            }
+        });
+
+        // 直接通过索引值修改hobby的内容，无法触发视图更新
+        // 更新方法一：通过Vue重新包装后的方法 push()、pop()、shift()、unshift()、splice()、sort()、reverse()
+        // 之所以说时包装后的方法，因为 vm.hobby.push 不等于 Array.protoptype.push
+
+        // 更新方式二：使用Vue.set()方法实现，vm.$set()同理
+    </script>
+</body>
+
+</html>
