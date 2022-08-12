@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自定义指令</title>
+
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h3>n目前的值：{{n}}</h3>
+        <h3>n放大10倍后的值：<span v-big="n"></span></h3>
+        <button @click="n++">点我n+1</button>
+        <button @click="otherInfo = 2">模板被重新解析时，directives内的方法被重新解析!{{otherInfo}}</button>
+    </div>
+
+    <script>
+        new Vue({
+            el: "#root",
+            data: {
+                n: 1,
+                otherInfo: 1
+            },
+            directives: {
+                /* 
+                    big函数被调用的时机：
+                        1.指令与袁术成功绑定时
+                        2.指令所在的模板被重新解析时
+                */
+                big(element, binding) {
+                    console.log(element);
+                    console.log(binding);
+                    // 操作OM元素
+                    element.innerText = binding.value * 10;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
