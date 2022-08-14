@@ -11,11 +11,36 @@
 </head>
 
 <body>
+    <!-- 
+        需求1：
+        定义一个v-big指令，和v-text功能类似，但会把绑定的值放大10倍    
+        需求2：
+        定义一个v-fbind指令，和v-bind功能类似，但可以让其所绑定的input元素默认获取焦点
+
+        自定义指令总结：
+            一、定义语法
+                (1).局部指令：
+                    new Vue({                           new Vue({
+                        directives:{指令名:配置对象}  或    directives:{指令名:回调函数}
+                    })                                  })
+                (2).全局指令(与全局过滤器类同):
+                    Vue.directive(指令名, 配置对象)  或  Vue.directive(指令名, 回调函数)
+            二、配置对象中常用3个回调：
+                (1).bind: 指令与元素成功绑定时调用
+                (2).inserted: 指令所在元素被插入页面时调用。
+                (3).update: 指令所在模板结构被重新解析时调用。
+            三、备注：
+                1.指令定义时不加v-，但使用时要加v-；
+                2.指令名如果是多个单词，要使用kebab-case命名方式，不要使用cameCase命名方式。
+    -->
     <div id="root">
         <h3>n目前的值：{{n}}</h3>
-        <h3>n放大10倍后的值：<span v-big="n"></span></h3>
+        <h3>n放大10倍后的值：<span v-big-number="n"></span></h3>
         <button @click="n++">点我n+1</button>
         <button @click="otherInfo = 2">模板被重新解析时，directives内的方法被重新解析!{{otherInfo}}</button>
+        <hr>
+        <button @click="n++">点我n+1，下方输入框自动获取焦点</button><br>
+        <input type="text" v-fbind:value="n">
     </div>
 
     <script>
@@ -27,15 +52,32 @@
             },
             directives: {
                 /* 
-                    big函数被调用的时机：
+                    big函数被调用的时机： 
                         1.指令与袁术成功绑定时
                         2.指令所在的模板被重新解析时
                 */
-                big(element, binding) {
+                "big-number": function (element, binding) {
                     console.log(element);
                     console.log(binding);
                     // 操作OM元素
                     element.innerText = binding.value * 10;
+                },
+                /* fbind(element, binding) {
+                    // 由于首次绑定时，element元素并未插入到网页中，因而focus操作无效
+                    element.value = binding.value;
+                    element.focus();
+                }, */
+                fbind: {
+                    bind(element, binding) {
+                        element.value = binding.value;
+                    },
+                    inserted(element, binding) {
+                        element.focus();
+
+                    },
+                    update(element, binding) {
+                        element.value = binding.value;
+                    }
                 }
             }
         });

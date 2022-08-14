@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>分析生命周期</title>
+
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root1" :x="n">
+        <h2>{{msg}}</h2>
+        <h3>n现在的值：{{n}}</h3>
+        <button @click="add">点我n+1</button>
+        <button @click="destroyeVm">点我销毁VM</button#>
+    </div>
+    <br>
+    <hr><br>
+
+    <!-- 使用template模板 -->
+    <!-- 整个id值为root2的标签会被覆盖 -->
+    <div id="root2" data-temp="test">
+
+    </div>
+
+    <script>
+        new Vue({
+            el: "#root1",
+            data: {
+                n: 1,
+                msg: "Hello, Vue!"
+            },
+            methods: {
+                add() {
+                    this.n++;
+                },
+                destroyeVm() {
+                    this.$destroy();
+                }
+            },
+            /* 
+            下方为生命周期函数
+            */
+            beforeCreate() {
+                console.log("-----------------------");
+                console.log("生命周期函数 beforeCreate\n数据监测、数据代理仍未开始\n\n***需要在使用断点，才可以查看在该阶段的this***");
+                console.log(this);
+                // debugger;
+            },
+            created() {
+                console.log("生命周期函数 created\n数据监测、数据代理已开始\n");
+                console.log(this);
+                console.log("-----------------------");
+            },
+            beforeMount() {
+                console.log("-----------------------");
+                console.log("生命周期函数 beforeMount\n虚拟DOM仍未挂载到页面中，页面中仍未未渲染的标签\n");
+                // debugger;   // 可以通过使用 debugger查看效果
+            },
+            mounted() {
+                console.log("生命周期函数 mounted\n虚拟DOM已挂载到页面中");
+                console.log("-----------------------");
+            },
+            beforeUpdate() {
+                console.log("-----------------------");
+                console.log("生命周期函数 beforeUpdate\n此时，更新后的数据仍未同步到页面中\n此时n的值为：" + this.n);
+                // debugger
+            },
+            updated() {
+                console.log("生命周期函数 update\n此时，更新后的数据仍已同步到页面中");
+                console.log("-----------------------");
+            },
+            beforeDestroy() {
+                console.log("-----------------------");
+                console.log("生命周期函数 beforeDestroy\n此时做的任何修改，都不再更新到页面中");
+                this.n = 100;
+            },
+            destroyed() {
+                console.log("生命周期函数 destroyed");
+                console.log("-----------------------");
+            },
+        });
+
+        new Vue({
+            el: "#root2",
+            template: `
+                <div>
+                    <h2>{{msg}}</h2>
+                </div>
+            `,
+            data: {
+                msg: "Hello, Template!"
+            }
+        })
+    </script>
+</body>
+
+</html>
