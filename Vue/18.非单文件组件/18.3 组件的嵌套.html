@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>非单文件组件的基本使用-组件的嵌套</title>
+
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <app></app>
+    </div>
+
+    <script>
+        // 注册组件
+        const student = {
+            template: `
+                <div>
+                    <h2>名称：{{name}}</h2>    
+                    <h2>年龄：{{age}}</h2>  
+                </div>
+            `,
+            data() {
+                return {
+                    name: "Dino",
+                    age: 22
+                }
+            }
+        };
+        const school = Vue.extend({
+            template: `
+                <div>
+                    <h2>学校名称：{{name}}</h2>    
+                    <h2>学校地址：{{addr}}</h2>    
+                    <student></student>    
+                </div>
+            `,
+            data() {
+                return {
+                    name: "HSTC",
+                    addr: "TEOCHEW, GUANGDONG"
+                }
+            },
+            components: {
+                student
+            }
+        });
+        const hello = {
+            template: `
+                <div><h1>{{msg}}</h1></div>
+            `,
+            data() {
+                return {
+                    msg: '你好，组件嵌套！'
+                }
+            }
+        }
+        const app = Vue.extend({
+            template: `
+                <div>
+                    <school></school>
+                    <hello></hello>    
+                </div>
+            `,
+            components: {
+                school,
+                hello
+            }
+        })
+
+        new Vue({
+            template:`
+                <app></app>
+            `,
+            el: "#root",
+            components: {
+                app
+            }
+        })
+    </script>
+</body>
+
+</html>

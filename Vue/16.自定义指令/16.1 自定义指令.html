@@ -37,7 +37,7 @@
         <h3>n目前的值：{{n}}</h3>
         <h3>n放大10倍后的值：<span v-big-number="n"></span></h3>
         <button @click="n++">点我n+1</button>
-        <button @click="otherInfo = 2">模板被重新解析时，directives内的方法被重新解析!{{otherInfo}}</button>
+        <button @click="otherInfo++">模板被重新解析时，directives内的方法被重新解析!{{otherInfo}}</button>
         <hr>
         <button @click="n++">点我n+1，下方输入框自动获取焦点</button><br>
         <input type="text" v-fbind:value="n">

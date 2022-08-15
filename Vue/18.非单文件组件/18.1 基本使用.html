@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>非单文件组件的基本使用</title>
+
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 
+        Vue 中使用组件的三大步骤：
+            1、定义组件（创建组件）
+            2、注册组件（局部、全局）
+            3、使用组件（写组件标签）
+            
+        一、如何定义一个组件？
+            使用 Vue.extend(option) 创建，其中 options 和 new Vue(options) 时传入的哪个options 几乎一样，但有所区别：
+                （1）不写入el，原因如下：最终所有的组件都要经过一个vm管理，由vm中的el决定服务哪个容器
+                （2）data必须写成函数形式，原因如下：避免组件被服用时，数据存在引用关系，造成某一处数据修改影响其他数据
+            备注：使用template 可以配置组件结构
+
+        二、如何注册组件
+            （1）局部注册：靠 new Vue() 的时候传入components选项
+            （2）全局注册：靠 Vue.component('组件名', 组件)
+
+        三、如何使用组件
+            在HTML中以组件名作为标签名写入，如<school></school>
+    -->
+    <div id="root">
+        <!-- 第三步：使用组件 -->
+        <school></school>
+        <hr>
+        <student></student>
+    </div>
+
+    <div id="root2">
+        <hr>
+        <hello></hello>
+    </div>
+
+    <script>
+        // 阻止生成提示
+        Vue.config.productionTip = false;
+
+        // 第一步：创建组件
+        const school = Vue.extend({
+            name: "HSTC",
+            template: `
+                <div>
+                    <h2>school 组件(局部注册)</h2>
+                    <h2>姓名：{{name}}</h2>    
+                    <h2>地址：{{addr}}</h2>    
+                </div>
+            `,
+            data() {
+                return {
+                    addr: "Teochew, Guangdong"
+                }
+            }
+        });
+        const student = Vue.extend({
+            template: `
+                <div>
+                    <h2>school 组件(局部注册)</h2>
+                    <h2>姓名：{{name}}</h2>    
+                    <h2>地址：{{addr}}</h2>    
+                </div>
+            `,
+            data() {
+                return {
+                    name: 'Dino',
+                    addr: 'Guangzhou, Guangdong'
+                };
+            },
+        })
+        const hello = Vue.extend({
+            template: `
+                <div>
+                    <h2>全局注册 组件</h2>
+                    <h2>全局注册: Hello, {{name}}!</h2>
+                </div>
+            `,
+            data() {
+                return {
+                    name: "Vue"
+                }
+            }
+        })
+
+        // 第二部：注册组件(全局注册)
+        Vue.component('hello', hello);
+
+        new Vue({
+            el: "#root",
+            // 第二步：注册组件(局部注册)
+            components: {
+                school,
+                student
+            },
+        });
+
+        new Vue({
+            el: "#root2"
+        });
+    </script>
+</body>
+
+</html>
