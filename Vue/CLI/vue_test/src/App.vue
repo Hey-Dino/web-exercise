@@ -32,7 +32,8 @@ export default {
                 { id: "002", tit: "喝酒", done: false },
                 { id: "003", tit: "烫头", done: true },
             ], */
-            todos: [],
+            // 避免初始TodoList为空时，控制台报错
+            todos: JSON.parse(localStorage.getItem("TodoList")) || [],
         };
     },
     methods: {
@@ -65,15 +66,12 @@ export default {
     // 监听todos的改变，将更新后的todos同步到 LocalStorage
     watch: {
         todos: {
+            // 不添加深度监视的话，无法监视到done的变化
             deep: true,
             handler(newVal) {
                 localStorage.setItem("TodoList", JSON.stringify(newVal));
             },
         },
-    },
-    // 在组件被挂载之前，将 localStorage 中的 TodoList数据 赋值为 data 中的 todos
-    beforeMount() {
-        return (this.todos = JSON.parse(localStorage.getItem("TodoList")));
     },
 };
 </script>
