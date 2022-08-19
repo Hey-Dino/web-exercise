@@ -27,12 +27,11 @@ export default {
     name: "App",
     data() {
         return {
-            /* todos: [
+            todos: [
                 { id: "001", tit: "抽烟", done: true },
                 { id: "002", tit: "喝酒", done: false },
                 { id: "003", tit: "烫头", done: true },
-            ], */
-            todos: [],
+            ],
         };
     },
     methods: {
@@ -56,24 +55,10 @@ export default {
             this.todos = this.todos.filter((todo) => !todo.done);
         },
     },
-    // 注册组件
     components: {
         TodosHeader,
         TodosList,
         TodosFooter,
-    },
-    // 监听todos的改变，将更新后的todos同步到 LocalStorage
-    watch: {
-        todos: {
-            deep: true,
-            handler(newVal) {
-                localStorage.setItem("TodoList", JSON.stringify(newVal));
-            },
-        },
-    },
-    // 在组件被挂载之前，将 localStorage 中的 TodoList数据 赋值为 data 中的 todos
-    beforeMount() {
-        return (this.todos = JSON.parse(localStorage.getItem("TodoList")));
     },
 };
 </script>
