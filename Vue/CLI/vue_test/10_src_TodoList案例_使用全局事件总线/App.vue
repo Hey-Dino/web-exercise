@@ -2,16 +2,12 @@
     <div id="root">
         <div class="todo-container">
             <div class="todo-wrap">
-                <TodosHeader :addTodo="addTodo"></TodosHeader>
-                <TodosList
-                    :todos="todos"
-                    :handleCheck="handleCheck"
-                    :handleDel="handleDel"
-                ></TodosList>
+                <TodosHeader @addTodo="addTodo"></TodosHeader>
+                <TodosList :todos="todos"></TodosList>
                 <TodosFooter
                     :todos="todos"
-                    :handleCheckAll="handleCheckAll"
-                    :handleDelChecked="handleDelChecked"
+                    @handleCheckAll="handleCheckAll"
+                    @handleDelChecked="handleDelChecked"
                 ></TodosFooter>
             </div>
         </div>
@@ -27,11 +23,6 @@ export default {
     name: "App",
     data() {
         return {
-            /* todos: [
-                { id: "001", tit: "抽烟", done: true },
-                { id: "002", tit: "喝酒", done: false },
-                { id: "003", tit: "烫头", done: true },
-            ], */
             // 避免初始TodoList为空时，控制台报错
             todos: JSON.parse(localStorage.getItem("TodoList")) || [],
         };
@@ -41,11 +32,16 @@ export default {
             this.todos.unshift(todoObj);
         },
         handleCheck(id) {
+            console.log("handleCheck");
             this.todos.forEach((todo) => {
-                if (todo.id === id) todo.done = !todo.done;
+                if (todo.id === id) {
+                    todo.done = !todo.done;
+                    return;
+                }
             });
         },
         handleDel(id) {
+            console.log("handleDel");
             this.todos.forEach((todo, index) => {
                 if (todo.id === id) this.todos.splice(index, 1);
             });
@@ -72,6 +68,11 @@ export default {
                 localStorage.setItem("TodoList", JSON.stringify(newVal));
             },
         },
+    },
+    // 利用全局事件总线设置自定义事件
+    mounted() {
+        this.$bus.$on("handleCheck", this.handleCheck);
+        this.$bus.$on("handleDel", this.handleDel);
     },
 };
 </script>

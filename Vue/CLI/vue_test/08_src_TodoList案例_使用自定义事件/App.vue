@@ -2,7 +2,7 @@
     <div id="root">
         <div class="todo-container">
             <div class="todo-wrap">
-                <TodosHeader :addTodo="addTodo"></TodosHeader>
+                <TodosHeader @addTodo="addTodo"></TodosHeader>
                 <TodosList
                     :todos="todos"
                     :handleCheck="handleCheck"
@@ -10,8 +10,8 @@
                 ></TodosList>
                 <TodosFooter
                     :todos="todos"
-                    :handleCheckAll="handleCheckAll"
-                    :handleDelChecked="handleDelChecked"
+                    @handleCheckAll="handleCheckAll"
+                    @handleDelChecked="handleDelChecked"
                 ></TodosFooter>
             </div>
         </div>
@@ -27,11 +27,6 @@ export default {
     name: "App",
     data() {
         return {
-            /* todos: [
-                { id: "001", tit: "抽烟", done: true },
-                { id: "002", tit: "喝酒", done: false },
-                { id: "003", tit: "烫头", done: true },
-            ], */
             // 避免初始TodoList为空时，控制台报错
             todos: JSON.parse(localStorage.getItem("TodoList")) || [],
         };

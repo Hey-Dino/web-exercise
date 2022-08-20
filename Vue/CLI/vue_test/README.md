@@ -121,3 +121,84 @@
    - SessionStorage存储的内容会随浏览器的关闭而消失。
    - 不同于SessionStorage，LocalStorage的数据需要手动清除才消失。
    - `JSON.parse(null)`的返回值仍然是 null。
+
+## 全局事件总线（GlobalEventBus）
+
+1. 一种组件间通信的方式，适用于任意组件间通信
+
+2. 安装全局事件总线：
+
+   ```vue
+   new Vue({
+   	...
+   	beforeCreate(){
+   		Vue.prototype.$bus = this;	// 安装全局事件总线，$bus就是当前应用的vm
+   	}
+   });
+   ```
+
+3. 使用事件总线：
+
+   - 接收数据：A组件希望 **接收数据**，则在A组件中给 `$bus` 绑定自定义事件，事件的回调留在 A组件 自身。
+
+     ```vue
+     methods(){
+     	demo(data){....}
+     }
+     ...
+     mounted(){
+     	this.$bus.$on("xxx", this.demo);
+     }
+     
+     // 下方为【简写方式】
+     mounted(){
+     	this.$bus.$on("xxx", (param)=>{...})
+     }
+     ```
+
+     - 注意点：
+
+       使用【简写方式】时，必须使用 **箭头函数**；
+
+       若不使用箭头函数，而使用普通函数（function() {…}），函数体内的 **this** 会指向提供数据的一方，而非接收数据的一方。
+
+   - 提供数据：
+
+     `this.$bus.$emit("xxx", 数据)`
+
+     - 注意：`xxx`需要与 $on() 中的`xxx`相对应。
+
+4. 最好在beforeDestroy钩子中，用`$off("xxx")`去解绑当前组件所用到的自定义事件。
+
+## 消息订阅与发布（pubsub）
+
+1. 一种组件间通信的方式，适用于==任意组件间通信==
+
+2. 使用步骤：
+
+   - 安装pubsub：`npm i pubsub-js`
+
+   - 引入：`import pubsub from "pubsub-js"`
+
+   - 接收数据：A组件希望 **接收数据**，则在A组件中订阅消息，事件的回调留在 A组件 自身。
+
+     ```
+     methods(){
+     	demo(msgName, data){....}
+     }
+     ...
+     mounted(){
+     	this.pid = pubsub.subscribe("xxx", this.demo);	// 订阅消息；创建变量pid是便于后续 取消订阅
+     }
+     
+     // 下方为【简写方式】
+     mounted(){
+     	this.pid = pubsub.subscribe("xxx", (msgName, data)=>{...})
+     }
+     ```
+
+     - 注意：回调函数的第一个参数是==所订阅消息的名称==，而不是发布消息时所携带的数据。
+
+   - 接收数据：`pubsub.publish("xxx", 数据)`
+
+   - 最好在beforeDestroy钩子中，使用`pubsub.unsubscribe(pid)`取消订阅。

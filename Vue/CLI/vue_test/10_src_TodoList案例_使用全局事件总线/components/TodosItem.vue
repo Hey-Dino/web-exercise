@@ -18,21 +18,15 @@
 </template>
 
 <script>
-import pubsub from "pubsub-js";
-
 export default {
     name: "TodosItem",
     props: ["todo"],
     methods: {
         checkTodo(id) {
-            // this.$bus.$emit("handleCheck", id);
-
-            // 发布消息
-            pubsub.publish("handleCheck", id);
+            this.$bus.$emit("handleCheck", id);
         },
         delTodo(id) {
-            // 发布消息
-            if (confirm("是否删除该条记录？")) pubsub.publish("handleDel", id);
+            if (confirm("是否删除该条记录？")) this.$bus.$emit("handleDel", id);
         },
     },
 };

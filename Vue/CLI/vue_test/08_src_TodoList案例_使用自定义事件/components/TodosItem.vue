@@ -4,7 +4,7 @@
             <input
                 type="checkbox"
                 :checked="todo.done"
-                @change="checkTodo(todo.id)"
+                @change="handleCheck(todo.id)"
             />
             <!-- 此方法不符合Vue的建议，因为违法规则，修改了props -->
             <!-- <input type="checkbox" v-model="todo.done"/> -->
@@ -18,21 +18,12 @@
 </template>
 
 <script>
-import pubsub from "pubsub-js";
-
 export default {
     name: "TodosItem",
-    props: ["todo"],
+    props: ["todo", "handleCheck", "handleDel"],
     methods: {
-        checkTodo(id) {
-            // this.$bus.$emit("handleCheck", id);
-
-            // 发布消息
-            pubsub.publish("handleCheck", id);
-        },
         delTodo(id) {
-            // 发布消息
-            if (confirm("是否删除该条记录？")) pubsub.publish("handleDel", id);
+            if (confirm("是否删除该条记录？")) this.handleDel(id);
         },
     },
 };
