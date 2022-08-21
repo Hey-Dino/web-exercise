@@ -202,3 +202,93 @@
    - 接收数据：`pubsub.publish("xxx", 数据)`
 
    - 最好在beforeDestroy钩子中，使用`pubsub.unsubscribe(pid)`取消订阅。
+
+
+## nextTick
+1. 语法：`this.$nextTick(回调函数)`
+2. 作用：在 **下一次** DOM更新结束后执行其指定的回调
+3. 什么时候用：当改变数据后，要基于更新后的新DOM进行某些操作时，要在nextTick所指定的回调函数中执行。
+
+
+## Vue封装的过渡与动画
+1. 作用：在插入、更新或移除DOM元素时，在适合的时候给元素添加样式类名。
+2. 图示：
+![img](https://cn.vuejs.org/assets/transition-classes.f0f7b3c9.png)
+3. 写法：
+    - 准备样式：
+        - 元素进入的样式：
+            1. v-enter：进入的起点
+            2. v-enter-active：进入过程中
+            3. v-enter-to：进入的终点
+        - 元素离开的样式：
+            1. v-leave：离开的起点
+            2. v-leave-active：离开过程中
+            3. v-leave-to：离开的终点
+        
+    - 使用`<transition></transition>`包裹需要过渡的元素，并配置name属性：
+
+        ```Vue
+        <transition>
+            <h1 v-show="isShow">Hello, Vue!</h1>
+        </transition>
+        ```
+
+    - 备注：
+
+        - 若有多个元素需要过渡，则需要使用：`<transition-group></transition-group>`包裹，并且为其包裹的每个元素添加`key`值
+
+        - 若`<transition>`或`<transition-group>`配置了属性name，则上述v-enter等样式的“v”需要替换为对应的name值
+        - 通常情况下，v-enter 和 v-leave-to 是一致的，v-enter-to 和 v-leave 是一致的，v-enter-active 和 v-leave-active 是一致的。
+
+## Vue脚手架配置代理
+
+### 方法一
+
+​	在 **Vue.config.js** 文件中添加如下配置：
+
+```javascript
+devServer: {
+    // 接收请求的服务器地址
+    proxy: 'http://localhost:5000'
+}
+```
+
+​	说明：
+
+		1. 有点：配置简单，请求资源时直接发给前端（8080）即可
+  		2. 缺点：不能配置 **多个代理**，不能灵活的控制请求是否走代理。
+  		3. 工作方式：若按照上述配置代理，只有当请求的资源不存在于前端时，才会将请求转发给服务器（优先匹配前端资源原则）
+
+### 方式二
+
+​	在 **Vue.config.js** 文件中添加如下配置：
+
+```javascript
+devServer: {
+    proxy: {
+      '/api1': {		// 匹配所有以 ‘/api1’ 开头的请求路径
+        target: 'http://localhost:5000',	// 代理目标的基础路径
+        pathRewriter: {‘^/api1’:''}，	// 利用正则表达式，将请求路径中的 /api1 转化为 空字符串
+        ws: true,	// 是否支持 WebSocket
+        changeOrigin: true		// 是否与代理目标同源
+      },
+      '/api2': {		
+        target: 'http://localhost:5001',	
+        pathRewriter: {‘^/api1’:''}，	
+        ws: true,	
+        changeOrigin: true		
+      },
+    }
+}
+/*
+	1.在Vue中，ws 和 changeOrigin 的默认值为 true
+	2.changeOrigin 设置为true时，服务器收到的请求头中的host与target配置项相同，为：localhost:5000
+	  changeOrigin 设置为false时，服务器收到的请求头中的host为请求发送方的URL
+*/
+```
+
+​	说明：
+
+	1. 优点：可以配置多个代理，且可以灵活地控制请求是否走代理
+ 	2. 缺点：配置略显繁琐，请求资源时必须加**前缀**，如 应将请求URL`http://localhost:8080/students`改为`http://localhost:8080/api1/students`。
+
