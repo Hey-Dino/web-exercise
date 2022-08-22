@@ -256,8 +256,8 @@ devServer: {
 ​	说明：
 
 		1. 有点：配置简单，请求资源时直接发给前端（8080）即可
-  		2. 缺点：不能配置 **多个代理**，不能灵活的控制请求是否走代理。
-  		3. 工作方式：若按照上述配置代理，只有当请求的资源不存在于前端时，才会将请求转发给服务器（优先匹配前端资源原则）
+		2. 缺点：不能配置 **多个代理**，不能灵活的控制请求是否走代理。
+		3. 工作方式：若按照上述配置代理，只有当请求的资源不存在于前端时，才会将请求转发给服务器（优先匹配前端资源原则）
 
 ### 方式二
 
@@ -290,5 +290,96 @@ devServer: {
 ​	说明：
 
 	1. 优点：可以配置多个代理，且可以灵活地控制请求是否走代理
- 	2. 缺点：配置略显繁琐，请求资源时必须加**前缀**，如 应将请求URL`http://localhost:8080/students`改为`http://localhost:8080/api1/students`。
+	2. 缺点：配置略显繁琐，请求资源时必须加**前缀**，如 应将请求URL`http://localhost:8080/students`改为`http://localhost:8080/api1/students`。
+
+## 插槽
+
+ 1. 作用：让 父组件 可以向 子组件 指定位置插入 **HTML解构**，也是一种组件间通信的方式，适用于 **父组件 ==> 子组件**。
+
+ 2. 分类：默认插槽、具名插槽、作用域插槽
+
+ 3. 使用方式：
+
+    - 默认插槽
+
+      ```vue
+      <!-- 子组件中 -->
+      <template>
+      	<div>
+              <!-- 定义插槽 -->
+              <slot>插槽默认内容。。。</slot>
+          </div>
+      </template>
+      
+      <!-- 父组件中 -->
+      <Category>
+      	<div>HTML结构1</div>
+      </Category>
+      ```
+
+    - 具名插槽
+
+      ```vue
+      <!-- 子组件中 -->
+      <template>
+      	<div>
+              <!-- 定义插槽 -->
+              <slot name="slot1">插槽默认内容。。。</slot>
+              <slot name="slot2">插槽默认内容。。。</slot>
+          </div>
+      </template>
+      
+      <!-- 父组件中 -->
+      <Category>
+      	<div slot="slot1">HTML结构1</div>
+          <!-- v-slot 需要和 template 配合使用 -->
+          <template v-slot:slot2>
+          	<div>HTML结构2</div>
+          </template>
+      </Category>
+      ```
+
+    - 作用域插槽
+
+      - 理解：数据位于 **插槽所在的组件** ，但需要数据生成HTML结构的组件为 **插槽的使用者**。
+
+        （如：数据和插槽在 Category 组件中，而使用数据所遍历出的HTML结构由 App 组件 决定）
+
+      ```vue
+      <!-- 子组件中 -->
+      <template>
+      	<div>
+              <!-- 定义插槽 -->
+              <slot :games="games">插槽默认内容。。。</slot>
+          </div>
+      </template>
+      
+      <script>
+          export default {
+              name: "Category",
+              data() {
+                  return {
+                      games: ["红色警戒", "穿越火线", "劲舞团", "超级玛丽"],
+                  };
+              },
+          };
+      </script>
+      
+      <!-- 父组件中 -->
+      <Category>
+          <!-- scope 需要和 template 配合使用 -->
+          <template scope="obj">
+          	<ul>
+                  <li v-for="(game, index) in obj.games" :key="index">{{game}}</li>
+              </ul>
+          </template>
+          
+          <!-- scope 需要和 template 配合使用 -->
+          <template slot-scope="{...games}">
+              <h4 v-for="(game, index) in games" :key="index">{{game}}</h4>
+          </template>
+      </Category>
+      ```
+
+      
 
