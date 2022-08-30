@@ -2,7 +2,7 @@
     集成第三方动画 animate
 
     使用方法：
-        1.按转 animate.css：npm i animate
+        1.安装 animate.css：npm i animate
         2.引入该CSS文件：import "animate.css"
         3.为需要添加过渡效果的元素添加name：animate__animated animate__bounce
         4.为需要添加过渡效果的元素添加属性：enter-active-class、leave-active-class，属性值过过渡效果名

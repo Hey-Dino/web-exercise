@@ -5,9 +5,9 @@ $(function () {
     // 控制页面导航的滑入和滑出
     function toggleTool() {
         if ($(document).scrollTop() >= toolTop) {
-            $('.fixedtool').stop().fadeIn();
+            $('.fixedtool').stop().slideDown();
         } else {
-            $('.fixedtool').stop().fadeOut();
+            $('.fixedtool').stop().slideUp();
         }
     };
     // 避免页面刷新时不显示页面导航
