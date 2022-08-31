@@ -7,48 +7,14 @@ import Vuex from "vuex";
 // 使用Vuex插件
 Vue.use(Vuex);
 
-// 准备actions —— 响应组件中的动作
-const actions = {
-    addOdd(context, val) {
-        if (context.state.sum % 2) {
-            context.commit("ADD", val);
-        }
-    },
-    addWait(context, val) {
-        if (!this.timer) {
-            this.timer = setTimeout(() => {     // settimeout中切勿使用普通函数，否则this指向window
-                context.commit("ADD", val);
-                this.timer = null;
-            }, 500);
-        }
-    }
-};
-// 准备mutation —— 用于操作数据（state）
-const mutations = {
-    ADD(state, val) {
-        state.sum += val;
-    },
-    REDUCE(state, val) {
-        state.sum -= val;
-    }
-};
-// 准备state —— 用于存储数据
-const state = {
-    sum: 0,
-    school: "CS&S",
-    subject: "Vue"
-};
-// 准备getters —— 用于获取数据
-const getters = {
-    bigSum(state) {
-        return state.sum * 10;
-    }
-}
+// 导入模块
+import countOption from "./count.js"
+import personOption from "./person.js"
 
 // 创建并暴露 Store
 export default new Vuex.Store({
-    actions,
-    mutations,
-    state,
-    getters
+    modules: {
+        countOption,
+        personOption
+    }
 });

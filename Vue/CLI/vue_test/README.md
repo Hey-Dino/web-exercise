@@ -565,3 +565,145 @@ devServer: {
 
    在使用 **mapActions** 或 **mapMutations** 生成的方法时，若需要传参：需要在模板中绑定事件时传递好的参数，否则参数是事件对象。如：使用 `addOdd(param)` 形式。
 
+### 7.模块化 + 命名空间
+
+1. 目的：让代码更易于维护，让多种数据分类更加明确。
+
+2. 修改 ==index.js== :
+
+   ```javascript
+   // 引入 Vue 和 Vuex
+   import Vue from "vue"
+   import Vuex from "vuex"
+   // 使用 Vuex 插件
+   Vue.use(Vuex);
+   
+   const countOption = {
+       namespaced: true,	// 开启命名空间，注意是【namespaced】过去式形式
+       actions: { 
+       	add(context, val) {
+               ...
+               context.commit("ADD", val);
+           }
+       },
+       mutations: { 
+       	ADD(state, val){ ... }
+       },
+       state: { 
+           school: "CS&S", 
+      		subject: "Vue"
+       },
+       getters: {
+           bigSum(state) {
+               return state.sum * 10;
+           }
+       }
+   }
+       
+   const personOption = {
+   	namespaced: true,
+       actions: { ... },
+       mutations: { ... },
+       state: { ... },
+       getters: { ... }
+   }
+               
+   export default new Vuex.Store({
+       modules: {
+           countOption,
+           personOption
+       }
+   })
+               
+   // 注意，除 state 外，其他单词都是【复数】形式
+   // 		书写错误，会提示：[vuex] unknown action 等
+   ```
+
+3. 开启命名空间后，组件中读取 **state** 数据：
+
+   ```javascript
+   // 方式一：直接获取
+   computed: {
+       school() {
+           return this.$store.state.countOption.school;
+       }
+   }
+   // 方式二：借助 mapState 读取
+   computed: {
+   	...mapState('countOption', ['school', 'subject']),
+    	// 或者
+       ...mapState('countOption', {school: 'school', subject: 'subject'})	// 此方式支持重命名
+   }
+   ```
+
+4. 开启命名空间后，组件中读取 **getters** 数据：
+
+   ```javascript
+   // 方式一：直接获取
+   computed: {
+       bigSum() {
+   		return this.$store.getters['countOption/bigSum'];
+       }
+   }
+   
+   // 方式二：借助 mapGetters 读取
+   computed: {
+       ...mapGetters('conutOption', ['bigSum']),
+   	// 或者
+       ...mapGetters('countOption', {largeSum: 'bigSum'}),
+   }
+   ```
+
+5. 开启命名空间后，组件中调用 **actions** ：
+
+   ```javascript
+   data() {
+       return {
+           addend: 1,
+       }
+   }
+   
+   // 方式一：直接获取
+   methods: {
+       add() {
+           this.$store.dispatch('countOption/add', this.addend);	// 注意：此处是dispatch
+       }
+   }
+   
+   // 方式二：借助 mapActions
+   methods: {
+       ...mapActions('countOption', ['add']),
+       // 或者
+       ...mapActions('countOption', {increment: 'add'}),
+   }
+   ```
+
+6. 开启命名空间后，组件中调用 **mutations** ：
+
+   ```javascript
+   data() {
+       return {
+           addend: 1,
+       }
+   }
+   
+   // 方式一：直接获取
+   methods: {
+       ADD(){
+           this.$store.commit('countOption/ADD', this.addend);		// 注意：此处是 commit
+       }
+   }
+   
+   // 方式二：借助 mapMutations
+   methods: {
+       ...mapMutations('countOption', ['ADD']),
+       // 或者
+       ...mapMutations('countOption', {Add: "ADD"})
+   }
+   ```
+
+注意点：
+
+使用 **直接获取** 时，唯独 **state** 不同于其余三者，其获取方式为：`this.$store.state.模块名.状态名`。
+
+其余三者的获取方式为：`this.$store.getters/dispatch/commit('模块名/函数名')`。

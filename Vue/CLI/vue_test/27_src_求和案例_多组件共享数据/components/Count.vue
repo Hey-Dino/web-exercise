@@ -31,24 +31,23 @@ export default {
         /* 借助 mapState 生成计算属性，从 state 中取数据。（对象写法） */
         // ...mapState({ sum: "sum", school: "school", subject: "subject" }),
         /* 借助 mapState 生成计算属性，从 state 中取数据。（数组写法） */
-        ...mapState("countOption", ["sum", "school", "subject"]),
-        ...mapState("personOption", ["personList"]),
+        ...mapState(["sum", "school", "subject", "personList"]),
 
         /* 借助 mapGetters 生成计算属性，从 state 中取数据。（对象写法） */
         // ...mapGetters({ bigSum: "bigSum" }),
         /* 借助 mapGetters 生成计算属性，从 state 中取数据。（数组写法） */
-        ...mapGetters("countOption", ["bigSum"]),
+        ...mapGetters(["bigSum"]),
     },
     methods: {
         /* 借助 mapMutations 生成方法，方法会调用commit去联系Mutation（对象写法） */
         // ...mapMutations({ add: "ADD", reduce: "REDUCE" }),       // 在调用方法时需要传参
         /* 借助 mapMutations 生成方法，方法会调用commit去联系Mutation（数组写法） */
-        ...mapMutations("countOption", ["ADD", "REDUCE"]),
+        ...mapMutations(["ADD", "REDUCE"]),
 
         /* 借助 mapActions 生成方法，方法会调用dispatch去联系Actions（对象写法） */
         // ...mapActions({ addWhenSumIsOdd: "addOdd", addDelay: "addWait" }),   // 在调用方法时需要传参
         /* 借助 mapActions 生成方法，方法会调用dispatch去联系Actions（数组写法） */
-        ...mapActions("countOption", ["addOdd", "addWait"]),
+        ...mapActions(["addOdd", "addWait"]),
     },
 };
 </script>
