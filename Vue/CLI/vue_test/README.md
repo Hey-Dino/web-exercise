@@ -423,21 +423,145 @@ devServer: {
      });
      ```
 
-		2. 在 ==main.js== 中创建vm时传入 ==store==配置项
+2. 在 ==main.js== 中创建vm时传入 ==store==配置项
 
-     ```javascript
-     ...
-     // 引入store（此处可以省略 /index，vue默认获取store目录下的index.js文件）
-     import store from "./store"
-     
-     ...
-     // 创建VM
-     new Vue({
-         el: "#app",
-         render: h => h(App),
-         store
-     });
-     ```
+   ```javascript
+   ...
+   // 引入store（此处可以省略 /index，vue默认获取store目录下的index.js文件）
+   import store from "./store"
+   
+   ...
+   // 创建VM
+   new Vue({
+       el: "#app",
+       render: h => h(App),
+       store
+   });
+   ```
 
-     
+### 4.基本使用
+
+1. 初始化数据、配置 ==actions==、==mutations==，操作文件 ==index.js==
+
+   ```javascript
+   // 导入Vue
+   import Vue from "vue";
+   // 导入 Vuex
+   import Vuex from "vuex";
+   // 使用Vuex插件
+   Vue.use(Vuex);
+   
+   // 准备actions —— 响应组件中的动作
+   const actions = {
+       add(context, val) {
+           context.commit("ADD", val);
+       }
+   };
+   // 准备mutation —— 用于操作数据（state）
+   const mutation = {
+       ADD(state, val) {
+           state.sum += value;
+       }
+   };
+   // 准备state —— 用于存储数据
+   const state = {
+       sum: 0
+   };
+   
+   // 创建并暴露 Store
+   export default new Vuex.Store({
+       actions,
+       mutation,
+       state
+   });
+   ```
+
+2. 组件中读取Vuex中的数据：`$store.state.sum`
+
+3. 组件中修改Vuex中的数据：`$store.dispatch("action中的方法名", 数据);`或`$store.commit("mutations中的方法名", 数据);`
+
+   备注：
+
+   若没有网络请求或其他业务逻辑，组件中可以越过actions，即不写`dispatch()`，直接编写`commit()`。
+
+### 5.getter的使用
+
+1. 概念：当state中的数据需要经过 **加工** 后，被 **多个组件** 共享使用，可以使用getters加工。
+
+2. 在 ==index.js==中追加 ==getters== 配置项：
+
+   ```javascript
+   ...
+   const getters = {
+   	bigSum(state) {
+           return state.sum * 10;
+       }
+   }
+   
+   // 创建并暴露Store
+   export default new Vuex.Store({
+       ...
+       getters
+   })
+   ```
+
+3. 组件中获取数据：`$store.getters.bigSum`。
+
+4. 注意点：
+
+   state 和 getters 类似于 组件中的 data 与 computed，但是 data 与 computed 只适用于组件自身，无法共享。
+
+### 6.四个map方法的使用
+
+1. mapState方法：用于帮助我们映射 ==state== 中的数据为计算属性
+
+   ```javascript
+   computed: {
+   	// 借助 mapState 生成计算机属性：sum、school、subject（对象形式）
+       ...mapState({sum: "sum", school: "school", subject: "subject"}),
+       
+       // 借助mapState 生成计算机属性：sum、school、subject（数组形式）
+       ...mapState(["sum", "school", "subject"]);
+   }
+   ```
+
+2. mapGetters方法：用于帮助我们映射 ==getters== 中的数据为计算属性
+
+   ```javascript
+   computed: {
+       // 借助 mapGetters 生成计算机属性：bigSum（对象形式）
+       ...mapGetters({bigSum: "bigSum"}),
+       
+       // 借助 mapGetters 生成计算机属性：bigSum（数组形式）
+       ...mapGetters(["bigSum"]);
+   }
+   ```
+
+3. mapActions方法：用于帮助我们生成与 ==actions== 对话的方法，即：包含 `$store.dispatch(xxx)` 函数
+
+   ```javascript
+   methods: {
+       // 借助 mapActions 生成：addOdd、addWait（对象形式）
+       ...mapActions({addOdd: "addOdd", addWait: "addWait"}),
+       
+       // 借助 mapActions 生成：addOdd、addWait（数组形式）
+       ...mapActions(["addOdd", "addWait"]);
+   }
+   ```
+
+4. mapMutations方法：用于帮助我们生成与 ==mutations== 对话的方法，即：包含 `$store.commit(xxx)`  函数
+
+   ```javascript
+   methods: {
+       // 借助 mapMutations 生成：addOdd、addWait（对象形式）
+       ...mapMutation({add: "ADD", reduce: "REDUCE"}),
+       
+       // 借助 mapMutations 生成：addOdd、addWait（数组形式）
+       ...mapMutations(["ADD", "REDUCE"]);
+   }
+   ```
+
+   注意：
+
+   在使用 **mapActions** 或 **mapMutations** 生成的方法时，若需要传参：需要在模板中绑定事件时传递好的参数，否则参数是事件对象。如：使用 `addOdd(param)` 形式。
 
