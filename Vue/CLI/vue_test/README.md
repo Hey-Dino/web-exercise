@@ -707,3 +707,180 @@ devServer: {
 使用 **直接获取** 时，唯独 **state** 不同于其余三者，其获取方式为：`this.$store.state.模块名.状态名`。
 
 其余三者的获取方式为：`this.$store.getters/dispatch/commit('模块名/函数名')`。
+
+## 路由Vue-Router
+
+### 1.基本使用
+
+1. 安装 vue-router，命令：`npm i vue-router`
+
+2. 导入并应用插件：
+
+   ```javascript
+   // main.js 文件
+   import VueRouter from "vue-router"
+   
+   Vue.use(VueRouter);
+   ```
+
+3. 编写router配置项：
+
+   ```javascript
+   // router/index.js 文件
+   
+   // 引入VueRouter
+   import VueRouter from "vue-router"
+   // 引入路由组件
+   import About from "../pages/About"
+   import Home from "../pages/Home"
+   
+   // 创建并暴露路由器
+   export default new VueRouter({
+       routes: [
+           {
+               path: "/about",
+               component: About
+           },
+           {
+               path: "/home",
+               component: Home
+           }
+       ]
+   })
+   ```
+
+4. 实现切换（`active-class` 可配置高亮效果）
+
+   ```html
+   <router-link to="/about" class="" active-class="active">About</router-link>
+   ```
+
+   备注：
+
+   `active-class` 为动态配置的类名
+
+5. 指定展示位置
+
+   ```html
+   <router-view></router-view>
+   ```
+
+### 2.注意点
+
+1. 路由组件通常存放在 ==pages== 文件夹，一般组件通常存放在 ==components== 文件夹。
+2. 通过切换，“隐藏”的路由组件，默认是被销毁掉的，需要的时候再重新挂载。
+3. 每个组件都有自己的 ==$route== 属性，里面存储着自己的路由信息。
+4. 整个应用只有一个 router，可以通过组件的 ==$router== 属性获取到。
+
+### 3.多级路由（嵌套路由）
+
+1. 配置路由规则，使用 ==children== 配置项：
+
+   ```javascript
+   ...
+   import News from "../pages/News"
+   
+   routes: [
+       {
+           ...
+       },
+       {
+           path: '/home',
+           component: Home,
+           children: [
+           	{
+           		path: 'news',
+           		component: News		// 注意不要添加 / ，否则会跳转到根路径，而不是在/home基础上跳转
+       		},
+       		{
+                   ...
+               }
+           ]
+       }
+   ]
+   ```
+
+2. 跳转（完整路径）
+
+   ```html
+   <router-link to="/home/news">News</router-link>
+   ```
+
+### 4.路由传参
+
+1. 传递参数
+
+   ```html
+   <!-- 跳转路由并携带query参数，to的字符串写法 -->
+   <router-link :to="`/home/messages/detail?id=${m.id}&title=${m.title}`">跳转
+   </router-link>
+   
+   <!-- 跳转路由并携带query参数，to的对象写法 -->
+   <router-link :to="{
+       path: '/home/messages/detail‘,
+       query: {
+       	id: m.id,
+           title: m.title
+       }
+   }">
+       跳转
+   </router-link>
+   ```
+
+2. 接收参数
+
+   ```javascript
+   $route.query.id
+   $route.query.title
+   ```
+
+### 5.路由命名
+
+1. 作用：可以简化路由跳转时的路径名书写
+
+2. 如何使用：
+
+   - 给路由命名：
+
+     ```javascript
+     {
+         path: '/demo',
+         component: Demo,
+         children: [
+             {
+                 path: 'test',
+                 component: Test,
+                 children: [
+                     {
+                         name: "hello",		// 给路由命名
+                         path: 'hello',
+                         component: Hello,
+                     }
+                 ]
+             }
+         ]
+     }
+     ```
+
+   - 简化跳转名称
+
+     ```html
+     <!-- 简化跳转前，需要书写完整的路径 -->
+     <router-link to="/demo/test/hello">跳转</router-link>
+     
+     <!-- 简化跳转后，直接通过名称跳转 -->
+     <router-link :to="{ name: '/demo/test/hello' }">跳转</router-link>
+     
+     <!-- 简化写法，配合参数传递 -->
+     <router-link :to="{
+     	name: 'hello',
+     	query: {
+         	id: '666',
+     		title: 'Hello, Vue-Router'
+     	}
+     }">
+     	跳转
+     </router-link>
+     ```
+
+     
