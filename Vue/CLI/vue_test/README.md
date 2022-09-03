@@ -806,11 +806,13 @@ devServer: {
    <router-link to="/home/news">News</router-link>
    ```
 
-### 4.路由传参
+### 4.路由传参(query)
 
 1. 传递参数
 
    ```html
+   <!-- pages/Messages.vue -->
+   
    <!-- 跳转路由并携带query参数，to的字符串写法 -->
    <router-link :to="`/home/messages/detail?id=${m.id}&title=${m.title}`">跳转
    </router-link>
@@ -830,6 +832,8 @@ devServer: {
 2. 接收参数
 
    ```javascript
+   // pages/Detail.vue
+   
    $route.query.id
    $route.query.title
    ```
@@ -843,6 +847,8 @@ devServer: {
    - 给路由命名：
 
      ```javascript
+     // router/index.js
+     
      {
          path: '/demo',
          component: Demo,
@@ -859,12 +865,14 @@ devServer: {
                  ]
              }
          ]
-     }
+  }
      ```
 
    - 简化跳转名称
-
+   
      ```html
+     <!-- pages/xxx.vue -->
+     
      <!-- 简化跳转前，需要书写完整的路径 -->
      <router-link to="/demo/test/hello">跳转</router-link>
      
@@ -883,4 +891,274 @@ devServer: {
      </router-link>
      ```
 
-     
+
+### 6.路由传参(params)
+
+1. 配置路由，声明接收 params 参数：
+
+   ```javascript
+   // router/index.js
+   
+   {
+       path: '/demo',
+       component: Demo,
+       children: [
+           {
+               path: 'test',
+               component: Test,
+               children: [
+                   {
+                       name: "hello",		// 给路由命名
+                       path: 'hello/:id/:title',
+                       component: Hello,
+                   }
+               ]
+           }
+       ]
+   }
+   ```
+
+2. 传递参数
+
+   ```html
+   <!-- pages/xxx.vue -->
+   
+   <!-- 跳转路由并携带query参数，to的字符串写法 -->
+   <router-link :to="`/demo/test/hello/${m.id}/${m.title}`">跳转
+   </router-link>
+   
+   <!-- 跳转路由并携带query参数，to的对象写法 -->
+   <router-link :to="{
+       name: 'hello‘,
+       params: {
+       	id: m.id,
+           title: m.title
+       }
+   }">
+       跳转
+   </router-link>
+   ```
+
+   注意：
+
+   路由携带 ==params== 参数时，若使用 to 的对象写法，则不能使用 path 配置项，必须使用 name 配置项。
+
+3. 接收参数：
+
+   ```javascript
+   // pages/Detail.vue
+   
+   $route.params.id
+   $route.params.title
+   ```
+
+
+### 7.路由的props配置
+
+​	作用：让路由组件更方便的收到参数
+
+```javascript
+// router/index.js
+
+{
+    path: '/demo',
+    component: Demo,
+    children: [
+        {
+            path: 'test',
+            component: Test,
+            children: [
+                {
+                    name: "hello",		// 给路由命名
+                    path: 'hello/:id/:title',
+                    component: Hello,
+                    // 第一种写法：props值为对象，该对象中所有的key-value的组合最终都会通过props传给Hello组件
+                    // props: {a:900, b:"hello"},
+                    // 第二种写法：props值为布尔值，布尔值为true，则把路由收到的所有params参数通过props传给Hello组件
+                    props: true,
+                    // 第三种写法：props值为函数，该函数的返回的对象中每一组key-value都会通过props传给Hello组件
+                    props({query}) {
+                        return {
+                            id: query.id,
+                            title: query.title
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
+```
+
+### 8.`<router-link>`的replace属性
+
+1. 作用：控制路由器跳转时操作浏览器历史记录的模式
+
+2. 浏览器的历史记录有两种写法方式：分别为 `push` 和 `replace`，`push`为追加历史记录，`replace`为替换当前记录。路由跳转时默认为 `push`。
+
+3. 如何开启 `replace` 模式：
+
+   `<router-link replace ...></router-link>`
+   
+   不建议为 **replace**属性添加参数 true，Vue会提示：==Invalid prop: type check failed for prop "replace".==
+
+### 9.编程式路由导航
+
+1. 作用：不借助`<router-link>`实现路由跳转，让路由跳转更加灵活
+
+2. 具体编码：
+
+   ```javascript
+   // pages/Messages.vue
+   
+   // push 方式
+   this.$router.push({
+       name: 'detail',
+       params: {
+           id: xxx,
+           title: xxx,
+       }
+   });
+   
+   // replace 方式
+   this.$router.replace({
+       name: 'detail',
+       params: {
+           id: xxx,
+           title: xxx,
+       }
+   });
+   
+   this.$router.forward();		// 历史记录前进
+   this.$router.back();		// 历史记录后退
+this.$router.go(数值);	   // 控制跳转步数，正数代表前进，负数代表后退
+   ```
+   
+
+### 10.缓存路由组件
+
+1. 作用：让不展示的路由保持挂载状态，不被销毁。
+
+2. 具体编码：
+
+   ```html
+   <!-- pages/Home.vue -->
+   
+   <!-- 如果不设置include则表示对所有的组件执行 缓存 操作 -->
+   <!-- include包含的是组件名，如果有多个组件，则使用 以英文逗号分隔的字符串、一个正则表达式，或是包含这多个组件的一个数组 -->
+   <!-- exclude表示需要排除缓存的组件 -->
+   <keep-alive include="News">
+   	<router-view></router-view>
+   </keep-alive>
+   ```
+
+   注意：
+
+   何处使用`<keep-alive></keep-alive>`？在**包裹** 需要缓存组件 的组件中使用，如果不确定包裹关系，可以使用 **Vue工具** 查看。
+
+### 11.两个新的生命周期钩子
+
+1. 作用：路由组件所独有的两个钩子（生命周期），用于捕获路由组件的**激活状态**。
+
+2. 具体名字：
+
+   - `activated`路由组件被激活时触发
+
+   - `deactivated`路由组件失活时触发
+
+     补充：
+
+     `nextTick`同样也是钩子之一。
+
+### 12.路由守卫
+
+1. 作用：对路由进行权限控制
+
+2. 分类：全局守卫、独享守卫、组件内守卫
+
+3. 全局守卫：
+
+   ```javascript
+   // router/index.js
+   import VueRouter from "vue-router"
+   ...
+   
+   const router = new VueRouter({
+       routes: [
+           {
+               ...
+           },
+           {
+               name: "xxx",
+               path: "/xxx"
+               component: "Xxx",
+               // 配置前后置路由守卫需要使用的数据
+               meta: { title: "xxx", isAuth: true},	
+           }
+   	]
+   })
+   ```
+
+   ```javascript
+   // router/index.js
+   
+   // 全局-前置路由守卫 —— 初始化时被调用、每次路由切换前被调用
+   router.beforeEach((to, from, next) => {
+       if (to.meta.isAuth) {   // 判断是否需要鉴权
+           if (localStorage.getItem("username") == "Dino") {
+               next();		// 放行
+           } else {
+               alert("暂无权限查看");
+           }
+       } else {
+           next();		// 放行
+       }
+   });
+   
+   // 全局-后置路由首位 —— 初始化时被调用、每次路由切换完成后被调用
+   router.afterEach((to, from) => {
+       document.title = to.meta.title;
+   });
+   ```
+
+4. 独享守卫
+
+   ```javascript
+   // router/index.js
+   
+   new VueRouter({
+      routes: [
+          {
+              name: "xxx",
+              path: "/xxx",
+              component: "Xxx",
+              beforeEnter(to, from, next){
+       	       if (localStorage.getItem("age") 
+                      && localStorage.getItem("age") >= 18) {
+                      next();	// 放行
+                  } else {
+                      alert("年龄不足！！！");
+                  }
+   		   }
+          }
+      ] 
+   });
+   ```
+
+5. 组件内守卫
+
+   ```javascript
+   // 通过路由规则，进入该组件时被调用
+   beforeRouteEnter(to, from, next) {
+       ...
+   }
+   
+   // 通过路由规则，离开该组件时被调用
+   beforeRouteLeave(to, from, next) {
+       ...
+   }
+   
+   // 注意：是route【路由】而非router【路由器】
+   ```
+
+   

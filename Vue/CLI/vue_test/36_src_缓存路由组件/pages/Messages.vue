@@ -54,5 +54,8 @@ export default {
             });
         },
     },
+    beforeDestroy() {
+        console.log("Messages组件即将被销毁")
+    },
 };
 </script>

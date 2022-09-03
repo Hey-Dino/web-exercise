@@ -29,13 +29,13 @@ const router = new VueRouter({
                     component: News,
                     meta: { isAuth: true, title: "新闻页" },
                     // 配置独享路由守卫
-                    /* beforeEnter: (to, from, next) => {
+                    beforeEnter: (to, from, next) => {
                         if (localStorage.getItem("age") && localStorage.getItem(age) >= 18) {
                             next();     // 鉴权成功，放行
                         } else {
                             alert("年龄不足！！！");
                         }
-                    } */
+                    }
                 },
                 {
                     name: "messages",

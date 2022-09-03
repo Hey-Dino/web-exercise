@@ -27,15 +27,7 @@ const router = new VueRouter({
                     name: "news",
                     path: "news",
                     component: News,
-                    meta: { isAuth: true, title: "新闻页" },
-                    // 配置独享路由守卫
-                    /* beforeEnter: (to, from, next) => {
-                        if (localStorage.getItem("age") && localStorage.getItem(age) >= 18) {
-                            next();     // 鉴权成功，放行
-                        } else {
-                            alert("年龄不足！！！");
-                        }
-                    } */
+                    meta: { isAuth: true, title: "新闻页" }
                 },
                 {
                     name: "messages",
@@ -63,7 +55,7 @@ const router = new VueRouter({
 });
 
 // 全局-前置路由守卫 —— 初始化时被调用、每次路由切换前被调用
-/* router.beforeEach((to, from, next) => {
+router.beforeEach((to, from, next) => {
     if (to.meta.isAuth) {   // 判断是否需要鉴权
         if (localStorage.getItem("username") == "Dino") {
             next();
@@ -73,7 +65,7 @@ const router = new VueRouter({
     } else {
         next();
     }
-}); */
+});
 
 // 全局-后置路由首位 —— 初始化时被调用、每次路由切换完成后被调用
 router.afterEach((to, from) => {

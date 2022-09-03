@@ -12,7 +12,6 @@
                 <!-- 跳转路由并携带query参数，to的对象写法 -->
                 <router-link :to="{
                     name: 'detail',     // 使用路由名称
-                    path: '/home/messages/detail',
                     query: {
                         id: m.id,
                         title: m.title
