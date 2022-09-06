@@ -10,6 +10,7 @@ import Detail from "../pages/Detail"
 
 // 创建并暴露路由
 const router = new VueRouter({
+    mode: 'history',    // 默认模式为：hash
     routes: [
         {
             name: "about",
