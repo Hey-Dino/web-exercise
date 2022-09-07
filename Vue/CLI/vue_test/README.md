@@ -714,6 +714,8 @@ devServer: {
 
 1. 安装 vue-router，命令：`npm i vue-router`
 
+   如果使用的是Vue，需要安装vue-router@3
+
 2. 导入并应用插件：
 
    ```javascript
