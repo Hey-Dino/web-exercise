@@ -39,6 +39,8 @@
      - 相同点：都可以调用函数一次，篡改函数的上下文（this）一次。
      - 不同点：call与apply传递参数，call使用逗号分隔参数，apply使用数组
 
+   
+
 2. axios 二次封装
 
    - 封装的原因：
@@ -81,6 +83,8 @@
      export default requests;
      ```
 
+   
+
 3. nprogress进度条的使用
 
    ```javascript
@@ -113,3 +117,55 @@
    ```
 
    如果，需要调整进度条颜色，进入 `nprogress/nprogress.css`进行修改
+
+   
+
+4. vuex
+
+   - vuex 是官网提供的一个插件（状态管理库），集中式管理项目中组件共用的数据。
+
+   - vuex 支持 **模块化开发**：
+
+     - 创建子模块
+
+       ```javascript
+       //  xxxx 模块的仓库
+       const state = {};
+       const action = {};
+       const mutations = {};
+       const getters = {};
+       
+       export default {
+           state,
+           action,
+           mutations,
+           getters
+       }
+       ```
+
+     - 引入子模块
+
+       ```javascript
+       // store/index.js
+       ...
+       // 引入子仓库
+       import home from "./home";
+       import search from "./search";
+       
+       export default new Vuex.Store({
+           modules: {
+               home,
+               search
+           }
+       });
+       ```
+
+5. 防抖与节流
+
+   - 防抖：
+
+     连续快速的触发事件时，前面的所有触发的事件都被取消，仅有 **最后一次** 触发的事件会被执行。
+
+   - 节流：
+
+     在规定的时间间隔范围内不会 **重复触发回调**，只有大于这个 **规定的时间范围** 才会触发回调，把频繁触发转化为少量触发。
