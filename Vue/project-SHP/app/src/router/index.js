@@ -25,7 +25,7 @@ VueRouter.prototype.push = function (location, resolve, reject) {
 // 创建并暴露路由
 export default new VueRouter({
     routes: [
-        // 路由重定向
+        // 路由重定向，首次进入页面，跳转到Home页面
         {
             path: '*',
             component: Home,
@@ -41,7 +41,8 @@ export default new VueRouter({
             }
         },
         {
-            path: '/search',
+            name: 'search',
+            path: '/search/:keyWord?',
             component: Search,
             meta: {
                 showFooter: true

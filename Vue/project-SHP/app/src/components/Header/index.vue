@@ -73,12 +73,17 @@ export default {
     methods: {
         // 搜索按钮的回调函数，需要向 Search路由跳转
         goSearch() {
+            // 合并原有 query 参数
+            const query = this.$route.query;
+
             // 跳转路由
             this.$router.push({
-                path: "/search",
-                query: {
-                    keyWord: this.keyWord,
+                name: "search",
+                params: {
+                    // undefined 是为了避免字符串为存空格时，URL中出现？
+                    keyWord: this.keyWord || undefined,
                 },
+                query,
             });
 
             // 清空输入框

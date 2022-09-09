@@ -16,5 +16,9 @@ export default {
         Header,
         Footer,
     },
+    mounted() {
+        // disptach活动，为更新vuex中的categoryList数据
+        this.$store.dispatch("homeOption/categoryList");
+    },
 };
 </script>

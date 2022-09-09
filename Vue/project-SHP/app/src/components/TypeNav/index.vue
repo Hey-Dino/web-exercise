@@ -1,7 +1,70 @@
 <template>
     <div class="type-nav">
         <div class="container">
-            <h2 class="all">全部商品分类</h2>
+            <div
+                @mouseleave="leaveShow"
+                @mouseenter="enterShow"
+            >
+                <h2 class="all">全部商品分类</h2>
+                <!-- 下方的mouseleave 使用了事件委派 -->
+                <!-- 三级联动 -->
+                <transition name="sort">
+                    <div
+                        class="sort"
+                        v-show="show"
+                    >
+                        <div class="all-sort-list2">
+                            <div
+                                class="item"
+                                v-for="(c1, index) in categoryList"
+                                :key="c1.categoryId"
+                                @click="goSearch"
+                            >
+                                <h3
+                                    @mouseenter="changeIndex(index)"
+                                    :class="{bgChange: currentIndex === index}"
+                                >
+                                    <a
+                                        :class="{acChange: currentIndex === index}"
+                                        :data-categoryName="c1.categoryName"
+                                        :data-category1Id="c1.categoryId"
+                                    >{{c1.categoryName}}</a>
+                                </h3>
+                                <div
+                                    class="item-list clearfix"
+                                    v-show="currentIndex === index"
+                                >
+                                    <div class="subitem">
+                                        <dl
+                                            class="fore"
+                                            v-for="c2 in c1.categoryChild"
+                                            :key="c2.categoryId"
+                                        >
+                                            <dt>
+                                                <a
+                                                    :data-categoryName="c2.categoryName"
+                                                    :data-category2Id="c2.categoryId"
+                                                >{{c2.categoryName}}</a>
+                                            </dt>
+                                            <dd>
+                                                <em
+                                                    v-for="c3 in c2.categoryChild"
+                                                    :key="c3.categoryId"
+                                                >
+                                                    <a
+                                                        :data-categoryName="c3.categoryName"
+                                                        :data-category3Id="c3.categoryId"
+                                                    >{{c3.categoryName}}</a>
+                                                </em>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </transition>
+            </div>
             <nav class="nav">
                 <a href="###">服装城</a>
                 <a href="###">美妆馆</a>
@@ -12,62 +75,6 @@
                 <a href="###">有趣</a>
                 <a href="###">秒杀</a>
             </nav>
-            <!-- 下方的mouseleave 使用了事件委派 -->
-            <!-- 三级联动 -->
-            <div
-                class="sort"
-                @mouseleave="changeIndex(-1)"
-            >
-                <div class="all-sort-list2">
-                    <div
-                        class="item"
-                        v-for="(c1, index) in categoryList"
-                        :key="c1.categoryId"
-                        @click="goSearch"
-                    >
-                        <h3
-                            @mouseenter="changeIndex(index)"
-                            :class="{bgChange: currentIndex === index}"
-                        >
-                            <a
-                                :class="{acChange: currentIndex === index}"
-                                :data-categoryName="c1.categoryName"
-                                :data-category1Id="c1.categoryId"
-                            >{{c1.categoryName}}</a>
-                        </h3>
-                        <div
-                            class="item-list clearfix"
-                            v-show="currentIndex === index"
-                        >
-                            <div class="subitem">
-                                <dl
-                                    class="fore"
-                                    v-for="c2 in c1.categoryChild"
-                                    :key="c2.categoryId"
-                                >
-                                    <dt>
-                                        <a
-                                            :data-categoryName="c2.categoryName"
-                                            :data-category2Id="c2.categoryId"
-                                        >{{c2.categoryName}}</a>
-                                    </dt>
-                                    <dd>
-                                        <em
-                                            v-for="c3 in c2.categoryChild"
-                                            :key="c3.categoryId"
-                                        >
-                                            <a
-                                                :data-categoryName="c3.categoryName"
-                                                :data-category3Id="c3.categoryId"
-                                            >{{c3.categoryName}}</a>
-                                        </em>
-                                    </dd>
-                                </dl>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </template>
@@ -83,16 +90,14 @@ export default {
     data() {
         return {
             currentIndex: -1,
+            show: false,
         };
     },
     methods: {
-        /* changeIndex(index) {
-            this.currentIndex = index;
-        }, */
         // 利用 lodash 的throttle方法实现节流
         changeIndex: throttle(function (index) {
             this.currentIndex = index;
-        }, 100),
+        }, 50),
         // 实现 三级路由 跳转
         goSearch(e) {
             // 获取事件触发的对象及其属性集
@@ -106,7 +111,7 @@ export default {
 
             // 判断对象是否为可跳转对象
             if (categoryname) {
-                const location = { path: "/search" };
+                const location = { name: "search" };
                 const query = { categoryName: categoryname };
 
                 // 根据categoryId值，定义不同的参数
@@ -118,17 +123,37 @@ export default {
                     query.category3Id = category3id;
                 }
 
+                // 合并原有params参数
+                location.params = this.$route.params;
                 location.query = query;
+
                 // 实现编程式路由导航
                 this.$router.push(location);
+            }
+        },
+        // 鼠标进入\离开 typeNav
+        enterShow: throttle(function () {
+            this.show = true;
+        }, 300),
+        leaveShow() {
+            // 改变 currentIndex，以取消Nav的高亮效果
+            this.changeIndex(-1);
+            // 如果在非Home页面时，离开typeNav时，隐藏typeNav
+            const path = this.$route.path;
+            if (path != "/home" && path != "/") {
+                this.show = false;
             }
         },
     },
     computed: {
         ...mapState("homeOption", ["categoryList"]),
     },
-    mounted() {
-        this.$store.dispatch("homeOption/categoryList");
+    beforeMount() {
+        // 判断是否为Home页面，如果是则显示typeNav
+        const path = this.$route.path;
+        if (path === "/" || path === "/home") {
+            this.show = true;
+        }
     },
 };
 </script>
@@ -176,6 +201,7 @@ export default {
         width: 210px;
         height: 461px;
         padding: 5px 0;
+        /* overflow: hidden; */
         box-sizing: border-box;
         background: #c81623;
     }
@@ -267,5 +293,23 @@ export default {
     /* 控制 a链接父元素 背景颜色变化 */
     .bgChange {
         background-color: #fff;
+    }
+
+    @keyframes moveTypeNav {
+        from {
+            opacity: 0;
+            height: 0;
+        } to {
+            opacity: 1;
+            height: 461px;
+        }
+    }
+
+    .sort-enter-active {
+        animation: moveTypeNav .4s;
+    }
+
+    .sort-leave-active {
+        animation: moveTypeNav .4s reverse;
     }
 </style>
