@@ -28,7 +28,7 @@ requests.interceptors.response.use((res) => {
     nprogress.done();
     return res.data;
 }, (err) => {
-    return Promise.reject(new Error('faile'));
+    return Promise.reject(new Error('failed'));
 });
 
 // 4.暴露 requests

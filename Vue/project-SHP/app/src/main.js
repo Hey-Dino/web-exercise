@@ -12,6 +12,9 @@ Vue.config.productionTip = false;
 // 注册全局组件（第一个参数为注册名，第二个参数为组件）
 Vue.component(TypeNav.name, TypeNav);
 
+// 引入 mockServer.js，实现数据模拟
+import "@/mock/mockServer";
+
 new Vue({
     render: h => h(App),
     // 注册路由

@@ -1,9 +1,10 @@
-import { reqCategoryList } from "@/api";
+import { reqCategoryList, reqGetBannerList } from "@/api";
 
 //  home 模块的仓库
 const state = {
     a: 1,
-    categoryList: []
+    categoryList: [],
+    bannerList: []
 };
 const actions = {
     async categoryList({ commit }) {
@@ -12,11 +13,24 @@ const actions = {
         if (result.code === 200) {
             commit("CATEGORYLIST", result.data);
         }
+    },
+
+    // 获取轮播图信息
+    async getBannerList({ commit }) {
+        // await 用于获取promise返回的内容，可以是resolve也可以是reject
+        const result = await reqGetBannerList();
+        if (result.status === 200) {
+            commit("GETBANNERLIST", result.data);
+        }
     }
 };
 const mutations = {
     CATEGORYLIST(state, categoryList) {
         state.categoryList = categoryList;
+    },
+    GETBANNERLIST(state, bannerList) {
+        console.log("bannerList装填成功")
+        state.bannerList = bannerList;
     }
 };
 const getters = {};
