@@ -18,3 +18,6 @@ export const reqCategoryList = () => {
 export const reqGetBannerList = () => {
     return mockRequests.get("/banners");
 }
+export const reqGetFloorList = () => {
+    return mockRequests.get("/floors");
+}
