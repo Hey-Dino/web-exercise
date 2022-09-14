@@ -42,14 +42,15 @@
             </h1>
             <div class="searchArea">
                 <form
-                    action="###"
+                    @submit.prevent=""
                     class="searchForm"
                 >
                     <input
                         type="text"
                         id="autocomplete"
                         class="input-error input-xxlarge"
-                        v-model.lazy="keyWord"
+                        v-model.lazy="keyword"
+                        @keyup.enter="goSearch"
                     />
                     <button
                         class="sui-btn btn-xlarge btn-danger"
@@ -67,7 +68,7 @@ export default {
     name: "Header",
     data() {
         return {
-            keyWord: "",
+            keyword: "",
         };
     },
     methods: {
@@ -81,14 +82,16 @@ export default {
                 name: "search",
                 params: {
                     // undefined 是为了避免字符串为存空格时，URL中出现？
-                    keyWord: this.keyWord || undefined,
+                    keyword: this.keyword || undefined,
                 },
                 query,
             });
-
-            // 清空输入框
-            this.keyWord = "";
         },
+    },
+    mounted() {
+        this.$bus.$on("clear", () => {
+            this.keyword = "";
+        });
     },
 };
 </script>

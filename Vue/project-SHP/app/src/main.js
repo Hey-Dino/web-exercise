@@ -7,18 +7,24 @@ import store from "@/store"
 // 引入三级联动组件（全局组件）
 import TypeNav from "@/components/TypeNav"
 import Carousel from "@/components/Carousel"
+import Pagination from "@/components/Pagination"
 
 // 关闭生产提示
 Vue.config.productionTip = false;
 // 注册全局组件（第一个参数为注册名，第二个参数为组件）
 Vue.component(TypeNav.name, TypeNav);
 Vue.component(Carousel.name, Carousel);
+Vue.component(Pagination.name, Pagination);
 
 // 引入 mockServer.js，实现数据模拟
 import "@/mock/mockServer";
 
 new Vue({
     render: h => h(App),
+    beforeCreate() {
+        // 全局事件总线
+        Vue.prototype.$bus = this;
+    },
     // 注册路由
     router,
     // 注册 store

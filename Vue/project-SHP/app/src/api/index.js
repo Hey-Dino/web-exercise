@@ -21,3 +21,12 @@ export const reqGetBannerList = () => {
 export const reqGetFloorList = () => {
     return mockRequests.get("/floors");
 }
+
+// 获取搜索信息
+export const reqGetSearchInfo = (params) => {
+    return requests({
+        method: "POST",
+        url: "/list",
+        data: params
+    })
+}

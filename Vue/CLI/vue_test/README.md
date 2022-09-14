@@ -17,7 +17,7 @@
   - 接收数据、限制类型：`props:{name:String, age:Number}`
   - 接收数据、限制类型、限制必要性 or 指定默认值：
 
-    ```vue
+    ```javascript
     props:{
     	name:{
     		type: String, 
