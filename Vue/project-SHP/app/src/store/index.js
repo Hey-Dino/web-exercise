@@ -8,10 +8,14 @@ Vue.use(Vuex);
 // 引入子仓库
 import home from "./home";
 import search from "./search";
+import detail from "./detail";
+import shopcart from "./shopcart";
 
 export default new Vuex.Store({
     modules: {
         homeOption: home,
-        searchOption: search
+        searchOption: search,
+        detailOption: detail,
+        shopcartOption: shopcart,
     }
 });

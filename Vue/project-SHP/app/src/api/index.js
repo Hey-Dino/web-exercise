@@ -29,4 +29,28 @@ export const reqGetSearchInfo = (params) => {
         url: "/list",
         data: params
     })
+};
+
+// 获取商品详情
+export const reqGetGoodsDetail = (params) => {
+    return requests({
+        method: "GET",
+        url: `/item/${params}`,
+    })
+}
+
+// 添加或更新购物车商品信息
+export const reqAddOrUpdateToCart = (skuId, skuName) => {
+    return requests({
+        method: "POST",
+        url: `/cart/addToCart/${skuId}/${skuName}`,
+    })
+}
+
+// 获取购物车信息
+export const reqGetCartList = () => {
+    return requests({
+        method: 'GET',
+        url: '/cart/cartList',
+    })
 }

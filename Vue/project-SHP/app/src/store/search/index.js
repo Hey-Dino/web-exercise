@@ -33,10 +33,10 @@ const getters = {
     trademarkList(state) {
         return state.searchInfo.trademarkList || [];
     },
-    pageNo() {
+    pageNo(state) {
         return state.searchInfo.pageNo;
     },
-    pageSize() {
+    pageSize(state) {
         return state.searchInfo.pageSize;
     },
     total(state) {
