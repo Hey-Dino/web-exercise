@@ -4,6 +4,8 @@ import axios from "axios";
 import nprogress from "nprogress";
 // 引入进度条样式
 import "nprogress/nprogress.css"
+// 获取 store 数据
+import store from "@/store"
 
 // 1.利用axios对象的方法，create一个实例
 //   request 就是 需要配置的axios
@@ -18,6 +20,11 @@ const requests = axios.create({
 requests.interceptors.request.use((config) => {
     // 开启进度条
     nprogress.start();
+    // 设置请求头，添加用户临时ID
+    const userTempId = store.state.detailOption.userTempId;
+    if (userTempId) {
+        config.headers.userTempId = userTempId;
+    }
     // config: 配置对象，其中属性header（请求头）十分重要
     return config;
 });

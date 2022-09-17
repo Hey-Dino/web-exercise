@@ -1,8 +1,11 @@
 // Detail组件的仓库
 import { reqGetGoodsDetail, reqAddOrUpdateToCart } from "@/api"
+import { getUserTempId } from "@/utils/userTempId"
 
 const state = {
     goodsDetail: {},
+    // 获取用户临时身份ID
+    userTempId: getUserTempId(),
 }
 const actions = {
     async getGoodsDetail({ commit }, skuid) {
@@ -12,7 +15,7 @@ const actions = {
             commit("GETGOODSDETAIL", result.data);
         }
     },
-    // 添加商品进入购物车（使用Promise的then写法）
+    // 添加商品进入购物车
     async addToCart({ commit }, { skuId, skuName }) {
         const result = await reqAddOrUpdateToCart(skuId, skuName);
 

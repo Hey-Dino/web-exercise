@@ -396,7 +396,7 @@
 import ImageList from "./ImageList";
 import Zoom from "./Zoom";
 // 引入 Vuex 的 mapGetter
-import { mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
 
 export default {
     name: "Detail",
@@ -416,6 +416,8 @@ export default {
             "spuSaleAttrList",
             "skuInfo",
         ]),
+        // 获得store/detail下的state状态
+        ...mapState("detailOption", ["userTempId"]),
         // 商品图片集合
         imageList() {
             return this.skuInfo.skuImageList || [];
