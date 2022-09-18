@@ -6,6 +6,8 @@ import nprogress from "nprogress";
 import "nprogress/nprogress.css"
 // 获取 store 数据
 import store from "@/store"
+// 导入获取Token的方法
+import { getToken } from "@/utils/token";
 
 // 1.利用axios对象的方法，create一个实例
 //   request 就是 需要配置的axios
@@ -21,9 +23,14 @@ requests.interceptors.request.use((config) => {
     // 开启进度条
     nprogress.start();
     // 设置请求头，添加用户临时ID
-    const userTempId = store.state.detailOption.userTempId;
+    /* const userTempId = store.state.detailOption.userTempId;
     if (userTempId) {
         config.headers.userTempId = userTempId;
+    } */
+    // 设置请求头，添加Token
+    const token = getToken();
+    if (token) {
+        config.headers.token = token;
     }
     // config: 配置对象，其中属性header（请求头）十分重要
     return config;

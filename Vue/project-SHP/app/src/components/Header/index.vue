@@ -5,13 +5,22 @@
             <div class="container">
                 <div class="loginList">
                     <p>品优购欢迎您！</p>
-                    <p>
+                    <!-- 未登陆时展示 -->
+                    <p v-if="!nickName">
                         <span>请</span>
                         <router-link to="/login">登录</router-link>
                         <router-link
                             to="/register"
                             class="register"
                         >免费注册</router-link>
+                    </p>
+                    <!-- 已登陆时展示 -->
+                    <p v-else>
+                        <a>{{nickName}}</a>
+                        <a
+                            class="register logout"
+                            @click="logoutAccount"
+                        >注销</a>
                     </p>
                 </div>
                 <div class="typeList">
@@ -64,6 +73,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
     name: "Header",
     data() {
@@ -87,8 +98,23 @@ export default {
                 query,
             });
         },
+        // 注销账户（退出登录）
+        logoutAccount() {
+            try {
+                this.$store.dispatch("userOption/logoutAccount");
+                // 回到首页
+                this.$router.push("/home");
+            } catch (err) {
+                console.log(err.message);
+            }
+        },
+    },
+    computed: {
+        // 获取用户相关信息
+        ...mapGetters("userOption", ["nickName"]),
     },
     mounted() {
+        // 通过全局事件总线，绑定clear事件，得到通知后删除 搜索框关键词
         this.$bus.$on("clear", () => {
             this.keyword = "";
         });
@@ -118,10 +144,12 @@ export default {
         margin-right: 10px;
     }
 
-    .header>.top .container .loginList p .register {
+    .header>.top .container .loginList p .register,
+    .header>.top .container .loginList p .logout {
         border-left: 1px solid #b3aeae;
         padding: 0 5px;
         margin-left: 5px;
+        cursor: pointer;
     }
 
     .header>.top .container .typeList {

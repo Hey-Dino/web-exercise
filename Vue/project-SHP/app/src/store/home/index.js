@@ -33,7 +33,7 @@ const actions = {
         if (result.status === 200) {
             commit("GETFLOORLIST", result.data);
         }
-    }
+    },
 };
 const mutations = {
     CATEGORYLIST(state, categoryList) {

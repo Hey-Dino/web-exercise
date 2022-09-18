@@ -70,3 +70,52 @@ export const reqUpdateCheckedById = (skuId, isChecked) => {
         url: `/cart/checkCart/${skuId}/${isChecked}`
     })
 }
+
+// 获取验证码
+export const reqGetCodeByPhone = (phone) => {
+    return requests({
+        method: 'GET',
+        url: `/user/passport/sendCode/${phone}`
+    })
+}
+
+// 注册账户
+export const reqRegisterAccount = (phone, password, code) => {
+    return requests({
+        method: 'POST',
+        url: '/user/passport/register',
+        data: {
+            phone,
+            password,
+            code
+        }
+    })
+}
+
+// 登录账户
+export const reqLoginAccount = (phone, password) => {
+    return requests({
+        method: 'POST',
+        url: '/user/passport/login',
+        data: {
+            phone,
+            password
+        }
+    })
+}
+
+// 获取用户信息【通过Token】
+export const reqGetUserInfoByToken = (token) => {
+    return requests({
+        method: 'GET',
+        url: '/user/passport/auth/getUserInfo'
+    });
+}
+
+// 退出登录（注销）
+export const reqLogoutAccount = () => {
+    return requests({
+        method: 'GET',
+        url: '/user/passport/logout',
+    })
+}

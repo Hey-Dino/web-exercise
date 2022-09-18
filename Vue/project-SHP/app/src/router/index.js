@@ -21,6 +21,7 @@ VueRouter.prototype.push = function (location, resolve, reject) {
 // 创建并暴露路由
 export default new VueRouter({
     routes,
+    // Vue滚动
     scrollBehavior(to, from, savedPosition) {
         return { y: 0 }
     }
