@@ -21,6 +21,7 @@
                             type="checkbox"
                             name="chk_list"
                             :checked="cart.isChecked === 1"
+                            @click="changeChecked(cart)"
                         >
                     </li>
                     <li class="cart-list-con2">
@@ -57,7 +58,10 @@
                         <span class="sum">{{cart.skuPrice * cart.skuNum}}</span>
                     </li>
                     <li class="cart-list-con7">
-                        <a class="sindelet">删除</a>
+                        <a
+                            class="sindelete"
+                            @click="deleteSku(cart.skuId)"
+                        >删除</a>
                         <br>
                         <a href="#none">移到收藏</a>
                     </li>
@@ -70,13 +74,14 @@
                     class="chooseAll"
                     type="checkbox"
                     :checked="isAllChecked"
+                    @click="checkOrUncheckAllSku"
                 >
                 <span>全选</span>
             </div>
             <div class="option">
-                <a href="#none">删除选中的商品</a>
-                <a href="#none">移到我的关注</a>
-                <a href="#none">清除下柜商品</a>
+                <a @click="deleteAllSkuChecked">删除选中的商品</a>
+                <a>移到我的关注</a>
+                <a>清除下柜商品</a>
             </div>
             <div class="money-box">
                 <div class="chosed">已选择
@@ -99,6 +104,8 @@
 
 <script>
 import { mapState, mapGetters } from "vuex";
+// 引入lodash，用于节流
+import { throttle } from "lodash";
 
 export default {
     name: "ShopCart",
@@ -119,39 +126,117 @@ export default {
         },
         // 判断是否全选
         isAllChecked() {
-            return this.cartInfoList.every(
-                (cartInfo) => cartInfo.isChecked === 1
+            // 只有每个条件都为true时，every才返回true
+            // every待遍历的数组长度为0，也返回true；这造成没有商品时，全选按钮仍处于选中状态；因而增加条件[this.cartInfoList.length > 0]去避免此情况
+            return (
+                this.cartInfoList.every(
+                    (cartInfo) => cartInfo.isChecked === 1
+                ) && this.cartInfoList.length > 0
             );
         },
     },
     methods: {
+        // 获取购物车数据
+        async getCartData() {
+            try {
+                await this.$store.dispatch("shopcartOption/getCartList");
+            } catch (err) {
+                console.log(err.message);
+            }
+        },
         // 更新商品数量
-        async updateSkuNum(cart, type, diffNum) {
-            // 判断是减少还是增加商品数量
-            if (diffNum < 0) {
-                // 此处正数不包括0
-                const isPositive = diffNum + cart.skuNum > 0;
-                // 若减少后的数量不小于0，则更新商品数量
-                if (isPositive) {
+        updateSkuNum: throttle(async function (cart, type, diffNum) {
+            // 当更新数据失败时，就会抛出错误
+            try {
+                // 判断是减少还是增加商品数量
+                if (diffNum < 0) {
+                    // 此处正数不包括0
+                    const isPositive = diffNum + cart.skuNum > 0;
+                    // 若减少后的数量不小于0，则更新商品数量
+                    if (isPositive) {
+                        await this.$store.dispatch(
+                            "shopcartOption/updateToCart",
+                            {
+                                skuId: cart.skuId,
+                                skuNum: diffNum,
+                            }
+                        );
+                    }
+                } else if (diffNum > 0) {
+                    // 如果有库存上限，此处可加判断限制
                     await this.$store.dispatch("shopcartOption/updateToCart", {
                         skuId: cart.skuId,
                         skuNum: diffNum,
                     });
                 }
-            } else if (diffNum > 0) {
-                // 如果有库存上限，此处可加判断限制
-                await this.$store.dispatch("shopcartOption/updateToCart", {
-                    skuId: cart.skuId,
-                    skuNum: diffNum,
-                });
-            }
 
-            // 更新页面
-            this.$store.dispatch("shopcartOption/getCartList");
+                // 更新页面
+                this.getCartData();
+            } catch (err) {}
+        }, 700),
+        // 删除商品
+        async deleteSku(skuId) {
+            try {
+                // 调用 deleteSku方法
+                await this.$store.dispatch(
+                    "shopcartOption/deleteSkuById",
+                    skuId
+                );
+                // 更新页面
+                this.getCartData();
+            } catch (err) {
+                alert(err.message);
+            }
+        },
+        // 更改单个商品选中状态
+        async changeChecked(cart) {
+            try {
+                await this.$store.dispatch("shopcartOption/updateCheckedById", {
+                    skuId: cart.skuId,
+                    isChecked: cart.isChecked === 1 ? 0 : 1,
+                });
+
+                // 更新页面
+                this.getCartData();
+            } catch (err) {
+                console.log(err.message);
+            }
+        },
+        // 删除所有选中的商品
+        async deleteAllSkuChecked() {
+            try {
+                await this.$store.dispatch(
+                    "shopcartOption/deleteAllSkuChecked"
+                );
+
+                // 更新页面
+                this.getCartData();
+            } catch (err) {
+                console.log(err.message);
+            }
+        },
+        // 更改所有商品的选中状态
+        async checkOrUncheckAllSku($event) {
+            try {
+                // 获得全选按钮的checked值
+                let isChecked = $event.target.checked;
+                // 将全选按钮的checked的布尔值改为数字 —— 0 取消全选 1 全选
+                isChecked = isChecked ? 1 : 0;
+
+                await this.$store.dispatch(
+                    "shopcartOption/checkOrUncheckAllSku",
+                    isChecked
+                );
+
+                // 更新页面
+                this.getCartData();
+            } catch (err) {
+                console.log(err.message);
+            }
         },
     },
     mounted() {
-        this.$store.dispatch("shopcartOption/getCartList");
+        this.getCartData();
     },
 };
 </script>
@@ -305,6 +390,7 @@ export default {
 
     .cart .cart-main .cart-body .cart-list .cart-list-con7 a {
         color: #666;
+        cursor: pointer;
     }
 
     .cart .cart-tool {
@@ -335,6 +421,7 @@ export default {
     .cart .cart-tool .option a {
         float: left;
         padding: 0 10px;
+        cursor: pointer;
         color: #666;
     }
 

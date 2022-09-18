@@ -2,8 +2,11 @@
 import { reqCategoryList, reqGetBannerList, reqGetFloorList } from "@/api";
 
 const state = {
+    // 商品种类信息 Nav
     categoryList: [],
+    // 轮播图信息
     bannerList: [],
+    // 楼层信息
     floorList: []
 };
 const actions = {
@@ -37,7 +40,6 @@ const mutations = {
         state.categoryList = categoryList;
     },
     GETBANNERLIST(state, bannerList) {
-        console.log("bannerList装填成功")
         state.bannerList = bannerList;
     },
     GETFLOORLIST(state, floorList) {

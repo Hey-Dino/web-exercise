@@ -31,7 +31,7 @@
             :disabled="pageNo >= totalPages"
         >下一页</button>
 
-        <button style="margin-left: 30px">共 {{total}} 条</button>
+        <button id="total">共 {{total}} 条</button>
     </div>
 </template>
 
@@ -47,17 +47,14 @@ export default {
     },
     computed: {
         ...mapGetters("searchOption", ["pageNo", "total", "totalPages"]),
-
-        /* totalPages() {
-            return Math.ceil(this.total / this.pageSize);
-        }, */
-
         startAndEnd() {
             let start = 0,
                 end = 0;
 
+            // 在请求的totalPages、pageNo数据仍未返回时，二者均为undefined
+            // 此时[continus > totalPages]判断为假，进入else作用域，最终start和end会被定义为NaN
+            // v-for的对象为NaN时，系统提示错误：[Vue warn]: Error in render: "RangeError: Invalid array length"
             const { totalPages, pageNo, continus } = this;
-
             if (continus > totalPages) {
                 start = 1;
                 end = totalPages;
@@ -75,7 +72,8 @@ export default {
                 }
             }
 
-            return { start, end };
+            // [|| 0]是为避免初始时，start和end为NaN
+            return { start: start || 0, end: end || 0 };
         },
     },
     methods: {
@@ -88,9 +86,6 @@ export default {
         otherPage(page) {
             this.$bus.$emit("changePage", page);
         },
-    },
-    mounted() {
-        console.log("pageNo:", this.pageNo);
     },
 };
 </script>
@@ -130,5 +125,9 @@ export default {
         cursor: default;
         background-color: #409eff;
         color: #fff;
+    }
+
+    .pagination button#total {
+        margin-left: 30px;
     }
 </style>
