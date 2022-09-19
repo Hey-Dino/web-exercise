@@ -1,7 +1,6 @@
 /* 
     用于 API 统一管理
 */
-
 import requests from "./request";
 import mockRequests from "./ajaxMock";
 
@@ -117,5 +116,46 @@ export const reqLogoutAccount = () => {
     return requests({
         method: 'GET',
         url: '/user/passport/logout',
+    })
+}
+
+// 获取用户地址信息
+export const reqGetUserAddress = () => {
+    return requests({
+        method: 'GET',
+        url: '/user/userAddress/auth/findUserAddressList',
+    })
+}
+
+// 获取交易信息
+export const reqGetOrderInfo = () => {
+    return requests({
+        method: 'GET',
+        url: '/order/auth/trade',
+    })
+}
+
+// 提交订单
+export const reqSubmitOrder = (tradeNo, data) => {
+    return requests({
+        method: 'POST',
+        url: `/order/auth/submitOrder?tradeNo=${tradeNo}`,
+        data,
+    })
+}
+
+// 获取订单支付信息
+export const reqCreateNative = (orderId) => {
+    return requests({
+        method: 'GET',
+        url: `/payment/weixin/createNative/${orderId}`
+    })
+}
+
+// 获取订单支付状态（待支付、已支付）
+export const reqQueryPayStatus = (orderId) => {
+    return requests({
+        method: 'GET',
+        url: `/payment/weixin/queryPayStatus/${orderId}`,
     })
 }

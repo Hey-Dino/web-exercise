@@ -39,10 +39,6 @@ export default {
         Floor,
         Brand,
     },
-    mounted() {
-        // 获取用户信息
-        this.$store.dispatch("userOption/getUserInfoByToken");
-    },
 };
 </script>
 

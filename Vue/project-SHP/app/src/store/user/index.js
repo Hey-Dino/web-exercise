@@ -34,12 +34,12 @@ const actions = {
     // 登录账户【Token】
     async loginAccount({ commit }, { phone, password }) {
         const result = await reqLoginAccount(phone, password)
-
+        
         if (result.code === 200) {
             // 存储 Token
             setToken(result.data.token);
 
-            return Promise.resolve("Success");
+            return Promise.resolve(result.data.token);
         } else {
             return Promise.reject(new Error("Login Account Failure!"));
         }
@@ -50,6 +50,9 @@ const actions = {
 
         if (result.code === 200) {
             commit("GETUSERINFOBYTOKEN", result.data);
+            return Promise.resolve("Get User Info By Token Successfully.");
+        } else {
+            return Promise.reject(new Error("Get User Info By Token Failure!"));
         }
     },
     // 注销账户

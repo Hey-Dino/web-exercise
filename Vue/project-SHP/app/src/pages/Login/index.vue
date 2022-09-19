@@ -43,7 +43,6 @@
                                         name="m1"
                                         type="checkbox"
                                         value="2"
-                                        checked=""
                                     >
                                     自动登录
                                 </label>
@@ -104,6 +103,8 @@
 </template>
 
 <script>
+import { setToken } from "@/utils/token";
+
 export default {
     name: "Login",
     data() {
@@ -116,12 +117,14 @@ export default {
         // 登录账户
         loginAccount() {
             try {
-                this.$store.dispatch("userOption/loginAccount", {
-                    phone: this.phone,
-                    password: this.password,
-                });
-
-                this.$router.push("/home");
+                this.$store
+                    .dispatch("userOption/loginAccount", {
+                        phone: this.phone,
+                        password: this.password,
+                    })
+                    .then(() => {
+                        this.$router.push("/home");
+                    });
             } catch (err) {
                 console.log(err.message);
             }
@@ -228,18 +231,19 @@ export default {
         float: right;
     }
     .login-wrap .loginform .content form .btn {
-        background-color: #e1251b;
+        width: 100%;
+        height: 36px;
         padding: 6px;
-        border-radius: 0;
+        margin-top: 25px;
         font-size: 16px;
         font-family: "Microsoft YaHei";
         word-spacing: 4px;
-        border: 1px solid #e1251b;
         color: #fff;
-        width: 100%;
-        height: 36px;
-        margin-top: 25px;
+        border: 1px solid #e1251b;
+        /* border-radius: 0; */
+        background-color: #e1251b;
         outline: none;
+        cursor: pointer;
     }
     .login-wrap .loginform .content .call {
         margin-top: 30px;
