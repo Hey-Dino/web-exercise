@@ -1,25 +1,14 @@
 // 引入路由组件
-// 一级
-import Home from "@/pages/Home"
-import Search from "@/pages/Search"
-import Login from "@/pages/Login"
-import Register from "@/pages/Register"
-import Detail from "@/pages/Detail"
-import AddToCartSucc from "@/pages/AddToCartSucc"
-import Shopcart from "@/pages/Shopcart"
-import Trade from "@/pages/Trade"
-import Pay from "@/pages/Pay"
-import paySuccess from "@/pages/PaySuccess"
-import Center from "@/pages/Center"
-// 二级
-import MyOrder from "@/pages/Center/MyOrder"
-import GroupOrder from "@/pages/Center/GroupOrder"
+/* 
+    当打包构建应用时，JavaScript 包会变得非常大，影响页面加载。
+    如果我们能把不同路由对应的组件分割成不同的代码块，然后当路由被访问的时候才加载对应组件，这样就会更加高效。
+*/
 
 export default [
     // 路由重定向，首次进入页面，跳转到Home页面
     {
         path: '*',
-        component: Home,
+        component: () => import("@/pages/Home"),
         meta: {
             showFooter: true
         }
@@ -27,7 +16,7 @@ export default [
     // 首页
     {
         path: '/home',
-        component: Home,
+        component: () => import("@/pages/Home"),
         meta: {
             showFooter: true
         }
@@ -36,7 +25,7 @@ export default [
     {
         name: 'search',
         path: '/search/:keyword?',
-        component: Search,
+        component: () => import("@/pages/Search"),
         meta: {
             showFooter: true
         }
@@ -44,7 +33,7 @@ export default [
     // 登录
     {
         path: '/login',
-        component: Login,
+        component: () => import("@/pages/Login"),
         meta: {
             showFooter: false
         }
@@ -52,7 +41,7 @@ export default [
     // 注册
     {
         path: '/register',
-        component: Register,
+        component: () => import("@/pages/Register"),
         meta: {
             showFooter: false
         }
@@ -60,7 +49,7 @@ export default [
     // 商品详情
     {
         path: '/detail/:skuid?',
-        component: Detail,
+        component: () => import("@/pages/Detail"),
         meta: {
             showFooter: true
         }
@@ -68,7 +57,7 @@ export default [
     // 商品添加进入购物车成功
     {
         path: '/addToCartSucc',
-        component: AddToCartSucc,
+        component: () => import("@/pages/AddToCartSucc"),
         meta: {
             showFooter: true,
         }
@@ -76,7 +65,7 @@ export default [
     // 购物车
     {
         path: '/shopcart',
-        component: Shopcart,
+        component: () => import("@/pages/Shopcart"),
         meta: {
             showFooter: true,
         }
@@ -84,7 +73,7 @@ export default [
     // 订单结算页面
     {
         path: '/trade',
-        component: Trade,
+        component: () => import("@/pages/Trade"),
         meta: {
             showFooter: true,
             needLogin: true,
@@ -108,7 +97,7 @@ export default [
     // 支付页面
     {
         path: '/pay',
-        component: Pay,
+        component: () => import("@/pages/Pay"),
         meta: {
             showFooter: true,
             needLogin: true,
@@ -127,7 +116,7 @@ export default [
     // 支付成功页面
     {
         path: '/paySuccess',
-        component: paySuccess,
+        component: () => import("@/pages/PaySuccess"),
         meta: {
             showFooter: true,
             needLogin: true,
@@ -137,7 +126,7 @@ export default [
     // 个人中心页面
     {
         path: '/center',
-        component: Center,
+        component: () => import("@/pages/Center"),
         meta: {
             showFooter: true,
             needLogin: true,
@@ -151,7 +140,7 @@ export default [
             {
                 name: 'myOrder',
                 path: 'myOrder',
-                component: MyOrder,
+                component: () => import("@/pages/Center/MyOrder"),
                 meta: {
                     needLogin: true,
                 }
@@ -159,7 +148,7 @@ export default [
             {
                 name: 'groupOrder',
                 path: 'groupOrder',
-                component: GroupOrder,
+                component: () => import("@/pages/Center/GroupOrder"),
                 meta: {
                     needLogin: true,
                 }
