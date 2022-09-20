@@ -14,22 +14,31 @@
                     placeholder="请输入你的手机号"
                     v-model.lazy="phone"
                     tabindex="1"
+                    name="phone"
+                    v-validate="{required: true, regex: /^1(3|4|5|8|7)[0-9]{9}$/}"
+                    :class="{invalid: errors.has('phone')}"
                 >
-                <span class="error-msg">错误提示信息</span>
+                <span class="error-msg">{{errors.first('phone')}}</span>
             </div>
             <div class="content">
                 <label>验证码:</label>
                 <input
                     type="text"
+                    tabindex="2"
                     placeholder="请输入验证码"
                     v-model.lazy="code"
-                    tabindex="2"
+                    name="code"
+                    v-validate="{required: true, regex: /^\d{6}/}"
+                    :class="{invalid: errors.has('code')}"
                 >
                 <button
                     id="code-btn"
                     @click="getCode"
                 >点击获取验证码</button>
-                <span class="error-msg">错误提示信息</span>
+                <span
+                    class="error-msg"
+                    v-show="errors.has('code')"
+                >{{errors.first("code")}}</span>
             </div>
             <div class="content">
                 <label>登录密码:</label>
@@ -38,8 +47,11 @@
                     placeholder="请输入你的登录密码"
                     v-model.lazy="password1"
                     tabindex="3"
+                    name="password1"
+                    v-validate="{required: true, regex: /[0-9A-Za-z]{6,24}/ }"
+                    :class="{invalid: errors.has('password1')}"
                 >
-                <span class="error-msg">错误提示信息</span>
+                <span class="error-msg">{{errors.first("password1")}}</span>
             </div>
             <div class="content">
                 <label>确认密码:</label>
@@ -48,17 +60,22 @@
                     placeholder="请输入确认密码"
                     v-model.lazy="password2"
                     tabindex="4"
+                    name="password2"
+                    v-validate="{required: true, is: password1}"
+                    :class="{invalid: errors.has('password2')}"
                 >
-                <span class="error-msg">错误提示信息</span>
+                <span class="error-msg">{{errors.first("password2")}}</span>
             </div>
             <div class="controls">
                 <input
-                    name="m1"
                     type="checkbox"
-                    :checked="isAgree"
+                    v-model="isAgree"
+                    name="aggree"
+                    v-validate="{required: true}"
+                    :class="{invalid: errors.has('aggree')}"
                 >
                 <span>同意协议并注册《尚品汇用户协议》</span>
-                <span class="error-msg">错误提示信息</span>
+                <span class="error-msg">{{errors.first("aggree")}}</span>
             </div>
             <div class="btn">
                 <button
@@ -108,28 +125,30 @@ export default {
         // 获取验证码
         getCode() {
             try {
-                this.$store.dispatch(
-                    "userOption/getCodeByPhone",
-                    this.phone
-                );
+                this.$store.dispatch("userOption/getCodeByPhone", this.phone);
             } catch (err) {
                 console.log(err.message);
             }
         },
         // 注册用户
         registerAccount() {
-            try {
-                this.$store.dispatch("userOption/registerAccount", {
-                    phone: this.phone,
-                    password: this.password1,
-                    code: this.code,
-                });
-                
-                // 登录成功，跳转到登录页面
-                this.$router.push("/login");
-            } catch (err) {
-                console.log(err.message);
-            }
+            this.$validator.validateAll().then((result) => {
+                // 返回数据则表示表单验证通过
+                if (result) {
+                    try {
+                        this.$store.dispatch("userOption/registerAccount", {
+                            phone: this.phone,
+                            password: this.password1,
+                            code: this.code,
+                        });
+
+                        // 登录成功，跳转到登录页面
+                        this.$router.push("/login");
+                    } catch (err) {
+                        console.log(err.message);
+                    }
+                }
+            });
         },
     },
 };
