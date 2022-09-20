@@ -50,7 +50,7 @@ vueRouter.beforeEach(async (to, from, next) => {
                 // 清除Token
                 removeToken();
                 // 重定向到Login页面
-                next("/login");
+                next("/home");
             }
         } else {
             // 用户登录状态下，不允许进入登录页面
@@ -61,7 +61,15 @@ vueRouter.beforeEach(async (to, from, next) => {
             }
         }
     } else {
-        next();
+        /* 用户未登录 */
+        // needLogin为真，表示需要登陆后才能访问
+        if (to.meta.needLogin) {
+            const toPath = to.path;
+            // 携带用户原打算前往的路由地址，方便登陆成功后跳转该地址
+            next(`/login?redirect=${toPath}`);
+        } else {
+            next();
+        }
     }
 });
 

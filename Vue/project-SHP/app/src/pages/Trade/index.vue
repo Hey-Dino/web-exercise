@@ -80,8 +80,8 @@
         <div class="money clearFix">
             <ul>
                 <li>
-                    <b><i>{{orderInfo.totalNum}}</i>件商品，总商品金额</b>
-                    <span>¥{{orderInfo.totalAmount}}</span>
+                    <b><i>{{tradeInfo.totalNum}}</i>件商品，总商品金额</b>
+                    <span>¥{{tradeInfo.totalAmount}}</span>
                 </li>
                 <li>
                     <b>返现：</b>
@@ -94,7 +94,7 @@
             </ul>
         </div>
         <div class="trade">
-            <div class="price">应付金额:　<span>¥{{orderInfo.totalAmount}}</span></div>
+            <div class="price">应付金额:　<span>¥{{tradeInfo.totalAmount}}</span></div>
             <div class="receiveInfo">
                 寄送至:
                 <span>{{selectedAddress.fullAddress}}</span>&nbsp;&nbsp;&nbsp;
@@ -125,7 +125,7 @@ export default {
     },
     computed: {
         // 获取trade仓库中的state
-        ...mapState("tradeOption", ["addressInfoList", "orderInfo"]),
+        ...mapState("tradeOption", ["addressInfoList", "tradeInfo"]),
         ...mapGetters("tradeOption", ["orderDetailList"]),
         // 选择的地址信息
         selectedAddress() {
@@ -139,7 +139,7 @@ export default {
         },
         // 提交订单
         submitOrder() {
-            const tradeNo = this.orderInfo.tradeNo;
+            const tradeNo = this.tradeInfo.tradeNo;
             const data = {
                 consignee: this.selectedAddress.consignee,
                 consigneeTel: this.selectedAddress.phoneNum,

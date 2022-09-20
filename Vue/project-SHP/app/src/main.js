@@ -23,6 +23,15 @@ Vue.prototype.$msgbox = MessageBox;
 Vue.prototype.$alert = MessageBox.alert;
 Vue.prototype.$message = Message;
 
+// 引入加载时显示的图片
+import loadingImg from "@/assets/images/loading.gif"
+// 引入并注册懒加载插件 Vue-lazyload
+import VueLazyload from 'vue-lazyload';
+Vue.use(VueLazyload, {
+    // 配置加载时显示的图片
+    loading: loadingImg
+});
+
 // 引入 mockServer.js，实现数据模拟
 import "@/mock/mockServer";
 // 引入 所有api接口

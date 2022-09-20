@@ -123,9 +123,13 @@ export default {
                         password: this.password,
                     })
                     .then(() => {
-                        this.$router.push("/home");
+                        // 通过query参数，查看是否有重定向要求
+                        const toPath = this.$route.query.redirect || "/home";
+                        console.log(toPath)
+                        this.$router.push(toPath);
                     });
             } catch (err) {
+                // 打印错误信息
                 console.log(err.message);
             }
         },

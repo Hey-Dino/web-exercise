@@ -17,7 +17,7 @@
                     >查看订单</router-link>
                     <router-link
                         class="btn-goshop"
-                        to="/"
+                        to="/home"
                     >继续购物</router-link>
                 </p>
             </div>
@@ -28,6 +28,15 @@
 <script>
 export default {
     name: "PaySuccess",
+    // 组件内守卫，另外还有beforeRouteUpdate、beforeRouteLeave
+    beforeRouteEnter(to, from, next) {
+        if (from.path === "/pay"  || from.path === "/paySuccess") {
+            // 若来自于支付页面，放行
+            next();
+        } else {
+            next(false);
+        }
+    },
 };
 </script>
 

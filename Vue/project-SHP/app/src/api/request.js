@@ -23,10 +23,10 @@ requests.interceptors.request.use((config) => {
     // 开启进度条
     nprogress.start();
     // 设置请求头，添加用户临时ID
-    /* const userTempId = store.state.detailOption.userTempId;
+    const userTempId = store.state.detailOption.userTempId;
     if (userTempId) {
         config.headers.userTempId = userTempId;
-    } */
+    }
     // 设置请求头，添加Token
     const token = getToken();
     if (token) {

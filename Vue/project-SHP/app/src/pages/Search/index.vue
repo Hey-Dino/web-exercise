@@ -139,6 +139,7 @@ export default {
 
             this.getData();
         },
+        // 删除其他信息
         removeProp(index) {
             this.searchParams.props.splice(index, 1);
             this.getData();
@@ -155,6 +156,7 @@ export default {
         },
     },
     mounted() {
+        // 注册事件，根据分页器Pagination的返回页码更新数据
         this.$bus.$on("changePage", this.changePage);
     },
 };

@@ -45,8 +45,9 @@ export default {
             continus: 5,
         };
     },
+    props: ["pageNo", "total", "totalPages"],
     computed: {
-        ...mapGetters("searchOption", ["pageNo", "total", "totalPages"]),
+        // ...mapGetters("searchOption", ["pageNo", "total", "totalPages"]),
         startAndEnd() {
             let start = 0,
                 end = 0;

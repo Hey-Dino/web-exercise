@@ -128,7 +128,7 @@ export const reqGetUserAddress = () => {
 }
 
 // 获取交易信息
-export const reqGetOrderInfo = () => {
+export const reqGetTradeInfo = () => {
     return requests({
         method: 'GET',
         url: '/order/auth/trade',
@@ -157,5 +157,13 @@ export const reqQueryPayStatus = (orderId) => {
     return requests({
         method: 'GET',
         url: `/payment/weixin/queryPayStatus/${orderId}`,
+    })
+}
+
+// 获取订单列表 —— page代表页码，limit代表每页显示数量
+export const reqGetOrderInfo = (page, limit) => {
+    return requests({
+        method: 'GET',
+        url: `/order/auth/${page}/${limit}`,
     })
 }

@@ -121,22 +121,28 @@ export default {
                     confirmButtonText: "支付成功",
                     // 居中显示
                     center: true,
-                }).then(() => {
-                    // 点击确认按钮的回调
-                    if (this.code === 200) {
-                        // 跳转支付成功页面 PaySuccess
-                        this.$router.push("/paySuccess");
-                    } else {
+                })
+                    .then(() => {
+                        /* 点击确认按钮的回调 */
+                        if (this.code === 200) {
+                            // 跳转支付成功页面 PaySuccess
+                            this.$router.push("/paySuccess");
+                        } else {
+                            // 取消计时器
+                            clearInterval(this.timer);
+                            this.timer = null;
+                            // 弹框提示
+                            this.$message({ message: "未支付成功" });
+                        }
+                    })
+                    .catch(() => {
+                        /* 点击取消按钮的回调 */
                         // 取消计时器
                         clearInterval(this.timer);
                         this.timer = null;
                         // 弹框提示
-                        this.$message({
-                            type: "info",
-                            message: "未支付成功",
-                        });
-                    }
-                });
+                        this.$message({ message: "请联系客服" });
+                    });
 
                 // 长轮询，查看支付状态
                 if (!this.timer) {

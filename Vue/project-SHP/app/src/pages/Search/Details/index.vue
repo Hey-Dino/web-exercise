@@ -38,7 +38,7 @@
                 >
                     <div class="list-wrap">
                         <div class="p-img">
-                            <router-link :to="`/detail/${goods.id}`"><img :src="goods.defaultImg" /></router-link>
+                            <router-link :to="`/detail/${goods.id}`"><img v-lazy="goods.defaultImg" /></router-link>
                         </div>
                         <div class="price">
                             <strong>
@@ -71,7 +71,11 @@
                 </li>
             </ul>
         </div>
-        <Pagination></Pagination>
+        <Pagination
+            :pageNo="pageNo"
+            :total="total"
+            :totalPages="totalPages"
+        ></Pagination>
     </div>
 </template>
 
@@ -117,8 +121,13 @@ export default {
         };
     },
     computed: {
-        // 获得商品信息
-        ...mapGetters("searchOption", ["goodsList"]),
+        // 获得商品信息及其他信息
+        ...mapGetters("searchOption", [
+            "goodsList",
+            "pageNo",
+            "total",
+            "totalPages",
+        ]),
     },
     methods: {
         // 修改排序类型
