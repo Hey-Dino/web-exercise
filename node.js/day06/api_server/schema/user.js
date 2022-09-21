@@ -15,13 +15,15 @@ const username = joi
     .alphanum()
     .min(1)
     .max(10)
-    .required();
+    ;
+    // .required()
 
 // 密码的验证规则
 const password = joi
     .string()
     .pattern(/^[\S]{6,12}$/)
-    .required();
+    ;
+    // .required()
 
 // 用户ID的验证规则
 const id = joi

@@ -46,6 +46,7 @@ module.exports.regUser = (req, res) => {
 
 // 登录的处理函数
 module.exports.login = (req, res) => {
+    console.log('@@')
     // 1.接收表单数据
     const userInfo = req.body;
 
@@ -57,7 +58,7 @@ module.exports.login = (req, res) => {
 
         // SQL 语句执行成功，但影响行数不为 1
         if (results.length !== 1)
-            return res.cc('123登录失败！');
+            return res.cc('登录失败！');
 
         // 判断用户输入的密码是否正确
         const compareResult = bcrypt.compareSync(userInfo.password, results[0].password);
