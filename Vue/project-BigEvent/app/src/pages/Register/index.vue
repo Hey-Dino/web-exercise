@@ -5,28 +5,26 @@
             <img src="@/assets/logo.png" />
         </div>
 
-        <!-- 登录注册区域 -->
         <div class="loginAndRegBox">
             <div class="title-box"></div>
-            <!-- 登录的div -->
-            <div class="login-box">
-                <!-- 登录的表单 -->
+            <!-- 注册的div -->
+            <div class="reg-box">
+                <!-- 注册的表单 -->
                 <form
                     class="layui-form"
-                    id="form_login"
+                    id="form_reg"
                 >
                     <!-- 用户名 -->
                     <div class="layui-form-item">
                         <i class="layui-icon layui-icon-username"></i>
                         <input
                             type="text"
-                            name="username"
+                            v-model.lazy="username"
                             required
                             lay-verify="required"
                             placeholder="请输入用户名"
                             autocomplete="off"
                             class="layui-input"
-                            v-model.lazy="username"
                         />
                     </div>
                     <!-- 密码 -->
@@ -34,25 +32,38 @@
                         <i class="layui-icon layui-icon-password"></i>
                         <input
                             type="password"
-                            name="password"
+                            v-model.lazy="password"
                             required
                             lay-verify="required|pwd"
                             placeholder="请输入密码"
                             autocomplete="off"
                             class="layui-input"
-                            v-model.lazy="password"
                         />
                     </div>
-                    <!-- 登录按钮 -->
+                    <!-- 密码确认框 -->
+                    <div class="layui-form-item">
+                        <i class="layui-icon layui-icon-password"></i>
+                        <input
+                            type="password"
+                            name="repassword"
+                            required
+                            lay-verify="required|pwd|repwd"
+                            placeholder="再次确认密码"
+                            autocomplete="off"
+                            class="layui-input"
+                        />
+                    </div>
+                    <!-- 注册按钮 -->
                     <div class="layui-form-item">
                         <!-- 注意：表单提交按钮和普通按钮的区别，就是 lay-submit 属性 -->
                         <button
                             class="layui-btn layui-btn-fluid layui-btn-normal"
-                            @click.prevent="goLogin"
-                        >登录</button>
+                            lay-submit
+                            @click.prevent="registerAccount"
+                        >注册</button>
                     </div>
                     <div class="layui-form-item links">
-                        <router-link to="/register">去注册</router-link>
+                        <router-link to="/login">去登录</router-link>
                     </div>
                 </form>
             </div>
@@ -62,29 +73,25 @@
 
 <script>
 export default {
-    name: "Login",
+    name: "Register",
     data() {
         return {
             username: "",
             password: "",
+            repassword: "",
         };
     },
     methods: {
-        // 登录操作
-        goLogin() {
-            try {
-                this.$store
-                    .dispatch("userOption/loginAccount", {
-                        username: this.username,
-                        password: this.password,
-                    })
-                    .then(() => {
-                        // 登录成功，跳转Home页面
-                        this.$router.push("/home");
-                    });
-            } catch (err) {
-                console.log("err:", err.msg);
-            }
+        // 注册账户
+        registerAccount() {
+            this.$store
+                .dispatch("userOption/registerAccount", {
+                    username: this.username,
+                    password: this.password,
+                })
+                .then(() => {
+                    this.$router.push("/login");
+                });
         },
     },
 };

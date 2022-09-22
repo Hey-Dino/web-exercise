@@ -7,7 +7,7 @@ Vue.use(VueRouter);
 
 // 重写 VueRouter 原型的 push 方法，避免 NavigationDuplicated 警告
 const originPush = VueRouter.prototype.push;
-VueRouter.prototype.psuh = function (location, resolve, reject) {
+VueRouter.prototype.push = function (location, resolve, reject) {
     if (resolve && reject) {
         originPush.call(this, location, resolve, reject);
     } else {

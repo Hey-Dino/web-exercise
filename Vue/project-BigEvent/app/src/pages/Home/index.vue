@@ -24,9 +24,15 @@
                             slot="dropdown"
                             class="dropdownBox"
                         >
-                            <el-dropdown-item>基本资料</el-dropdown-item>
-                            <el-dropdown-item>更换头像</el-dropdown-item>
-                            <el-dropdown-item>重置密码</el-dropdown-item>
+                            <el-dropdown-item>
+                                <router-link :to="{name: 'basicInfo'}">基本资料</router-link>
+                            </el-dropdown-item>
+                            <el-dropdown-item>
+                                <router-link :to="{name: 'changeAvatar'}">更换头像</router-link>
+                            </el-dropdown-item>
+                            <el-dropdown-item>
+                                <router-link :to="{name: 'resetPassword'}">重置密码</router-link>
+                            </el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
                     <!-- 退出登录部分 -->
@@ -46,8 +52,6 @@
                         <el-menu
                             default-active="2"
                             class="el-menu-vertical-demo"
-                            @open="handleOpen"
-                            @close="handleClose"
                             background-color="#545c64"
                             text-color="#fff"
                             active-text-color="#ffd04b"
@@ -135,12 +139,7 @@ import { removeToken } from "@/utils/token";
 export default {
     name: "Home",
     methods: {
-        handleOpen(key, keyPath) {
-            console.log(key, keyPath);
-        },
-        handleClose(key, keyPath) {
-            console.log(key, keyPath);
-        },
+        // 注销操作
         logout() {
             this.$confirm("确认退出登录?", "提示", {
                 confirmButtonText: "确定",
@@ -153,6 +152,13 @@ export default {
                 this.$router.push("/login");
             });
         },
+        // 获取用户信息
+        getUserInfoById() {
+            this.$store.dispatch("userOption/getUserInfoById").then(() => {});
+        },
+    },
+    mounted() {
+        this.getUserInfoById();
     },
 };
 </script>

@@ -6,13 +6,13 @@ import Vuex from "vuex"
 Vue.use(Vuex);
 
 // 引入子仓库
-import login from "./login";
+import user from "./user";
 import article from "./article";
 
 // 创建并暴露 store 实例
 export default new Vuex.Store({
     modules: {
-        loginOption: login,
+        userOption: user,
         articleOption: article,
     }
 })

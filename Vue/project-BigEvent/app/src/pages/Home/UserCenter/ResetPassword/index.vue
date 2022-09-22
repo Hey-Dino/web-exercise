@@ -4,7 +4,7 @@
         <el-main>
             <el-form
                 ref="form"
-                label-width="80px"
+                label-width="90px"
             >
                 <el-form-item label="原密码">
                     <el-input
@@ -37,6 +37,8 @@
 </template>
 
 <script>
+import { removeToken } from "@/utils/token";
+
 export default {
     name: "ChangePassword",
     data() {
@@ -48,7 +50,18 @@ export default {
     },
     methods: {
         // 提交修改
-        submit() {},
+        submit() {
+            this.$store
+                .dispatch("userOption/updateUserPassword", {
+                    oldPwd: this.oldPwd,
+                    newPwd: this.newPwd1,
+                })
+                .then(() => {
+                    // 清除Token并跳转Login页面
+                    removeToken();
+                    this.$router.push("/login");
+                });
+        },
         // 重置信息
         reset(formName) {
             this.$refs[formName].resetFileds();
@@ -78,7 +91,7 @@ export default {
         display: flex;
     }
 
-    .el-form-item__label {
-        width: 90px !important;
+    .el-form-item:last-child {
+        float: left;
     }
 </style>

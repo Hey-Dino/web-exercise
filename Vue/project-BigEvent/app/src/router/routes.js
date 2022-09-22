@@ -8,6 +8,11 @@ export default [
         path: "*",
         redirect: "/login",
     },
+    // 注册页
+    {
+        path: "/register",
+        component: () => import("@/pages/Register"),
+    },
     // 登录页
     {
         path: '/login',
@@ -15,15 +20,21 @@ export default [
         component: () => import("@/pages/Login"),
         // 路由独享守卫
         beforeEnter: (to, from, next) => {
+            // 获取Token
+            const token = getToken();
+
             if (from.path === "/") {
-                const token = getToken();
                 if (token) {
                     next("/home")
                 } else {
                     next();
                 }
             } else {
-                next(false);
+                if (token) {
+                    next("/home");
+                } else {
+                    next();
+                }
             }
         }
     },

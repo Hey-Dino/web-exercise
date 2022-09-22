@@ -1,5 +1,6 @@
 <template>
     <el-container>
+        <!-- 顶部 -->
         <el-header>
             文章类别管理
             <el-button
@@ -7,6 +8,7 @@
                 @click="showAddDiag"
             >添加类别</el-button>
         </el-header>
+        <!-- 主要内容 -->
         <el-main>
             <el-table
                 border
@@ -33,13 +35,15 @@
                 >
                     <template slot-scope="scope">
                         <el-button
-                            type="text"
+                            type="primary"
                             size="small"
+                            plain
                             @click="showEditDiag(scope.row)"
                         >编辑</el-button>
                         <el-button
-                            type="text"
+                            type="info"
                             size="small"
+                            plain
                             prop="id"
                             @click="delCategory(scope.row.id)"
                         >删除</el-button>
@@ -47,9 +51,9 @@
                 </el-table-column>
             </el-table>
         </el-main>
-
+        <!-- Dialog -->
         <el-dialog
-            title="修改文章分类信息"
+            :title="`${editDiagTitle}文章分类信息`"
             :visible.sync="dialogFormVisible"
         >
             <el-form :model="form">
@@ -106,9 +110,11 @@ export default {
                 alias: "",
             },
             // 表格宽度
-            formLabelWidth: "120px",
+            formLabelWidth: "80px",
             // 判断是编辑框还是添加框
             isEditDiag: true,
+            // 定义编辑\添加框标题
+            editDiagTitle: "",
         };
     },
     computed: {
@@ -147,12 +153,7 @@ export default {
                         console.log(err.message);
                     }
                 })
-                .catch(() => {
-                    this.$message({
-                        type: "info",
-                        message: "已取消删除",
-                    });
-                });
+                .catch(() => {});
         },
         // 展示分类信息编辑框
         showEditDiag(category) {
@@ -161,6 +162,7 @@ export default {
             this.form.id = id;
             this.form.name = name;
             this.form.alias = alias;
+            this.editDiagTitle = "编辑";
 
             this.isEditDiag = true;
             // 显示编辑框
@@ -181,8 +183,10 @@ export default {
         },
         // 展示分类信息添加框
         showAddDiag() {
-            // 将Form对象的属性信息全置为空
-            Object.keys(this.form).forEach((key) => this.form[key] == "");
+            // 将Form对象置空
+            this.form = {};
+            // 修改 Diag 标题
+            this.editDiagTitle = "添加";
 
             this.isEditDiag = false;
             // 展示Diag
@@ -228,5 +232,9 @@ export default {
     .el-header .el-button {
         float: right;
         margin: 10px 0;
+    }
+
+    .el-dialog__header {
+        height: 80px;
     }
 </style>
