@@ -19,7 +19,7 @@ const content = joi
 
 const state = joi
     .string()
-    .valid('已发布', '草稿')
+    .valid('0', '1')
     .required();
 
 module.exports.add_article_schema = {

@@ -25,5 +25,13 @@ const { add_article_schema } = require('../schema/article');
 //       先使用 multer 解析表单数据
 //       再使用 expressJoi 对解析的表单数据进行验证
 router.post('/add', upload.single('cover_img'), expressJoi(add_article_schema), article_handler.addArticle);
+// 获取文章的路由
+router.get('/get', article_handler.getArticles);
+// 获取某种状态文章的路由
+router.get('/get/:state', article_handler.getArticlesByState);
+// 删除文章
+router.get('/delete/:id', article_handler.deleteArticleById);
+// 更新文字
+router.post('/update', article_handler.updateArticleById)
 
 module.exports = router;

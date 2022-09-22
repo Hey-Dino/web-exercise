@@ -53,7 +53,6 @@ const email = joi
 // 更新用户信息的验证对象
 module.exports.update_userinfo_schema = {
     body: {
-        id,
         nickname,
         email
     }

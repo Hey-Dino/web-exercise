@@ -26,8 +26,9 @@ module.exports.getUserInfo = (req, res) => {
 
 // 更新用户信息
 module.exports.updateUserInfo = (req, res) => {
+    // 用户ID是jwt验证身份后自动挂载的,无需手动传参
     const sqlStr = `UPDATE ev_users SET ? WHERE id=?`;
-    db.query(sqlStr, [req.body, req.body.id], (err, results) => {
+    db.query(sqlStr, [req.body, req.user.id], (err, results) => {
         if (err)
             return res.cc(err);
 

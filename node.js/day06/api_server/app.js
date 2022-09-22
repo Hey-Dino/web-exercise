@@ -14,8 +14,6 @@ app.use(express.json());
 
 // 添加 封装错误响应信息 的中间件
 app.use((req, res, next) => {
-    console.log(req)
-    console.log('@', req.body)
     // status = 0 为成功； status = 1 为失败； 默认将 status 的值设置为 1，方便处理失败的情况
     res.cc = (err, status = 1) => {
         res.send({
@@ -59,7 +57,6 @@ app.use('/uploads', express.static('./uploads'));
 const Joi = require('joi');
 const { UnauthorizedError } = require('express-jwt');
 app.use((err, req, res, next) => {
-    console.log(err)
     // Joi 参数校验错误
     if (err instanceof Joi.ValidationError)
         return res.cc(err);
