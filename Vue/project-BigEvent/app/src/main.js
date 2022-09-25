@@ -12,6 +12,10 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 
+// 引入 Echarts
+import echarts from 'echarts';
+Vue.prototype.$echarts = echarts;
+
 // 引入所有API接口，用于注册全局接口集合
 import * as API from "@/api"
 

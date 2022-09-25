@@ -7,7 +7,8 @@ import {
     reqLoginAccount,
     reqGetUserInfoById,
     reqUpdateUserInfoById,
-    reqUpdateUserPasswordById
+    reqUpdateUserPasswordById,
+    reqUpdateUserAvatar,
 } from "@/api"
 
 // 获取设置 Token 的方法
@@ -77,6 +78,16 @@ const actions = {
         } else {
             return Promise.reject(new Error("Update User Password Failure!"));
         }
+    },
+    // 修改用户头像
+    async updateUserAvatar({ commit }, base64Str) {
+        const result = await reqUpdateUserAvatar(base64Str);
+
+        if (result.status === 0) {
+            return Promise.resolve("Update User Avatar Successfully!");
+        } else {
+            return Promise.reject(new Error("Update User Avatar Failure!"));
+        }
     }
 }
 const mutations = {
@@ -84,7 +95,12 @@ const mutations = {
         state.userInfo = userInfo;
     }
 }
-const getters = {}
+const getters = {
+    // 获取用户头像
+    userAvatar(state) {
+        return state.userInfo.user_pic;
+    }
+}
 
 export default {
     namespaced: true,

@@ -70,6 +70,7 @@ module.exports.updatePassword = (req, res) => {
 // 修改用户头像
 module.exports.updateAvatar = (req, res) => {
     const sqlStr = `UPDATE ev_users SET user_pic=? WHERE id=?`;
+    
     db.query(sqlStr, [req.body.avatar, req.user.id], (err, results) => {
         if (err)
             return res.cc(err);

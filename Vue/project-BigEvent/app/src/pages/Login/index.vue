@@ -72,19 +72,21 @@ export default {
     methods: {
         // 登录操作
         goLogin() {
-            try {
-                this.$store
-                    .dispatch("userOption/loginAccount", {
-                        username: this.username,
-                        password: this.password,
-                    })
-                    .then(() => {
-                        // 登录成功，跳转Home页面
-                        this.$router.push("/home");
+            this.$store
+                .dispatch("userOption/loginAccount", {
+                    username: this.username,
+                    password: this.password,
+                })
+                .then(() => {
+                    // 登录成功，跳转Home页面
+                    this.$router.push("/home");
+                })
+                .catch(() => {
+                    this.$message({
+                        message: "用户名或密码错误！",
+                        type: "warning",
                     });
-            } catch (err) {
-                console.log("err:", err.msg);
-            }
+                });
         },
     },
 };

@@ -60,6 +60,12 @@ export default {
                     // 清除Token并跳转Login页面
                     removeToken();
                     this.$router.push("/login");
+                })
+                .catch(() => {
+                    this.$message({
+                        message: "原密码错误！",
+                        type: "warning",
+                    });
                 });
         },
         // 重置信息

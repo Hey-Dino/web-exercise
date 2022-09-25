@@ -14,7 +14,10 @@
                     :offset="13"
                 >
                     <!-- 头像部分 -->
-                    <el-avatar :size="50"></el-avatar>
+                    <el-avatar
+                        :size="50"
+                        :src="userAvatar"
+                    ></el-avatar>
                     <!-- 个人信息修改部分 -->
                     <el-dropdown>
                         <span class="el-dropdown-link">
@@ -134,11 +137,28 @@
 </template>
 
 <script>
+// 引入移除Token的方法
 import { removeToken } from "@/utils/token";
+import { mapGetters } from "vuex";
 
 export default {
     name: "Home",
+    data() {
+        return {};
+    },
+    computed: {
+        ...mapGetters("userOption", ["userAvatar"]),
+    },
     methods: {
+        // 获取用户信息
+        getUserInfoById() {
+            this.$store
+                .dispatch("userOption/getUserInfoById")
+                .then((result) => {
+                    // 刷新用户头像
+                    this.avatarUrl = this.$store.state.userOption.userInfo.user_pic;
+                });
+        },
         // 注销操作
         logout() {
             this.$confirm("确认退出登录?", "提示", {
@@ -151,10 +171,6 @@ export default {
                 // 跳转login页面
                 this.$router.push("/login");
             });
-        },
-        // 获取用户信息
-        getUserInfoById() {
-            this.$store.dispatch("userOption/getUserInfoById").then(() => {});
         },
     },
     mounted() {

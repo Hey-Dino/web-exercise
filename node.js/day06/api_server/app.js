@@ -9,7 +9,7 @@ app.use(cors());
 
 // 配置解析表单数据的中间件
 app.use(express.urlencoded({ extended: false }));
-// 
+// 配置解析JSON数据的中间件
 app.use(express.json());
 
 // 添加 封装错误响应信息 的中间件
