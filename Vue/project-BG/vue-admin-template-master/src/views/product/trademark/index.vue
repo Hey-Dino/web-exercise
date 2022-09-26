@@ -4,9 +4,10 @@
         <el-button
             type="primary"
             icon="el-icon-plus"
-            style="margin-bottom: 10px;"
+            style="margin: 10px 0;"
             @click="showAddDialog"
         >添加</el-button>
+
         <!-- 表格table -->
         <el-table
             ref="form"
@@ -16,7 +17,7 @@
             <el-table-column
                 align="center"
                 prop="id"
-                label="ID   "
+                label="ID"
                 width="80px"
             >
             </el-table-column>
@@ -47,11 +48,13 @@
                         type="primary"
                         size="mini"
                         icon="el-icon-edit"
-                        @click="showEditDialog"
+                        @click="showEditDialog(row)"
                     >编辑</el-button>
                     <el-button
+                        type="warning"
                         size="mini"
                         icon="el-icon-close"
+                        @click="deleteTrademark(row)"
                     >删除</el-button>
                 </template>
             </el-table-column>
@@ -68,10 +71,10 @@
             style="margin-top: 10px; textAlign: center;"
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
-            :current-page="currentPage"
-            :page-size="pageSize"
+            :current-page="pagination.currentPage"
+            :page-size="pagination.pageSize"
             :page-sizes="[10, 20, 50]"
-            :total="total"
+            :total="pagination.total"
             layout="prev, pager, next, jumper,->, total, sizes"
         >
         </el-pagination>
@@ -79,17 +82,27 @@
         <!-- 添加、编辑对话框 -->
         <!-- :before-close="dialogBeforeClose" -->
         <el-dialog
-            :title="`${diaglogMode == 0 ? '添加' : '编辑'}品牌信息`"
-            :visible.sync="dialogVisible"
+            :title="`${dialog.mode == 0 ? '添加' : '编辑'}品牌信息`"
+            :visible.sync="dialog.visible"
         >
+            <!-- rules 需要和 model 配合使用 -->
             <el-form
                 style="width: 80%;"
-                label-width="85px"
+                label-width="95px"
+                :model="tmForm"
+                :rules="rules"
+                ref="ruleForm"
             >
-                <el-form-item label="品牌名称">
-                    <el-input></el-input>
+                <el-form-item
+                    label="品牌名称"
+                    prop="tmName"
+                >
+                    <el-input v-model="tmForm.tmName"></el-input>
                 </el-form-item>
-                <el-form-item label="品牌LOGO">
+                <el-form-item
+                    label="品牌LOGO"
+                    prop="logoUrl"
+                >
                     <el-upload
                         class="avatar-uploader"
                         action="/simply-api/admin/product/fileUpload"
@@ -98,8 +111,8 @@
                         :before-upload="beforeAvatarUpload"
                     >
                         <img
-                            v-if="imageUrl"
-                            :src="imageUrl"
+                            v-if="tmForm.logoUrl"
+                            :src="tmForm.logoUrl"
                             class="avatar"
                         >
                         <i
@@ -109,6 +122,7 @@
                         <div
                             slot="tip"
                             class="el-upload__tip"
+                            :class="{illegal_logo: dialog.illegalLogo}"
                         >只能上传jpg/png文件，且不超过500kb</div>
                     </el-upload>
                 </el-form-item>
@@ -121,14 +135,14 @@
                 <!-- 添加确定按钮 -->
                 <el-button
                     type="primary"
-                    @click="addTrademark"
-                    v-show="diaglogMode != 1"
+                    @click="addTrademark('ruleForm')"
+                    v-show="dialog.mode != 1"
                 >确 定</el-button>
                 <!-- 添加编辑按钮 -->
                 <el-button
                     type="primary"
-                    @click="editTrademark"
-                    v-show="diaglogMode == 1"
+                    @click="editTrademark('ruleForm')"
+                    v-show="dialog.mode == 1"
                 >确 定</el-button>
             </span>
         </el-dialog>
@@ -142,28 +156,58 @@ export default {
         return {
             // 存储品牌信息
             form: [],
-            // 当前页码
-            currentPage: 1,
-            // 每页记录数
-            pageSize: 10,
-            // 总记录数
-            total: 0,
-            // 对话框的显示与隐藏
-            dialogVisible: false,
-            // 对话框模式，0表示添加，1表示编辑
-            diaglogMode: 0,
-            // 对话框的图片链接
-            imageUrl: "",
+            /* 分页器各项参数 */
+            pagination: {
+                // 当前页码
+                currentPage: 1,
+                // 每页记录数
+                pageSize: 10,
+                // 总记录数
+                total: 0,
+            },
+            /* 控制对话框的各参数 */
+            dialog: {
+                // 对话框的显示与隐藏
+                visible: false,
+                // 对话框模式：0表示添加框，1表示编辑框
+                mode: 0,
+                // 品牌LOGO是否符合规则
+                illegalLogo: false,
+            },
+            /* 对话框内容 */
             tmForm: {
-                
-            }
+                tmName: "",
+                logoUrl: "",
+            },
+            /* 表单验证规则 */
+            rules: {
+                tmName: [
+                    {
+                        required: true,
+                        message: "请输入品牌名称",
+                        trigger: "blur",
+                    },
+                    {
+                        min: 2,
+                        max: 8,
+                        message: `长度在2到8个字符`,
+                        trigger: "blur",
+                    },
+                ],
+                logoUrl: [
+                    {
+                        required: true,
+                        message: "请选择品牌LOGO",
+                    },
+                ],
+            },
         };
     },
     methods: {
         // 获取品牌信息
         async getTrademarkList() {
-            // 解构获取当前页码、每页记录数
-            const { currentPage, pageSize } = this;
+            // 解构获取当前页码、每页记录数、总记录数
+            const { currentPage, pageSize } = this.pagination;
             // 发送请求获取数据
             const result = await this.$API.trademark.reqGetTrademarkList(
                 currentPage,
@@ -172,59 +216,146 @@ export default {
 
             if (result.code === 200) {
                 this.form = result.data.records;
-                this.total = result.data.total;
+                this.pagination.total = result.data.total;
             }
         },
         // 监听每页记录数的改变
         handleSizeChange(pageSize) {
             // 更新每页记录数
-            this.pageSize = pageSize;
+            this.pagination.pageSize = pageSize;
             // 更新品牌信息
             this.getTrademarkList();
         },
         // 记录页码的改变
         handleCurrentChange(currentPage) {
             // 更改当前页码
-            this.currentPage = currentPage;
+            this.pagination.currentPage = currentPage;
             // 更新品牌信息
             this.getTrademarkList();
         },
-        // 展示添加框
-        showAddDialog() {
-            // 切换对话框模式
-            this.diaglogMode = 0;
-            // 展示对话框
-            this.dialogVisible = true;
-        },
-        // 添加品牌信息
-        addTrademark() {
-            // 关闭对话框
-            this.dialogVisible = false;
-        },
-        // 展示编辑框
-        showEditDialog() {
-            // 切换对话框模式
-            this.diaglogMode = 1;
-            // 展示对话框
-            this.dialogVisible = true;
-        },
-        // 编辑品牌信息
-        editTrademark() {
-            // 关闭对话框
-            this.dialogVisible = false;
-        },
         // 关闭对话框
         closeDialog() {
-            this.dialogVisible = false;
+            this.dialog.visible = false;
+        },
+        // 展示添加框
+        showAddDialog() {
+            // 清空编辑框内容
+            Object.keys(this.tmForm).forEach((key) => {
+                this.tmForm[key] = "";
+            });
+            // 切换对话框模式
+            this.dialog.mode = 0;
+            // 展示对话框
+            this.dialog.visible = true;
+        },
+        // 添加品牌信息
+        addTrademark(formName) {
+            // 校验表单信息
+            this.$refs[formName].validate(async (valid) => {
+                if (valid) {
+                    // 提交添加内容
+                    const result = await this.$API.trademark.reqAddTrademark(
+                        this.tmForm
+                    );
+
+                    // 判断请求是否成功
+                    if (result.code === 200) {
+                        // 更新表单数据
+                        this.getTrademarkList();
+                        // 关闭对话框
+                        this.dialog.visible = false;
+                    }
+                }
+            });
+        },
+        // 展示编辑框
+        showEditDialog(tmInfo) {
+            // 为编辑框填充内容
+            this.tmForm = { ...tmInfo };
+            // 切换对话框模式
+            this.dialog.mode = 1;
+            // 展示对话框
+            this.dialog.visible = true;
+        },
+        // 编辑品牌信息
+        editTrademark(formName) {
+            this.$refs[formName].validate(async (valid) => {
+                if (valid) {
+                    // 提交编辑信息
+                    const result = await this.$API.trademark.reqUpdateTrademark(
+                        this.tmForm
+                    );
+
+                    // 判断请求是否成功
+                    if (result.code === 200) {
+                        // 更新表单数据
+                        this.getTrademarkList();
+                        // 关闭对话框
+                        this.dialog.visible = false;
+                    }
+                }
+            });
+        },
+        // 删除品牌信息
+        deleteTrademark({ id }) {
+            // 确认是否确定删除
+            this.$confirm("此操作将永久删除该品牌, 是否继续?", "提示", {
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                type: "warning",
+            })
+                .then(async () => {
+                    // 发送请求删除该商品信息
+                    const result = await this.$API.trademark.reqDeleteTrademark(
+                        id
+                    );
+
+                    if (result.code === 200) {
+                        // 判断删除后跳转的页号
+                        if (this.form.length == 1) {
+                            // 当前页面的记录数等于1，跳转到上一页
+                            this.pagination.currentPage -= 1;
+                            // 若上方变更后的页号为0，则将页号重置为1
+                            if (this.pagination.currentPage < 1) {
+                                this.pagination.currentPage = 1;
+                            }
+                        }
+
+                        // 更新品牌信息
+                        this.getTrademarkList();
+                        // 提示删除成果信息
+                        this.$message({
+                            type: "success",
+                            message: "删除成功!",
+                        });
+                    }
+                })
+                .catch(() => {});
         },
         // 图片上传到后台服务器时触发该函数
         handleAvatarSuccess(res, file) {
             // 更新图片url
-            this.imageUrl = URL.createObjectURL(file.raw);
-            console.log(this.imageUrl);
+            this.tmForm.logoUrl = res.data;
         },
         beforeAvatarUpload(file) {
-            // console.log(file);
+            // 判断图片格式是否符合要求
+            const isJPGOrPNG =
+                file.type === "image/jpeg" || file.type === "image/png";
+            // 判断图片大小是否符合要求
+            const isLt500K = file.size / 1024 < 500;
+
+            if (isJPGOrPNG && isLt500K) {
+                this.dialog.illegalLogo = false;
+            } else {
+                // 清空编辑框内容
+                Object.keys(this.tmForm).forEach((key) => {
+                    this.tmForm[key] = "";
+                });
+                // 高亮图片格式提示信息
+                this.dialog.illegalLogo = true;
+                // 停止图片的上传
+                return false;
+            }
         },
     },
     mounted() {
@@ -256,5 +387,8 @@ export default {
         width: 178px;
         height: 178px;
         display: block;
+    }
+    .illegal_logo {
+        color: #f56c6c;
     }
 </style>
