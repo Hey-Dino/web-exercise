@@ -2,8 +2,12 @@
 <template>
     <div>
         <el-card style="margin: 10px 0">
-            <CategorySelect @getAttrInfoList="getAttrInfoList"></CategorySelect>
+            <CategorySelect
+                @getCategoryId="getCategoryId"
+                :couldHandle="!isShowTable"
+            ></CategorySelect>
         </el-card>
+
         <el-card>
             <div v-show="isShowTable">
                 <!-- 添加按钮 -->
@@ -54,11 +58,18 @@
                                 size="mini"
                                 @click="editAttr(row)"
                             >编辑</el-button>
-                            <el-button
-                                icon="el-icon-close"
-                                type="warning"
-                                size="mini"
-                            >删除</el-button>
+                            <el-popconfirm
+                                :title="`是否删除“${row.attrName}”?`"
+                                @onConfirm="deleteAttr(row)"
+                                style="margin-left: 10px;"
+                            >
+                                <el-button
+                                    icon="el-icon-close"
+                                    type="warning"
+                                    size="mini"
+                                    slot="reference"
+                                >删除</el-button>
+                            </el-popconfirm>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -98,7 +109,7 @@
                     >
                     </el-table-column>
                     <el-table-column label="属性值名称">
-                        <template slot-scope="{row}">
+                        <template slot-scope="{row, $index}">
                             <el-input
                                 v-model="row.valueName"
                                 placeholder="请输入属性值"
@@ -106,21 +117,30 @@
                                 v-show="row.flag"
                                 @blur="toLook(row)"
                                 @keyup.native.enter="toLook(row)"
+                                :ref="$index"
                             ></el-input>
                             <span
-                                v-show="!row.flag"
-                                @click="toEdit(row)"
                                 style="display:block;padding:0 15px;"
+                                v-show="!row.flag"
+                                @click="toEdit(row, $index)"
                             >{{row.valueName}}</span>
                         </template>
                     </el-table-column>
                     <el-table-column label="操作">
-                        <template slot-scope="{row}">
-                            <el-button
-                                type="warning"
-                                icon="el-icon-close"
-                                size="mini"
-                            >删除</el-button>
+                        <template slot-scope="{row, $index}">
+                            <el-popconfirm
+                                :title="`确定删除${row.valueName}？`"
+                                @onConfirm="deleteAttrValue($index)"
+                            >
+                                <!-- el-button需要配置[slot="reference"]才能与el-popconfirm配合使用 -->
+                                <el-button
+                                    type="warning"
+                                    icon="el-icon-close"
+                                    size="mini"
+                                    slot="reference"
+                                >删除</el-button>
+                            </el-popconfirm>
+
                         </template>
                     </el-table-column>
                 </el-table>
@@ -128,6 +148,7 @@
                 <el-button
                     type="primary"
                     :disabled="!attrInfo.attrName"
+                    @click="addOrUpdateAttr"
                 >保存</el-button>
                 <el-button @click="closeAddOrEditBox">取消</el-button>
             </div>
@@ -156,15 +177,44 @@ export default {
                 categoryId: "", // 三级分类的ID
                 categoryLevel: 3, // 系统区分是哪一级ID
             },
+            // 存储各级分类ID
+            categoryId: {
+                no1: "",
+                no2: "",
+                no3: "",
+            },
         };
     },
     methods: {
+        // 获取各级分类的ID
+        getCategoryId(id, level) {
+            switch (level) {
+                case 1:
+                    this.categoryId.no1 = id;
+                    // 清空二级分类、三级分类的ID
+                    this.categoryId.no2 = "";
+                    this.categoryId.no3 = "";
+                    break;
+                case 2:
+                    this.categoryId.no2 = id;
+                    // 清除三级分类的ID
+                    this.categoryId.no3 = "";
+                    break;
+                case 3:
+                    this.categoryId.no3 = id;
+                    this.getAttrInfoList();
+                    break;
+            }
+        },
         // 获取属性信息列表
         async getAttrInfoList(data) {
-            // 设置attrInfo的categoryId属性
-            this.attrInfo.categoryId = data.category3Id;
-
-            const result = await this.$API.attr.reqGetAttrInfoList(data);
+            // 解构获取各级分类的ID
+            const { no1, no2, no3 } = this.categoryId;
+            const result = await this.$API.attr.reqGetAttrInfoList({
+                category1Id: no1,
+                category2Id: no2,
+                category3Id: no3,
+            });
 
             if (result.code === 200) {
                 this.attrInfoList = result.data;
@@ -184,16 +234,7 @@ export default {
                 categoryLevel: 3, // 系统区分是哪一级ID
             };
         },
-        // 添加属性值
-        addAttrValue() {
-            this.attrInfo.attrValueList.push({
-                attrId: this.attrInfo.id,
-                valueName: "",
-                // 控制查看模式与编辑模式的转换
-                flag: true,
-            });
-        },
-        // 编辑属性
+        // 编辑属性（属性包含属性名、属性值）
         editAttr(attrInfo) {
             // 关闭数据展示框
             this.isShowTable = false;
@@ -207,9 +248,42 @@ export default {
                 this.$set(item, "flag", false);
             });
         },
+        // 删除属性（属性包含属性名、属性值）
+        async deleteAttr(attrInfo) {
+            const result = await this.$API.attr.reqDeleteAttrInfo(attrInfo.id);
+
+            if (result.code === 200) {
+                console.log(result);
+                this.$message({
+                    message: "删除成功！",
+                    type: "success",
+                });
+                // 刷新页面
+                this.getAttrInfoList();
+            }
+        },
         // 关闭 添加|编辑框
         closeAddOrEditBox() {
             this.isShowTable = true;
+        },
+        // 添加属性值
+        addAttrValue() {
+            this.attrInfo.attrValueList.push({
+                attrId: this.attrInfo.id,
+                valueName: "",
+                // 控制 查看|编辑模式 的切换
+                flag: true,
+            });
+            // 聚焦输入框
+            this.$nextTick(() => {
+                // 新添加的属性值是通过push方式进入attrValueList数组的，因而位于数组末尾
+                // 又每个编辑模式的input数据是以属性值的索引值作为ref，因而新添加的属性值的ref为[this.attrInfo.attrValueList.length - 1]
+                this.$refs[this.attrInfo.attrValueList.length - 1].focus();
+            });
+        },
+        // 删除属性值
+        deleteAttrValue($index) {
+            this.attrInfo.attrValueList.splice($index, 1);
         },
         // 控制属性值进入[查看模式]
         toLook(row) {
@@ -244,13 +318,57 @@ export default {
             }
         },
         // 控制属性值进入[编辑模式]
-        toEdit(row) {
+        toEdit(row, $index) {
+            // 显示编辑模式的输入框
             row.flag = true;
+            // 聚焦文本框
+            // 由于输入框在隐藏状态下是无法定义聚焦的，需要等待DOM更新完成后才执行聚焦
+            this.$nextTick(() => {
+                this.$refs[$index].focus();
+            });
+        },
+        // 保存 添加|修改 属性
+        async addOrUpdateAttr() {
+            /* 整理数据 */
+            // 去空串及属性flag
+            let attrValueList = this.attrInfo.attrValueList.filter((item) => {
+                // 判断是否为空串
+                if (item.valueName !== "") {
+                    // 去除flag属性
+                    delete item.flag;
+
+                    return true;
+                }
+            });
+            // 去重
+            for (var i = 0; i < attrValueList.length - 1; i++) {
+                if (
+                    attrValueList[i].valueName == attrValueList[i + 1].valueName
+                ) {
+                    attrValueList.splice(i, 1);
+                    i--;
+                }
+            }
+            this.attrInfo.attrValueList = attrValueList;
+
+            // 发送请求
+            const result = await this.$API.attr.reqAddOrUpdateAttrInfo(
+                this.attrInfo
+            );
+
+            // 请求成功
+            if (result.code === 200) {
+                // 更新数据
+                this.getAttrInfoList();
+                // 提示保存成功
+                this.$message({
+                    message: "属性信息保存成功",
+                    type: "success",
+                });
+                // 隐藏 添加|编辑框，显示数据
+                this.isShowTable = true;
+            }
         },
     },
 };
 </script>
-
-<style>
-
-</style>

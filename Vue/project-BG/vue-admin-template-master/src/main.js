@@ -42,10 +42,17 @@ Vue.prototype.$API = API;
 // 引入并注册CategorySelect组件
 import CategorySelect from "@/components/CategorySelect"
 Vue.component(CategorySelect.name, CategorySelect);
+// 引入并注册基于el-button再次封装的button组件
+import HintButton from "@/components/HintButton";
+Vue.component(HintButton.name, HintButton);
 
 new Vue({
     el: '#app',
+    render: h => h(App),
+    beforeCreate() {
+        // 注册全局事件总线
+        Vue.prototype.$bus = this;
+    },
     router,
     store,
-    render: h => h(App)
 })

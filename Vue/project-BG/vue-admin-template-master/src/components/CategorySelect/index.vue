@@ -10,6 +10,7 @@
                 v-model="category1Id"
                 placeholder="请选择"
                 @change="select1Handler"
+                :disabled="couldHandle"
             >
                 <el-option
                     v-for="category in form.category1List"
@@ -25,6 +26,7 @@
                 v-model="category2Id"
                 placeholder="请选择"
                 @change="select2Handler"
+                :disabled="couldHandle"
             >
                 <el-option
                     v-for="category in form.category2List"
@@ -40,6 +42,7 @@
                 v-model="category3Id"
                 placeholder="请选择"
                 @change="select3Handler"
+                :disabled="couldHandle"
             >
                 <el-option
                     v-for="category in form.category3List"
@@ -55,6 +58,7 @@
 <script>
 export default {
     name: "CategorySelect",
+    props: ["couldHandle"],
     data() {
         return {
             // 一级分类的ID
@@ -94,6 +98,9 @@ export default {
             );
 
             if (result.code === 200) {
+                // 通知父组件更新一级分类ID
+                this.$emit("getCategoryId", this.category1Id, 1);
+                // 更新二级分类列表数据
                 this.form.category2List = result.data;
             }
         },
@@ -109,17 +116,16 @@ export default {
             );
 
             if (result.code === 200) {
+                // 通知父组件更新二级分类ID
+                this.$emit("getCategoryId", this.category2Id, 2);
+                // 更新三级分类列表数据
                 this.form.category3List = result.data;
             }
         },
         // 第三个选择器(三级分类)的handler
         select3Handler() {
-            // 通过自定义事件通知父组件
-            this.$emit("getAttrInfoList", {
-                category1Id: this.category1Id,
-                category2Id: this.category2Id,
-                category3Id: this.category3Id,
-            });
+            // 通知父组件更新一级分类ID
+            this.$emit("getCategoryId", this.category3Id, 3);
         },
     },
     mounted() {

@@ -1,11 +1,15 @@
 <template>
-    <div id="app">
-        <router-view />
+    <div>
+        <h1>SkuForm</h1>
     </div>
 </template>
 
 <script>
 export default {
-    name: "App",
+    name: "SkuForm",
 };
 </script>
+
+<style>
+
+</style>

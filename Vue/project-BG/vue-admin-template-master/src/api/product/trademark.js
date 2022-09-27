@@ -33,3 +33,11 @@ export function reqDeleteTrademark(id) {
         url: `/admin/product/baseTrademark/remove/${id}`
     })
 }
+
+// 获取所有品牌信息（不带页号、每页记录数）
+export function reqGetTrademarkAll(){
+    return request({
+        method: 'GET',
+        url: '/admin/product/baseTrademark/getTrademarkList'
+    })
+}
