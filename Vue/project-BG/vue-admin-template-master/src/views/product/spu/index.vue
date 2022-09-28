@@ -82,7 +82,7 @@
                     @size-change="handleSizeChange"
                     @current-change="handleCurrentChange"
                     :current-page="pagination.currentPage"
-                    :page-sizes="[10, 20, 40]"
+                    :page-sizes="[5, 10, 15]"
                     :page-size="pagination.pageSize"
                     layout="prev, pager, next, jumper,->, sizes, total"
                     :total="pagination.total"
@@ -149,11 +149,11 @@ export default {
         },
         // 获取SPU列表
         async getSpuInfoList() {
-            const result = await this.$API.spu.reqGetSpuList(
-                this.pagination.currentPage,
-                this.pagination.pageSize,
-                this.categoryId.no3
-            );
+            const result = await this.$API.spu.reqGetSpuList({
+                page: this.pagination.currentPage,
+                limit: this.pagination.pageSize,
+                category3Id: this.categoryId.no3,
+            });
 
             if (result.code === 200) {
                 // 更新数据
@@ -162,14 +162,6 @@ export default {
                 // 启用添加按钮
                 this.couldAdd = true;
             }
-        },
-        addAttr() {
-            this.scene = 1;
-        },
-        editAttr(row) {
-            this.$bus.$emit("initSpuInfo", row);
-            // 切换窗口
-            this.scene = 1;
         },
         // 监听每页记录数变化
         handleSizeChange(value) {
@@ -183,9 +175,28 @@ export default {
             // 更新数据
             this.getSpuInfoList();
         },
+        // 增加属性
+        addAttr() {
+            this.$bus.$emit("initAddInfo", this.categoryId.no3);
+            // 切换窗口
+            this.scene = 1;
+        },
+        // 编辑属性
+        editAttr(row) {
+            this.$bus.$emit("initEditInfo", row);
+            // 切换窗口
+            this.scene = 1;
+        },
         // 修改窗口
-        changeScene(scene) {
+        changeScene({ scene, flag }) {
             this.scene = scene;
+            // 更新数据
+            if (flag == 0) {
+                this.currentPage = 1;
+                this.getSpuInfoList();
+            } else if (flag == 1) {
+                this.getSpuInfoList();
+            }
         },
     },
 };
