@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        div {
+            width: 500px;
+            height: 150px;
+            background: linear-gradient(45deg, #000 0, #000 50%, #fff 50%);
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, .3);
+        }
+
+        div::before {
+            content: 'LOREN IPSUM';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            mix-blend-mode: difference;
+            animation: move 3s infinite linear alternate;
+            font-size: 50px;
+        }
+
+        @keyframes move {
+            from {
+                transform: translate(-30%, -50%);
+            }
+
+            to {
+                transform: translate(-70%, -50%);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+</body>
+
+</html>

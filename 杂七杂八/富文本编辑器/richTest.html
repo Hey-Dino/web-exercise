@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>富文本编辑器</title>
+
+    <!-- 引入在线富文本包，会出现“This domain...”的提示 -->
+    <!-- <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/4/tinymce.min.js" referrerpolicy="origin"></script> -->
+    <script src="./assets/tinymce/tinymce.min.js"></script>
+    <!-- 引入富文本中文编译包 -->
+    <script src="./assets/langs/zh_CN.js"></script>
+
+    <style>
+        button {
+            width: 100px;
+            height: 30px;
+            margin: 10px 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <textarea id="mytextarea"></textarea>
+    <button id="cancel-btn">清空</button>
+    <button id="submit-btn">获取</button>
+    <button id="store-btn">暂存</button>
+    <div id="box"></div>
+
+    <script>
+        tinymce.init({
+            selector: '#mytextarea',
+            // 添加语言属性
+            language: 'zh_CN',
+            // 取消右下角标识
+            branding: false,
+            plugins: [
+                'textcolor', 'lists', 'link', 'image', 'charmap',
+                'link', 'preview', 'table'
+            ],
+            toolbar: [
+                'undo redo | link unlink image charmap | ' +
+                'bullist numlist outdent indent | table removeformat',
+                'bold italic underline strikethrough ' +
+                'superscript subscript forecolor | alignleft aligncenter alignright alignjustify | formatselect'
+            ],
+            menu: {
+                file: { title: 'File', items: 'newdocument | preview' },
+                edit: { title: 'Edit', items: 'cut copy paste' },
+                insert: { title: '', items: '' }
+            }
+        });
+
+        const submitBtn = document.querySelector('#submit-btn');
+        const cancelBtn = document.querySelector('#cancel-btn');
+        const storeBtn = document.querySelector('#store-btn');
+        const box = document.querySelector('#box');
+
+        /* 查看localStorage中是否暂存tiny内容 */
+        // 由于tiny加载需要消耗时间，直接执行内容的话，可能会找不到tiny对象及方法
+        setTimeout(() => {
+            const content = localStorage.getItem('tinyContent');
+            if (content) {
+                /* 本地存储中，暂存有富文本内容 */
+
+                // 将暂存的富文本内容进行展示
+                tinymce.get('mytextarea').setContent(content, { formate: 'html' });
+                box.innerHTML = content;
+            }
+        }, 1000)
+
+        /* 清空富文本、展示、本地存储内容 */
+        cancelBtn.addEventListener('click', function () {
+            // 清除富文本内容
+            tinymce.get('mytextarea').setContent('');
+            tinymce.get('mytextarea').setContent('');
+            // 清除展示内容
+            box.innerHTML = '';
+            // 清除本地存储的富文本内容
+            localStorage.removeItem('tinyContent');
+        });
+
+        /* 获取富文本内容 */
+        submitBtn.addEventListener('click', function () {
+            // 获取富文本内容
+            const content = tinymce.get('mytextarea').getContent();
+            // 将富文本内容进行展示
+            box.innerHTML = content;
+        });
+
+        /* 暂存富文本内容 */
+        storeBtn.addEventListener('click', function () {
+            // 获取富文本内容
+            const content = tinymce.get('mytextarea').getContent();
+            // 将富文本内容进行展示
+            box.innerHTML = content;
+            // 本地存储富文本内容
+            localStorage.setItem('tinyContent', content);
+        });
+    </script>
+</body>
+
+</html>

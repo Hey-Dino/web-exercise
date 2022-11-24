@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>瀑布流布局</title>
+
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+        }
+
+        .shell {
+            max-width: 1300px;
+            /* 每行的图片数 */
+            column-count: 4;
+            /* 图片间隔 */
+            column-gap: 15px;
+        }
+
+        .image {
+            margin-bottom: 15px;
+        }
+
+        .image img {
+            width: 100%;
+        }
+
+        @media (max-width: 1200px) {
+            .shell {
+                column-count: 3;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .shell {
+                column-count: 2;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="shell">
+        <div class="image"><img src="img/hs (1).jpg"></div>
+        <div class="image"><img src="img/hs (2).jpg"></div>
+        <div class="image"><img src="img/hs (3).jpg"></div>
+        <div class="image"><img src="img/hs (4).jpg"></div>
+        <div class="image"><img src="img/hs (5).jpg"></div>
+        <div class="image"><img src="img/hs (6).jpg"></div>
+        <div class="image"><img src="img/hs (7).jpg"></div>
+        <div class="image"><img src="img/hs (8).jpg"></div>
+        <div class="image"><img src="img/hs (9).jpg"></div>
+        <div class="image"><img src="img/hs (10).jpg"></div>
+    </div>
+</body>
+
+</html>

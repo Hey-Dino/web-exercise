@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>page1</title>
+</head>
+
+<body>
+    <!-- 父子页面通信 -->
+    <iframe src="page2.html"></iframe>
+
+    <script>
+        const bound = frames[0].postMessage.bind(
+            frames[0],
+            "some data",
+            "*",
+        );
+
+        Promise.resolve(undefined).then(bound)
+    </script>
+</body>
+
+</html>
