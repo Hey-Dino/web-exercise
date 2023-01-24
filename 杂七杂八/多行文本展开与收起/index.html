@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多行文本的展开与收起</title>
+
+    <style>
+        .wrap {
+            /* flex布局，解决父元素动态高度下，子元素百分比高度失效的问题 */
+            display: flex;
+            width: 300px;
+            padding: 4px;
+            border: 1px solid #999;
+            border-radius: 8px;
+            box-shadow: 20px 20px 60px #bebebe,
+                -20px -20px 60px #ffffff;
+        }
+
+        .wrap .exp {
+            display: none;
+        }
+
+        .content {
+            position: relative;
+            /* 多行省略(限于Chrome) */
+            /* display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden; */
+            /* 多行省略(兼容版本) */
+            line-height: 1.5;
+            max-height: 4.5em;
+            overflow: hidden;
+            /*  */
+            line-height: 1.5em;
+            text-align: justify;
+            transition: max-height .3s;
+        }
+
+        /* 将按钮由右上角，顶到右下角 */
+        .content::before {
+            content: '';
+            float: right;
+            width: 0px;
+            height: 100%;
+            /* 高度为行高，使用em失效 */
+            margin-bottom: -24px;
+        }
+
+        /* 障眼法（在无需折叠式，遮住展开按钮） */
+        .content::after {
+            content: '';
+            /* 使用独立定位，避免撑开父元素 */
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+        }
+
+        .content .btn {
+            position: relative;
+            float: right;
+            clear: both;
+            /* 遮挡文本内容，显示省略号 */
+            margin-left: 20px;
+            cursor: pointer;
+        }
+
+        .content .btn::before {
+            content: "...";
+            position: absolute;
+            left: -5px;
+            transform: translateX(-100%);
+            line-height: 1.5em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .content .btn::after {
+            /* 采用伪元素，是为控制名称 */
+            content: '展开';
+            color: skyblue;
+        }
+
+        #exp:checked+.content {
+            max-height: none;
+        }
+
+        #exp:checked+.content .btn::after {
+            /* 修改按钮名称 */
+            content: '收起';
+        }
+
+        #exp:checked+.content .btn::before {
+            /* 隐藏省略号 */
+            display: none;
+        }
+
+        #exp:checked+.content::after {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <input type="checkbox" id="exp" class="exp">
+        <div class="content">
+            <!-- btn需设置在文字前，反之会被挤出画面 -->
+            <label class="btn" for="exp"></label>
+            校献选腾媳陪冶到熹济痰成劫琢务刀誉一敛？青碧之狡介偏酿吱子？丢绳大桐轰孢色窄考茨渗英胸鳙型。含炫梗贬蠕酿逸蕊愁府络董玻伊别别坪逝匈酵耐秘挣老缚砧辐站筒矣本表签挡厘竭概钒陶蚜播浙冈奖掉酯脏蹄稳痰诚填裹莎鸭簇圭傍蚌申且稿韵媳酒银搁裁单闪课恭蜱峻俭长刹粒奎挪尺演养剥纠秧乌顾援倾先较胆抛履栏走帕估该奔。企纷旨舞乌榄赴坪绞矣烟菊埋蛀三蛮伯奴固准启叔琅城半母彼中娘释桌嫁粮李慰稗！菲！粘廊媳索、盒屑奏抗曲廊谐于俞萝晕流乔场蔬勘迪甩可擂，委近盖砌角戈亦济项纯噬，办使回恢匠牢确个凌累墨林严宙每溶炎品架壮护同络夯绸宫达衅碑蔑怒许督币！芍卓同颗乘钳泵隧蝈街祥翼灶氨革冈睡扳怔，喉弗拍误闺势看研照玛礁纯涛铺呀院乖怜脂续嗯掺乱雾挑经颁亦钱殖敷土歧柄罩蓝藏坪酶丸颈志悄躯准朋椰蛭呼呆参琅纠建淹鲤坞拔秀剥估悉嘲噪念溅上企欲茧捷遣炭帅惜籍败晾划渡绞女很摇？
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>搜索框</title>
+
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(#fff, #eee);
+        }
+
+        .search-wrapper {
+            width: 300px;
+            margin: 0px auto;
+            box-sizing: content-box;
+        }
+
+        .search-wrapper .input {
+            outline: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        .search-wrapper .res {
+            max-height: 0px;
+            overflow: hidden;
+            background-color: pink;
+            transition: max-height .3s;
+        }
+
+        .search-wrapper:focus-within .res,
+        .res:hover {
+            max-height: 200px;
+        }
+
+        /* 与32行配合，避免滚动过程中，滚动条闪现 */
+        .res:hover {
+            overflow: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="search-wrapper">
+        <input type="text" class="input" placeholder="请输入查询条件">
+        <div class="res">
+            <ul>
+                <li>asdfghjkl</li>
+                <li>asdfghjkl</li>
+                <li>asdfghjkl</li>
+                <li>asdfghjkl</li>
+                <li>asdfghjkl</li>
+                <li>asdfghjkl</li>
+                <li>asdfghjkl</li>
+                <li>asdfghjkl</li>
+                <li>asdfghjkl</li>
+                <li>asdfghjkl</li>
+                <li>asdfghjkl</li>
+                <li>asdfghjkl</li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>
