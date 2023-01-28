@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>敏感词屏蔽</title>
+</head>
+
+<body>
+    <h1 style="color: #666;">敏感词屏蔽，具体打开控制界面查看</h1>
+
+    <script>
+        /* 
+        * @description
+        * 构造敏感词Map
+        */
+        function createSensitiveMap(sensitiveWordList) {
+            // 构造根节点
+            const result = new Map();
+
+            for (const world of sensitiveWordList) {
+                let map = result;
+
+                for (const char of world) {
+                    if (!map.get(char)) {
+                        // 将当前节点设置为非结尾节点
+                        map.set('laster', false);
+
+                        const item = new Map();
+                        item.set('laster', true);
+                        map.set(char, item);
+                    }
+
+                    map = map.get(char);
+                }
+            }
+
+            return result;
+        }
+
+        const sensitiveWordList = ["日本鬼", "日本鬼子", "日本人"];
+        const sensitiveMap = createSensitiveMap(sensitiveWordList);
+        console.log(sensitiveMap);
+
+        /* 
+        * @description
+        * 使用特定字符（*）屏蔽敏感词
+        */
+        function maskSensitiveWord(sensitiveMap, text) {
+            let currentMap = sensitiveMap;
+            const charList = text.split("");
+            // 敏感词的长度
+            let wordLen = 0;
+
+            for (let index = 0; index < charList.length; index++) {
+                // 获取当前索引对应的字符
+                const char = charList[index];
+                currentMap = currentMap.get(char);
+
+                if (currentMap) {
+                    // 累加敏感词的长度
+                    wordLen++;
+
+                    // 判断是否达到敏感词末
+                    if (currentMap.get('laster')) {
+                        // 将敏感词覆盖为相同长度的*字符
+                        charList.splice(index - wordLen + 1, wordLen, ...("*".repeat(wordLen).split("")));
+                        // 清空敏感词长度、将Map重置为根节点
+                        wordLen = 0;
+                        currentMap = sensitiveMap;
+                    }
+                } else {
+                    // 将Map重置为根节点
+                    currentMap = sensitiveMap;
+                }
+            }
+
+            return charList.join("");
+        }
+
+        const text = "日本人我靠，这是小日本鬼子吧！日本鬼子，他奶奶的。";
+        const result = maskSensitiveWord(sensitiveMap, text);
+        console.log("原文:", text, "\n屏蔽后文字:", result);
+    </script>
+</body>
+
+</html>

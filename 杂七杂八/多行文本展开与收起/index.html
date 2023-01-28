@@ -35,7 +35,6 @@
             max-height: 4.5em;
             overflow: hidden;
             /*  */
-            line-height: 1.5em;
             text-align: justify;
             transition: max-height .3s;
         }
@@ -89,6 +88,10 @@
             max-height: none;
         }
 
+        #exp:checked+.content::after {
+            display: none;
+        }
+        
         #exp:checked+.content .btn::after {
             /* 修改按钮名称 */
             content: '收起';
@@ -96,10 +99,6 @@
 
         #exp:checked+.content .btn::before {
             /* 隐藏省略号 */
-            display: none;
-        }
-
-        #exp:checked+.content::after {
             display: none;
         }
     </style>
