@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .ball {
+            margin: 20px 0;
+            width: 150px;
+            height: 150px;
+            line-height: 150px;
+            text-align: center;
+            border-radius: 50%;
+            background-color: #ccc;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .ball1 {
+            position: relative;
+            left: 0;
+            animation: move1 1s alternate infinite ease-in-out;
+        }
+
+        .ball2 {
+            animation: move2 1s alternate infinite ease-in-out;
+        }
+
+        @keyframes move1 {
+            to {
+                left: 100px;
+            }
+        }
+
+        @keyframes move2 {
+            to {
+                transform: translateX(100px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <button id="btn">触发死循环，占用渲染主线程</button>
+    <div class="ball ball1">操作<code>定位</code></div>
+    <div class="ball ball2">操作<code>transform</code></div>
+    <h2>操作定位，引起回流（reflow）。画面的重新渲染需要在渲染主线程执行，死循环会导致渲染主线程被占用。</h2>
+    <h2>而transform是在合成线程中执行，不受死循环的影响。</h2>
+
+    <script>
+        /**
+         * 死循环函数
+         *     占用主渲染线程
+         */
+        function delay(duration) {
+            const start = Date.now();
+            while (Date.now() - start < duration) { }
+        }
+
+        btn.onclick = function () {
+            delay(3000);
+        }
+    </script>
+</body>
+
+</html>
