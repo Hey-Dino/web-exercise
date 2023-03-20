@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>展示[延时队列]和[交互队列]的优先级</h2>
+    <button id="begin">添加【延时任务】</button>
+    <button id="interaction">添加【交互任务】</button>
+    <h3>点击"添加延时任务"后，请点击"添加交互任务"</h3>
+
+    <script>
+        // 死循环指定的时间
+        function delay(duration) {
+            var start = Date.now();
+            while (Date.now() - start < duration) { }
+        }
+
+        /**
+         * 无需获取元素，也可绑定事件
+         */
+        function addDelay() {
+            console.log("1.添加任务到[延时队列]");
+            setTimeout(() => {
+                console.log("1.[延时队列]任务执行")
+            }, 0);
+        }
+
+        function addInteraction() {
+            console.log('2.添加任务到[交互队列]');
+            interaction.onclick = function () {
+                console.log('2.[交互队列]任务执行');
+            };
+        }
+
+        begin.onclick = function () {
+            addDelay();
+            addInteraction();
+            delay(2000);
+
+            console.log("===开始调用队列中的任务===");
+        }
+
+    </script>
+</body>
+
+</html>

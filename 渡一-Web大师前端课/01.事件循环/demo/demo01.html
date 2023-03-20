@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01.事件循环 案例一</title>
+</head>
+
+<body>
+    <h1>Life is fuc*king movie!</h1>
+    <button>Change Content</button>
+
+    <script>
+        const h1 = document.querySelector("h1");
+        const btn = document.querySelector('button');
+
+        // 死循环指定的时间，用于占用主线程
+        function delay(duration) {
+            const start = Date.now();
+            while (Date.now() - start < duration) { }
+        }
+
+        // 按钮的事件
+        btn.addEventListener('click', function () {
+            h1.textContent = '人生如戏';
+            delay(3000);
+        });
+
+        /*
+        h1标签内容未“立即改变”的原因：
+            h1标签文本内容实际已经改变，但是未渲染呈现在界面之上。
+            文本修改后，会于在队列上产生一个渲染任务。当且仅当渲染主线程执行完毕后，队列内的任务才会被依次执行。而此时，主线程被死循环任务占据着。
+        */
+    </script>
+</body>
+
+</html>
