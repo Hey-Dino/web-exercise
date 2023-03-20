@@ -1,0 +1,23 @@
+.add-to-car {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9;
+    margin-left: -20rem;
+    margin-top: -20rem;
+    line-height: 40rem;
+    text-align: center;
+    font-size: 23rem;
+    color: #fff;
+    transition: 0.5s linear;
+}
+
+.add-to-car .iconfont {
+    width: 40rem;
+    height: 40rem;
+    background: #4a90e1;
+    border-radius: 50%;
+    display: block;
+    /* 贝塞尔曲线 */
+    transition: .5s cubic-bezier(0.5, -0.5, 1, 1);
+}
